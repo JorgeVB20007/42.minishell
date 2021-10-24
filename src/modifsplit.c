@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include "minishell.h"
 
 void	ft_strcpy(char *orgn, char **end, int len)
 {
@@ -17,7 +15,7 @@ void	ft_strcpy(char *orgn, char **end, int len)
 
 int	checklen(char *input, int a)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (input[a] != 0 && (input[a] != ' ' || input[a - 1] == '\\'))
@@ -74,11 +72,11 @@ char	**fillparams(char *input, int params)
 	return (result);
 }
 
-int countparams(char *input)
+int	countparams(char *input)
 {
 	int	a;
 	int	count;
-	
+
 	a = 0;
 	count = 0;
 	while (input[a] && input[a] == ' ')
@@ -122,13 +120,12 @@ char **modifsplit(char *input)
 	return (result);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	argc = 0;
 	char	**result;
 
 	printf("\033[0;32mInput:\033[0;33m %s\n\n\033[0;32mResult:\n\033[0;37m", argv[1]);
-
 	result = modifsplit(argv[1]);
 	while(result[argc])
 		printf("%s\n", result[argc++]);

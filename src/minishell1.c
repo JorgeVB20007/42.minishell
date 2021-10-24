@@ -1,16 +1,12 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#include "minishell.h"
 //#include <curses.h>
 //#include <term.h>
 //#include <termcap.h>
 //#include <termios.h>
 
-int	main()
+int	main(void)
 {
-	char *test;
+	char	*test;
 
 //	test = calloc(1, 1);
 	while (1)
