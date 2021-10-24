@@ -13,7 +13,7 @@ void	ft_strcpy(char *orgn, char **end, int len)
 	(*end)[a] = 0;
 }
 
-int	checklen(char *input, int a)
+static int	checklen(char *input, int a)
 {
 	int	count;
 
@@ -46,7 +46,7 @@ int	checklen(char *input, int a)
 	return (count);
 }
 
-char	**fillparams(char *input, int params)
+static char	**fillparams(char *input, int params)
 {
 	char	**result;
 	int		a;
@@ -64,6 +64,7 @@ char	**fillparams(char *input, int params)
 		len = checklen(input, a);
 		result[count] = malloc(len + 1);
 		ft_strcpy(&input[a], &result[count], len);
+		//ft_strlcpy(result[count], &input[a], len + 1);
 		a = a + len;
 		while (input[a] && input[a] == ' ')
 			a++;
@@ -72,7 +73,7 @@ char	**fillparams(char *input, int params)
 	return (result);
 }
 
-int	countparams(char *input)
+static int	countparams(char *input)
 {
 	int	a;
 	int	count;
@@ -110,7 +111,13 @@ int	countparams(char *input)
 	return (count);
 }
 
-char **modifsplit(char *input)
+/**
+ * ? test ./minishell "cat -e hello"
+ * * Parse every input to the minishell, returning a string list with processed 
+ * * information 
+ * @param input		input
+*/
+char	**modifsplit(char *input)
 {
 	int		params;
 	char	**result;
@@ -120,6 +127,7 @@ char **modifsplit(char *input)
 	return (result);
 }
 
+// ./minishell "cat -e hello"
 int	main(int argc, char **argv)
 {
 	argc = 0;

@@ -6,7 +6,7 @@
 #    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/25 19:15:33 by auquinta          #+#    #+#              #
-#    Updated: 2021/10/03 12:03:04 by emadriga         ###   ########.fr        #
+#    Updated: 2021/10/24 18:54:04 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC	=	ft_atoi.c			ft_bzero.c			ft_calloc.c			ft_isalnum.c		\
 		ft_strchr.c			ft_strdup.c			ft_strjoin.c		ft_strlcat.c		\
 		ft_strlcpy.c		ft_strlen.c			ft_strtrim.c		ft_strncmp.c		\
 		ft_strnstr.c		ft_strrchr.c		ft_strmapi.c		ft_substr.c			\
-		ft_tolower.c		ft_toupper.c												\
+		ft_tolower.c		ft_toupper.c		ft_isspace.c									\
 		ft_lstadd_back.c	ft_lstadd_front.c	ft_lstclear.c		ft_lstdelone.c		\
 		ft_lstiter.c		ft_lstlast.c		ft_lstnew.c			ft_lstsize.c		\
 		ft_lstmap.c			get_next_line.c
