@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+
+//prueba
 void	ft_strcpy(char *orgn, char **end, int len)
 {
 	int	a;
