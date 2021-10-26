@@ -7,7 +7,7 @@
  * The variable qm is set to 0. If it encounters any quotation mark (''', '"'), 
  * it will be set to that character until the character is found somewhere again.
 */
-static int	ft_modstrcpy(char *orgn, char **end, int len)
+int	ft_modstrcpy(char *orgn, char **end, int len)
 {
 	int		a;
 	int		b;
@@ -18,11 +18,17 @@ static int	ft_modstrcpy(char *orgn, char **end, int len)
 	qm = 0;
 	while (b < len)
 	{
+		if (orgn[a] == '$' && (!a || orgn[a - 1] != '\\') && (ft_isalnum(orgn[a + 1]) || orgn[a + 1] == '_') && qm != '\'')
+		{
+			expand_var(orgn, end, &a, &b);
+		}
 		if ((orgn[a] == '\'' || orgn[a] == '"') && !qm)
 			qm = orgn[a];
 		else if (qm == orgn[a] && qm)
 			qm = 0;
 		if (orgn[a] == '\\' && orgn[a + 1] == ' ' && !qm)
+			a++;
+		if (orgn[a] == '\\' && orgn[a + 1] == '$' && (qm == '"' || !qm))
 			a++;
 		(*end)[b] = orgn[a];
 		a++;
@@ -43,8 +49,18 @@ static void	quotemarksfound(int *a, int *count, char *input, char quotemark)
 	(*count)++;
 	while ((input[*a] != quotemark || input[*a - 1] == '\\') && input[*a])
 	{
-		(*count)++;
-		(*a)++;
+		if (input[*a] == '$' && input[*a - 1] != '\\' && (ft_isalnum(input[*a + 1]) || input[*a + 1] == '_') && quotemark == '"')
+			dollarfound_getlen(a, count, input);
+		else if (input[*a] == '$' && input[*a - 1] == '\\' && quotemark == '"')
+		{
+//			(*count)--;
+			(*a)++;
+		}
+		else
+		{
+			(*count)++;
+			(*a)++;
+		}
 	}
 }
 
@@ -62,7 +78,13 @@ static int	checklen(char *input, int a)
 	{
 		if ((input[a] == '"' || input[a] == '\'') && (a == 0 || input[a - 1] != '\\'))
 			quotemarksfound(&a, &count, input, input[a]);
-		if (input[a] == '\\' && input[a + 1] == ' ')
+		else if (input[a] == '$' && (!a || input[a - 1] != '\\') && (ft_isalnum(input[a + 1]) || input[a + 1] == '_'))
+		{
+			dollarfound_getlen(&a, &count, input);
+			count--;
+			a--;
+		}
+		if (input[a] == '\\' && (input[a + 1] == ' ' || input[a + 1] == '$'))
 			count--;
 		count++;
 		a++;
@@ -168,9 +190,11 @@ int	main(int argc, char **argv)
 {
 	argc = 0;
 	char	**result;
+	char	*arguments;
 
-	printf("\n\033[0;32mInput:\033[0;33m %s\n\n\033[0;32mResult:\n\033[0;37m", argv[1]);
-	result = modifsplit(argv[1]);
+	arguments = ft_strjoin(argv[1], " '$hi' '\\$hi'");
+	printf("\n\033[0;31m ------ Parsing tester for Minishell. Not a final product. ------\n\033[0;32mInput:\033[0;33m %s\n\n\033[0;32mResult:\n\033[0;37m", arguments);
+	result = modifsplit(arguments);
 	while(result[argc])
 	{
 		printf("\033[0;36m%d - \033[0;37m%s\n", argc, result[argc]);
@@ -179,5 +203,5 @@ int	main(int argc, char **argv)
 	printf("%s\n\n", result[argc]);
 
 
-	printf("\n\n\n\n%s\n", getenv("lsdghld"));
+//	printf("\n\n\n\n%s\n", getenv("lsdghld"));
 }

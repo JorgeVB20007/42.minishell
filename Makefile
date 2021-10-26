@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
+#    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/10/24 17:46:39 by emadriga         ###   ########.fr        #
+#    Updated: 2021/10/26 00:47:46 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ INCLUDES_FILES =	errors.h	\
 
 # Source and object files
 SRC_FILES	= 	modifsplit.c			\
+				searchandreplace.c		\
 				# minishell1.c			
 OBJ_FILES	= $(SRC_FILES:.c=.o) 
 
