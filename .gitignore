@@ -2,3 +2,7 @@ a.out
 .vscode
 playground
 *.gch
+*.o
+libft/*.o
+.DS_Store
+libft/.DS_Store

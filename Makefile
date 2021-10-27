@@ -6,7 +6,7 @@
 #    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/10/26 00:47:46 by jvacaris         ###   ########.fr        #
+#    Updated: 2021/10/27 19:08:23 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,19 @@ NAME	= minishell
 # compiling flags
 FLAGS	= -Wall -Wextra -Werror
 
+# readline doing readliney things
+RLINE_INC	= -I ~/.brew/opt/readline/include
+RLINE_L		= -L ~/.brew/opt/readline/lib -lreadline
+
 # Header files
 INCLUDES_FILES =	errors.h	\
 					minishell.h
 
 # Source and object files
-SRC_FILES	= 	modifsplit.c			\
-				searchandreplace.c		\
-				# minishell1.c			
+SRC_FILES	= 	minishell1.c			\
+				modifsplit.c			\
+				var_expansor.c		\
+
 OBJ_FILES	= $(SRC_FILES:.c=.o) 
 
 # Folders
@@ -47,15 +52,15 @@ all: obj $(LIBFT) $(NAME)
 obj: 
 	@mkdir -p $(OBJ_DIR)
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c $(INCLUDES)
-	@gcc $(FLAGS) -I $(LIBFT_DIR) -I $(INC_DIR) -o $@ -c $<
+	@gcc $(FLAGS) -I $(LIBFT_DIR) -I $(INC_DIR) $(RLINE_INC) -o $@ -c $<
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
 
 # Compiling
 $(NAME): $(OBJ)
-	@echo "Compiling... Wait a sec."
-	@gcc $(OBJ) $(FLAGS) $(LNK) -lm -o $(NAME)
-	@echo "$(NAME) generated!".
+	@echo "\033[0;33mCompiling... Wait a sec.\033[0;37m"
+	@gcc $(OBJ) $(FLAGS) $(LNK) $(RLINE_L) -lm -o $(NAME)
+	@echo "\033[0;32m$(NAME) generated!\033[0;37m".
 
 mynorm:
 	norminette $(SRC_DIR) $(INC_DIR) $(LIBFT_DIR)
