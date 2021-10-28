@@ -17,5 +17,7 @@ char	**modifsplit(char *input);
 void	dollarfound_getlen(int *a, int *count, char *input);
 void	expand_var(char *orgn, char **end, int *a, int *b);
 int		ft_modstrcpy(char *orgn, char **end, int len);
+void	interpreter(char **list);
+void	ft_echo(char **list, int *idx);
 
 #endif

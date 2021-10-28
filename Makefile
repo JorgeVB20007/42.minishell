@@ -6,7 +6,7 @@
 #    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/10/27 19:08:23 by jvacaris         ###   ########.fr        #
+#    Updated: 2021/10/28 17:44:44 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,11 @@ INCLUDES_FILES =	errors.h	\
 					minishell.h
 
 # Source and object files
-SRC_FILES	= 	minishell1.c			\
-				modifsplit.c			\
+SRC_FILES	= 	minishell1.c		\
+				modifsplit.c		\
 				var_expansor.c		\
+				interpreter.c		\
+				echo.c				\
 
 OBJ_FILES	= $(SRC_FILES:.c=.o) 
 

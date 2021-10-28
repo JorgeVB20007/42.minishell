@@ -6,3 +6,6 @@ playground
 libft/*.o
 .DS_Store
 libft/.DS_Store
+*.a
+obj
+minishell

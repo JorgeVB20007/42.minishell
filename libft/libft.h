@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:15:07 by auquinta          #+#    #+#             */
-/*   Updated: 2021/10/27 17:20:16 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/10/28 17:13:42 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
 int		get_next_line(int fd, char **line);
 int		is_valid_var(char prv_char, char curr_char, char nxt_char, char qm);
+char	*qm_remover(char *qm_str);
 
 #endif
