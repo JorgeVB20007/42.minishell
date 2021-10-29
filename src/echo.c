@@ -1,5 +1,8 @@
 #include "minishell.h"
 
+/*
+ * This should recreate the bash funtion "echo".
+*/
 void	ft_echo(char **list, int *idx)
 {
 	int		n_flag;
@@ -19,9 +22,10 @@ void	ft_echo(char **list, int *idx)
 		}
 		while (list[*idx])
 		{
-			ft_putstr_fd(list[*idx], 1);
+			free(assist);
+			assist = qm_remover(list[(*idx)++]);
+			ft_putstr_fd(assist, 1);
 			write(1, " ", 1);
-			(*idx)++;
 		}
 		if (!n_flag)
 			write(1, "\n", 1);

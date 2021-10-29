@@ -19,5 +19,6 @@ void	expand_var(char *orgn, char **end, int *a, int *b);
 int		ft_modstrcpy(char *orgn, char **end, int len);
 void	interpreter(char **list);
 void	ft_echo(char **list, int *idx);
+char	*adv_qm_rem(char *qm_str);
 
 #endif

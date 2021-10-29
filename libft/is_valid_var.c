@@ -1,6 +1,7 @@
 #include "libft.h"
 
 /*
+ ? Function created for the project "minishell"
  * This function checks if a dollar sign ("$") can be considered as 
  * a valid variable format. It checks: 
  * - If the character before '$' (prv_char) is a '\'.

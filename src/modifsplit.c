@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:10:39 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/10/27 19:07:30 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/10/29 17:13:42 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ static int	countparams(char *input)
 	}
 	if (input[a - 1] == ' ')
 		count--;
-	printf("\nParams: %d\n", count);
+//	printf("\nParams: %d\n", count);
 	return (count);
 }
 

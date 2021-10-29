@@ -1,5 +1,9 @@
 #include "minishell.h"
 
+/*
+* This function is in charge of getting the list of parameters, 
+* identify the command given and execute it.
+*/
 void	interpreter(char **list)
 {
 	int		idx;
