@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
+#    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/10/28 17:44:44 by jvacaris         ###   ########.fr        #
+#    Updated: 2021/10/30 19:41:35 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,8 @@ NAME	= minishell
 FLAGS	= -Wall -Wextra -Werror
 
 # readline doing readliney things
-RLINE_INC	= -I ~/.brew/opt/readline/include
-RLINE_L		= -L ~/.brew/opt/readline/lib -lreadline
+RLINE_INC	= -I/Users/$(USER)/.brew/opt/readline/include
+RLINE_L		= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 
 # Header files
 INCLUDES_FILES =	errors.h	\
