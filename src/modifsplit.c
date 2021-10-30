@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:10:39 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/10/29 17:13:42 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/10/31 00:25:25 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,12 @@ static int	checklen(char *input, int a)
 	int	count;
 
 	count = 0;
+	if ((input[a] == '<' || input[a] == '>'))
+		return (1 + (input[a + 1] == input[a]));
 	while (input[a] != 0 && (input[a] != ' ' || input[a - 1] == '\\'))
 	{
+		if (input[a] == '<' || input[a] == '>')
+			break ;
 		if ((input[a] == '"' || input[a] == '\'') && \
 		(a == 0 || input[a - 1] != '\\'))
 			quotemarksfound(&a, &count, input, input[a]);
@@ -157,7 +161,14 @@ static int	countparams(char *input)
 			while (input[a] == ' ' && input[a])
 				a++;
 		}
-		if (input[a] == '"' && (a == 0 || input[a - 1] != '\\'))
+		if ((input[a] == '>' || input[a] == '<') && input[a - 1] != '\\')
+		{
+			count += !(input[a - 1] == ' ');
+			if (input[a] == input[a + 1])
+				a++;
+			count += !(input[a + 1] == ' ');
+		}
+		else if (input[a] == '"' && (a == 0 || input[a - 1] != '\\'))
 		{
 			a++;
 			while ((input[a] != '"' || input[a - 1] == '\\') && input[a])
@@ -173,7 +184,7 @@ static int	countparams(char *input)
 	}
 	if (input[a - 1] == ' ')
 		count--;
-//	printf("\nParams: %d\n", count);
+	printf("\nParams: %d\n", count);
 	return (count);
 }
 
@@ -192,6 +203,7 @@ char	**modifsplit(char *input)
 
 	params = countparams(input);
 	result = fillparams(input, params);
+
 // ! v v v v  Testing only  v v v v
 	int a = 0;
 	while (result[a])
@@ -208,7 +220,8 @@ char	**modifsplit(char *input)
 /*
  * For testing purposes only. Remove or comment while testing other programs.
  ? ./minishell "cat -e hello"
-*//*
+*/
+/*
 int	main(void)
 {
 	char	**result;

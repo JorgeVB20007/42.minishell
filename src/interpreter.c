@@ -12,7 +12,7 @@ void	interpreter(char **list)
 	idx = 0;
 	while (list[idx])
 	{
-		assist = qm_remover(list[idx]);
+		assist = adv_qm_rem(list[idx]);
 		if (!ft_strncmp(assist, "echo\0", 5))
 			ft_echo(list, &idx);
 		free(assist);

@@ -75,11 +75,11 @@ static void	aqr_filler(char *qm_str, char **result)
 			if (qm == qm_str[a])
 				qm = 0;
 			else if (qm)
-			{
 				(*result)[b++] = qm_str[a];
-			}
 			else if (!qm && ft_strchr(&qm_str[a + 1], qm) == NULL)
 				(*result)[b++] = qm_str[a];
+			else
+				qm = qm_str[a];
 		}
 		else
 			(*result)[b++] = qm_str[a];

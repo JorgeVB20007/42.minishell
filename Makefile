@@ -6,7 +6,7 @@
 #    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/10/28 17:44:44 by jvacaris         ###   ########.fr        #
+#    Updated: 2021/10/30 18:50:44 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ INCLUDES_FILES =	errors.h	\
 SRC_FILES	= 	minishell1.c		\
 				modifsplit.c		\
 				var_expansor.c		\
+				qm_error_detector.c	\
 				interpreter.c		\
 				echo.c				\
 
