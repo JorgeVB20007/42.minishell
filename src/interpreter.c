@@ -15,7 +15,8 @@ void	interpreter(char **list)
 		assist = qm_remover(list[idx]);
 		if (!ft_strncmp(assist, "echo\0", 5))
 			ft_echo(list, &idx);
-		free(assist);
+		if (!ft_strncmp(assist, "pwd\0", 4))
+			ft_pwd();
 		if (list[idx])
 			idx++;
 	}
