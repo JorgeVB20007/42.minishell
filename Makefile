@@ -6,7 +6,7 @@
 #    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/10/30 18:50:44 by jvacaris         ###   ########.fr        #
+#    Updated: 2021/10/31 20:10:06 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,8 @@ NAME	= minishell
 FLAGS	= -Wall -Wextra -Werror
 
 # readline doing readliney things
-RLINE_INC	= -I ~/.brew/opt/readline/include
-RLINE_L		= -L ~/.brew/opt/readline/lib -lreadline
+RLINE_INC	= -I/Users/$(USER)/.brew/opt/readline/include
+RLINE_L		= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 
 # Header files
 INCLUDES_FILES =	errors.h	\
@@ -31,6 +31,8 @@ SRC_FILES	= 	minishell1.c		\
 				qm_error_detector.c	\
 				interpreter.c		\
 				echo.c				\
+				envutils.c			\
+				pwd.c
 
 OBJ_FILES	= $(SRC_FILES:.c=.o) 
 
@@ -52,7 +54,7 @@ LNK  = -L $(LIBFT_DIR) -lft
 # all rule
 all: obj $(LIBFT) $(NAME)
 
-obj: 
+obj:
 	@mkdir -p $(OBJ_DIR)
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c $(INCLUDES)
 	@gcc $(FLAGS) -I $(LIBFT_DIR) -I $(INC_DIR) $(RLINE_INC) -o $@ -c $<

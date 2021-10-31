@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 2021-10-31 - Edu
+
+### Added
+
+- pwd.c emulates bash pwd
+- envutils.c include functions to work with enviroment list
+- minishell.c introduce signal handling (CTRL+C, CTRL+D, CTRL+\) (miss work inside pipex)
+
 ## 2021-10-27 - Jorge
 
 ### Added
