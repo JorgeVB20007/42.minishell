@@ -1,5 +1,9 @@
 #include "minishell.h"
 
+/*
+* This has no use yet. It might be used later to count how many
+* pipes are required and create an appropriate amount of forks.
+*/
 int	am_of_pipes(char **list)
 {
 	int	a;
@@ -16,6 +20,14 @@ int	am_of_pipes(char **list)
 	return (count);
 }
 
+/*
+* This funtion looks for redirection signs before a '|' 
+* or the last parameter is found. When it finds one, it'll
+* open the file indicated right after, and set the STD(IN/OUT)
+* to the appropriate file.
+TODO	Unsure if SEGFAULT happens if a redir. sign is 
+TODO	located at the end of the list 
+*/
 void	redirection_finder(char **list, int *fdi, int *fdo, int idx)
 {
 	while (list[idx] && list[idx][0] != '|')
@@ -40,7 +52,8 @@ void	redirection_finder(char **list, int *fdi, int *fdo, int idx)
 }
 
 /*
-* This function gets the list 
+* This function gets the list of parameters, will look  if the first one
+* is a known command and will redirect to the correct funtion.
 */
 void	command_finder(char **list, int *idx)
 {
@@ -61,8 +74,11 @@ void	command_finder(char **list, int *idx)
 }
 
 /*
-* This function is in charge of getting the list of parameters, 
-* identify the command given and execute it.
+* This function is in charge of getting the list of parameters 
+* and call the functions that will redirect the input/output and
+* execute the commands given.
+? old_stdin and old_stdout are used to store the adress of the
+? original STDIN and STDOUT without the need of fork().
 */
 void	interpreter(char **list)
 {
