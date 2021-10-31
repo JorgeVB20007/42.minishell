@@ -6,7 +6,7 @@
 #    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/10/30 19:41:35 by emadriga         ###   ########.fr        #
+#    Updated: 2021/10/31 19:27:10 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,8 @@ SRC_FILES	= 	minishell1.c		\
 				var_expansor.c		\
 				interpreter.c		\
 				echo.c				\
+				envutils.c			\
+				pwd.c
 
 OBJ_FILES	= $(SRC_FILES:.c=.o) 
 
@@ -51,7 +53,7 @@ LNK  = -L $(LIBFT_DIR) -lft
 # all rule
 all: obj $(LIBFT) $(NAME)
 
-obj: 
+obj:
 	@mkdir -p $(OBJ_DIR)
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c $(INCLUDES)
 	@gcc $(FLAGS) -I $(LIBFT_DIR) -I $(INC_DIR) $(RLINE_INC) -o $@ -c $<
