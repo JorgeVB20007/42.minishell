@@ -45,6 +45,5 @@ int	main(int argc, char **argv, char **env)
 		}
 		free(str_got);
 	}
-	write(1, "bye", 3);
 	return (0);
 }

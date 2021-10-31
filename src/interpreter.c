@@ -13,7 +13,51 @@ int	am_of_pipes(char **list)
 			count++;
 		a++;
 	}
-	return(count);
+	return (count);
+}
+
+void	redirection_finder(char **list, int *fdi, int *fdo, int idx)
+{
+	while (list[idx] && list[idx][0] != '|')
+	{
+		if (!ft_strncmp(list[idx], ">\0", 2))
+		{
+			*fdi = open(list[idx + 1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
+			dup2(*fdi, 1);
+		}
+		else if (!ft_strncmp(list[idx], ">>\0", 3))
+		{
+			*fdi = open(list[idx + 1], O_CREAT | O_WRONLY | O_APPEND, 0666);
+			dup2(*fdi, 1);
+		}
+		else if (!ft_strncmp(list[idx], "<\0", 2))
+		{
+			*fdo = open(list[idx + 1], O_RDONLY, 0666);
+			dup2(*fdo, 0);
+		}
+		idx++;
+	}
+}
+
+/*
+* This function gets the list 
+*/
+void	command_finder(char **list, int *idx)
+{
+	char	*assist;
+
+	assist = NULL;
+	while (list[*idx] && list[*idx][0] != '|')
+	{
+		assist = adv_qm_rem(list[*idx]);
+		if (!ft_strncmp(assist, "echo\0", 5))
+			ft_echo(list, idx);
+		if (!ft_strncmp(assist, "pwd\0", 4))
+			ft_pwd();
+		free(assist);
+		if (list[*idx])
+			(*idx)++;
+	}
 }
 
 /*
@@ -23,29 +67,31 @@ int	am_of_pipes(char **list)
 void	interpreter(char **list)
 {
 	int		idx;
-	int		idx2;
-	char	*assist;
+	int		fdi;
+	int		fdo;
+	int		old_stdout;
+	int		old_stdin;
 
 	idx = 0;
-	idx2 = 0;
+	fdi = 0;
+	fdo = 0;
+	old_stdout = dup(1);
+	old_stdin = dup(0);
 	while (list[idx])
 	{
-		if (idx == 0 || list[idx] == '|')
-		{
-			idx2 = idx;
-			while (list[idx2] && list[idx2] != '|')
-			{
-				if (list[idx] == '<')
-				idx2++;
-			}
-		}
-		assist = adv_qm_rem(list[idx]);
-		if (!ft_strncmp(assist, "echo\0", 5))
-			ft_echo(list, &idx);
-		if (!ft_strncmp(assist, "pwd\0", 4))
-            ft_pwd();
-		free(assist);
+		redirection_finder(list, &fdi, &fdo, idx);
+		command_finder(list, &idx);
 		if (list[idx])
 			idx++;
+	}
+	if (fdi)
+	{
+		dup2(old_stdout, 1);
+		close(fdi);
+	}
+	if (fdo)
+	{
+		dup2(old_stdin, 0);
+		close(fdo);
 	}
 }

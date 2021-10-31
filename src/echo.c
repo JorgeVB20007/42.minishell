@@ -21,12 +21,14 @@ void	ft_echo(char **list, int *idx)
 		n_flag = 1;
 		(*idx)++;
 	}
-	while (list[*idx])
+	while (list[*idx] && list[*idx][0] != '>' && list[*idx][0] != '<')
 	{
 		free(assist);
 		assist = adv_qm_rem(list[(*idx)++]);
 		ft_putstr_fd(assist, 1);
-		write(1, " ", 1);
+		if (list[*idx] && list[*idx][0] != '|' && \
+		list[*idx][0] != '>' && list[*idx][0] != '<')
+			write(1, " ", 1);
 	}
 	if (!n_flag)
 		write(1, "\n", 1);
