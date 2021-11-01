@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2021-11-01 - Edu
+
+### Added
+
+- **buitins** directory added (.src/buitins)
+- **utils** directory added (.src/utils)
+
+### Changed
+
+- **Makefile** work with new directorys
+- Change path for echo.c, pwd.c & envutils.c
+
+### Fixed
+
+- **Makefile** include missing header constants.h to fix not handling relink 
 ## 2021-10-31 - Jorge
 
 ### Added
@@ -21,9 +36,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- pwd.c emulates bash pwd
-- envutils.c include functions to work with enviroment list
-- minishell.c introduce signal handling (CTRL+C, CTRL+D, CTRL+\) (miss work inside pipex)
+- **pwd.c** emulates bash pwd
+- **envutils.c** include functions to work with enviroment list
+- **minishell.c** introduce signal handling (CTRL+C, CTRL+D, CTRL+\) (miss work inside pipex)
+- **constants.h** to handle constants
 
 ## 2021-10-27 - Jorge
 

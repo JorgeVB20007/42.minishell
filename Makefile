@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
+#    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/10/31 20:10:06 by jvacaris         ###   ########.fr        #
+#    Updated: 2021/11/01 08:24:37 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ RLINE_INC	= -I/Users/$(USER)/.brew/opt/readline/include
 RLINE_L		= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 
 # Header files
-INCLUDES_FILES =	errors.h	\
+INCLUDES_FILES =	errors.h		\
+					constants.h		\
 					minishell.h
 
 # Source and object files
@@ -30,11 +31,12 @@ SRC_FILES	= 	minishell1.c		\
 				var_expansor.c		\
 				qm_error_detector.c	\
 				interpreter.c		\
-				echo.c				\
-				envutils.c			\
-				pwd.c
+				builtins/echo.c		\
+				utils/envutils.c	\
+				builtins/pwd.c
 
-OBJ_FILES	= $(SRC_FILES:.c=.o) 
+OBJ_FILES	= $(SRC_FILES:.c=.o)
+# OBJ_FILES	= $(notdir $(SRC_FILES:.c=.o)) 
 
 # Folders
 SRC_DIR = ./src/
@@ -45,6 +47,7 @@ LIBFT_DIR = ./libft/
 # Paths
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
+# OBJ_NOTDIR = $(addprefix $(OBJ_DIR), $(notdir $(OBJ_FILES)))
 INCLUDES = $(addprefix $(INC_DIR), $(INCLUDES_FILES))
 LIBFT = $(addprefix $(LIBFT_DIR), libft.a)
 
@@ -56,6 +59,8 @@ all: obj $(LIBFT) $(NAME)
 
 obj:
 	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)utils/
+	@mkdir -p $(OBJ_DIR)builtins/
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c $(INCLUDES)
 	@gcc $(FLAGS) -I $(LIBFT_DIR) -I $(INC_DIR) $(RLINE_INC) -o $@ -c $<
 $(LIBFT):
