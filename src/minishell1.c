@@ -18,11 +18,13 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*str_got;
 	char	**param_list;
+	t_str	*envlist;
 
 	(void)argc;
 	(void)argv;
-	if (env[0] == NULL)
-		get_default_env(env);
+	printf("\nhye\n");
+	envlist = NULL;
+	init_ms_env(env, &envlist);
 	ft_pwd();
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &ft_signal_handler);
