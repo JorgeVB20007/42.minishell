@@ -21,12 +21,12 @@ int	am_of_pipes(char **list)
 }
 
 /*
-* This funtion looks for redirection signs before a '|' 
+* This funtion looks for redirection signs before a '|'
 * or the last parameter is found. When it finds one, it'll
 * open the file indicated right after, and set the STD(IN/OUT)
 * to the appropriate file.
-TODO	Unsure if SEGFAULT happens if a redir. sign is 
-TODO	located at the end of the list 
+TODO	Unsure if SEGFAULT happens if a redir. sign is
+TODO	located at the end of the list
 */
 void	redirection_finder(char **list, int *fdi, int *fdo, int idx)
 {
@@ -55,7 +55,7 @@ void	redirection_finder(char **list, int *fdi, int *fdo, int idx)
 * This function gets the list of parameters, will look  if the first one
 * is a known command and will redirect to the correct funtion.
 */
-void	command_finder(char **list, int *idx)
+void	command_finder(char **list, int *idx, t_str **env_list)
 {
 	char	*assist;
 
@@ -67,6 +67,8 @@ void	command_finder(char **list, int *idx)
 			ft_echo(list, idx);
 		if (!ft_strncmp(assist, "pwd\0", 4))
 			ft_pwd();
+		if (!ft_strncmp(assist, "env\0", 4))
+			ft_env(*env_list);
 		free(assist);
 		if (list[*idx])
 			(*idx)++;
@@ -74,13 +76,13 @@ void	command_finder(char **list, int *idx)
 }
 
 /*
-* This function is in charge of getting the list of parameters 
+* This function is in charge of getting the list of parameters
 * and call the functions that will redirect the input/output and
 * execute the commands given.
 ? old_stdin and old_stdout are used to store the adress of the
 ? original STDIN and STDOUT without the need of fork().
 */
-void	interpreter(char **list)
+void	interpreter(char **list, t_str **env_list)
 {
 	int		idx;
 	int		fdi;
@@ -96,7 +98,7 @@ void	interpreter(char **list)
 	while (list[idx])
 	{
 		redirection_finder(list, &fdi, &fdo, idx);
-		command_finder(list, &idx);
+		command_finder(list, &idx, env_list);
 		if (list[idx])
 			idx++;
 	}

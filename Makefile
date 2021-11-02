@@ -35,8 +35,8 @@ SRC_FILES	= 	minishell1.c					\
 				var_expansor.c					\
 				qm_error_detector.c				\
 				interpreter.c					\
-				utils/env_handler.c				\
-				utils/str_linked_list_handler.c	\
+				builtins/env.c					\
+				utils/lst_str_handler.c			\
 				builtins/echo.c					\
 				builtins/pwd.c
 

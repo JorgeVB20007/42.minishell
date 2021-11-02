@@ -16,5 +16,6 @@
 # define MS_PROMPT_SIG_INT "Minishell>   \n"
 # define MSG_NEW_LINE "%s\n"
 # define MSG_EXIT "exit\n"
+# define MAX_INT 2147483647
 
 #endif
