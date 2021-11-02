@@ -17,8 +17,8 @@ NAME	= minishell
 FLAGS	= -Wall -Wextra -Werror $(SANITIZE)
 
 # sanitize
-SANITIZE = 
-# SANITIZE = -fsanitize=address
+SANITIZE =
+# SANITIZE = -g3 -fsanitize=address
 
 # readline doing readliney things
 RLINE_INC	= -I/Users/$(USER)/.brew/opt/readline/include
@@ -80,18 +80,18 @@ mynorm:
 
 bonus:	all
 
-# clean rule			
+# clean rule
 clean:
-			@rm -Rf $(OBJ_DIR) 
+			@rm -Rf $(OBJ_DIR)
 			@make -C $(LIBFT_DIR) clean
 			@echo "[INFO] Objects removed!"
-			
+
 # fclean rule
 fclean:		clean
 			@rm -f $(NAME)
 			@make -C $(LIBFT_DIR) fclean
 			@echo "$(NAME) removed!"
-			
+
 # re rule
 re:			fclean all bonus
 
