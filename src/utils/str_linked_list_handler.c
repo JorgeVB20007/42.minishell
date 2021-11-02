@@ -82,27 +82,32 @@ void	ft_printlist_str(t_str *list)
  * @param list	list
  * @param str	str to delete
 */
-// void	ft_lstdelete_str(t_str **list, char *str)
-// {
-// 	t_str	*next;
-// 	t_str	*prev;
-// 	t_str	*aux;
-// 	size_t	len;
+void	ft_lstdelete_str(t_str **list, char *str)
+{
+	t_str	*prev;
+	t_str	*aux;
+	size_t	len;
 
-// 	prev = item;
-// 	aux = item;
-// 	next = item;
-// 	len = ft_strlen(str);
-// 	while (next != NULL)
-// 	{
-// 		if (ft_strcmp(next->str, str, len))
-// 		{
-// 			aux->next = next->next;
-// 			free(next->str);
-// 			free(next);
-// 		}
-// 		else
-// 			aux = aux->next;
-// 		next = aux->next;
-// 	}
-// }
+	len = ft_strlen(str);
+	while (ft_strcmp(*list->str, str, len))
+	{
+		aux = *list;
+		*list = *list->next;
+		free(aux->str);
+		free(aux);
+	}
+	prev = *listt;
+	while (aux != NULL)
+	{
+		aux = prev->next;
+		if (ft_strcmp(aux->str, str, len))
+		{
+			prev->next = aux->next;
+			free(aux->str);
+			free(aux);
+		}
+		else
+			prev = prev->next;
+	}
+}
+
