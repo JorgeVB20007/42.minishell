@@ -38,7 +38,9 @@ SRC_FILES	= 	minishell1.c					\
 				builtins/env.c					\
 				utils/lst_str_handler.c			\
 				builtins/echo.c					\
-				builtins/pwd.c
+				builtins/pwd.c					\
+				builtins/export.C				\
+				builtins/unset.c
 
 OBJ_FILES	= $(SRC_FILES:.c=.o)
 

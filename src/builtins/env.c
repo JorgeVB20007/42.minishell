@@ -71,7 +71,7 @@ static int	get_shlvl(char *shlvl)
 /**
  * * Initialize minishel enviroment variables list from input list
  * @param env_vector	input enviroment vector at exec ./minishell
- * @param env_list	output enviroment list returned
+ * @param env_list		output enviroment list returned
 */
 void	init_ms_env(char **env_vector, t_str **env_list)
 {
@@ -104,9 +104,11 @@ void	init_ms_env(char **env_vector, t_str **env_list)
 
 /**
  * * This should recreate the bash funtion "env".
- * * Returms enviroment variables
+ * * Returms enviroment variables list
+ * @param env_list	enviroment list
 */
 void	ft_env(t_str *env_list)
 {
 	ft_lst_str_print(env_list);
 }
+
