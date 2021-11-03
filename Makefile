@@ -6,7 +6,7 @@
 #    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/11/01 08:24:37 by emadriga         ###   ########.fr        #
+#    Updated: 2021/11/01 18:10:15 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,11 @@
 NAME	= minishell
 
 # compiling flags
-FLAGS	= -Wall -Wextra -Werror
+FLAGS	= -Wall -Wextra -Werror $(SANITIZE)
+
+# sanitize
+SANITIZE =
+# SANITIZE = -g3 -fsanitize=address
 
 # readline doing readliney things
 RLINE_INC	= -I/Users/$(USER)/.brew/opt/readline/include
@@ -26,17 +30,17 @@ INCLUDES_FILES =	errors.h		\
 					minishell.h
 
 # Source and object files
-SRC_FILES	= 	minishell1.c		\
-				modifsplit.c		\
-				var_expansor.c		\
-				qm_error_detector.c	\
-				interpreter.c		\
-				builtins/echo.c		\
-				utils/envutils.c	\
+SRC_FILES	= 	minishell1.c					\
+				modifsplit.c					\
+				var_expansor.c					\
+				qm_error_detector.c				\
+				interpreter.c					\
+				builtins/env.c					\
+				utils/lst_str_handler.c			\
+				builtins/echo.c					\
 				builtins/pwd.c
 
 OBJ_FILES	= $(SRC_FILES:.c=.o)
-# OBJ_FILES	= $(notdir $(SRC_FILES:.c=.o)) 
 
 # Folders
 SRC_DIR = ./src/
@@ -47,12 +51,11 @@ LIBFT_DIR = ./libft/
 # Paths
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
-# OBJ_NOTDIR = $(addprefix $(OBJ_DIR), $(notdir $(OBJ_FILES)))
 INCLUDES = $(addprefix $(INC_DIR), $(INCLUDES_FILES))
 LIBFT = $(addprefix $(LIBFT_DIR), libft.a)
 
-# Libft and Minilibx linkers
-LNK  = -L $(LIBFT_DIR) -lft
+# Libft linkers
+LNK  = -L $(LIBFT_DIR) -lft $(SANITIZE)
 
 # all rule
 all: obj $(LIBFT) $(NAME)
@@ -77,18 +80,18 @@ mynorm:
 
 bonus:	all
 
-# clean rule			
+# clean rule
 clean:
-			@rm -Rf $(OBJ_DIR) 
+			@rm -Rf $(OBJ_DIR)
 			@make -C $(LIBFT_DIR) clean
 			@echo "[INFO] Objects removed!"
-			
+
 # fclean rule
 fclean:		clean
 			@rm -f $(NAME)
 			@make -C $(LIBFT_DIR) fclean
 			@echo "$(NAME) removed!"
-			
+
 # re rule
 re:			fclean all bonus
 

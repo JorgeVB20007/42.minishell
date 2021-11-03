@@ -18,11 +18,13 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*str_got;
 	char	**param_list;
+	t_str	*env_list;
 
 	(void)argc;
 	(void)argv;
-	if (env[0] == NULL)
-		get_default_env(env);
+	printf("\nhye\n");
+	env_list = NULL;
+	init_ms_env(env, &env_list);
 	ft_pwd();
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &ft_signal_handler);
@@ -41,7 +43,7 @@ int	main(int argc, char **argv, char **env)
 		else
 		{
 			param_list = modifsplit(str_got);
-			interpreter(param_list);
+			interpreter(param_list, &env_list);
 		}
 		free(str_got);
 	}
