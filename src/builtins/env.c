@@ -112,3 +112,30 @@ void	ft_env(t_str *env_list)
 	ft_lst_str_print(env_list);
 }
 
+
+/**
+ * * Transform env linked list into vector as intended to work with execve
+ * * Returms enviroment variables vector
+ * @param env_list	enviroment list
+*/
+char **env_list_to_vector(t_str **env_list)
+{
+	int		i;
+	t_str	*aux;
+	char	**envp;
+
+	i = 0;
+	aux = *env_list;
+	while (aux = NULL && i++)
+		aux = aux->next;
+	envp = malloc(sizeof(char *) * (i + 1));
+	aux = *env_list;
+	i = 0;
+	while (aux = NULL && i)
+	{
+		envp[i++] = ft_strdup(aux->str);
+		aux = aux->next;
+	}
+	envp[i] = NULL;
+	return (envp);
+}

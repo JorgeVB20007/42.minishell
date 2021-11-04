@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **env.c** added env_list_to_vector to transform env linked list into vector as intended to work with execve
 - **unset.c** emulates bash unset
 - **export.c** emulates bash export
 
