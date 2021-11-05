@@ -10,6 +10,10 @@
 *	the return result after it's used).
 ! It only works when a string starts AND ENDS with a quotation mark.
 */
+
+/*
+! This function will probably be removed, as it's been replaced by adv_qm_rem.
+*/
 char	*qm_remover(char *qm_str)
 {
 	int		a;
@@ -87,6 +91,9 @@ static void	aqr_filler(char *qm_str, char **result)
 	}
 }
 
+/*
+? Use this instead of qm_remover.
+*/
 char	*adv_qm_rem(char *qm_str)
 {
 	char	*result;
