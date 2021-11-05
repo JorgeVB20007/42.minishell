@@ -1,15 +1,12 @@
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <limits.h>
-#include <stdio.h>
-#include <fcntl.h>
+#include "minishell.h"
 
-int	still_command_check(char *list)
+static int	still_command_check(char *list)
 {
 	char	*assist;
 
-	assist = adv_qm_rem(list[*idx]);
+	if (!list)
+		return (0);
+	assist = adv_qm_rem(list);
 	if (list[0] == '|')
 		return (0);
 	if (!ft_strncmp(assist, ">\0", 2) || !ft_strncmp(assist, ">>\0", 3))
@@ -19,7 +16,7 @@ int	still_command_check(char *list)
 	return (1);
 }
 
-char	*get_last_file(char *orig)
+static char	*get_last_file(char *orig)
 {
 	char	**assist;
 	char	*res;
@@ -44,37 +41,68 @@ char	*get_last_file(char *orig)
 	return (res);
 }
 
+char	*get_command_path(char *command, char **envp)
+{
+	int		idx;
+	char	*str_att;
+	char	**path_list;
+
+	idx = 0;
+	while(envp[idx] && ft_strncmp(envp[idx], "PATH=", 5))
+		idx++;
+	if (!envp[idx])
+	{
+		write(1, "Error: env variable 'PATH' not found.\n", 38);
+		return (NULL);
+	}
+		
+	path_list = ft_split(&envp[idx][5], ':');
+	idx = 0;
+	while (envp[idx])
+	{
+		str_att = ft_strslashjoin(path_list[idx], command);
+		if (!access(str_att, X_OK))
+		{
+			megafree(&path_list);
+			return (str_att);
+		}
+		free(str_att);
+		idx++;
+	}
+	return (NULL);
+}
+
 void	exec_command(char **list, char **envp)
 {
 	int		idx;
 	char	**red_list;
 	char	*assist;
-	char	*assist2;
 
 	idx = 0;
-	assist2 = NULL;
 	while (still_command_check(list[idx]))
 		idx++;
-	red_list = calloc(sizeof(char *), idx);
+	red_list = calloc(sizeof(char *), idx + 1);
 	idx = -1;
 	assist = adv_qm_rem(list[0]);
 	if (!access(assist, X_OK))
 	{
-		assist2 = ft_strdup(assist);
 		red_list[++idx] = get_last_file(assist);
-		free(red_list[0]);
-		 = assist;
-		execve(assist2, list, envp);
+//		free(red_list[0]);
 	}
 	while (still_command_check(list[++idx]))
 		red_list[idx] = list[idx];
 	red_list[idx] = NULL;
+	if (access(assist, X_OK))
+	{
+		free(assist);
+		assist = get_command_path(red_list[0], envp);
+	}
+	execve(assist, list, envp);
+	free(assist);
 }
 /* 
-	TODO: Check if first argument is an adress or a command.
-	TODO: If it's not an adress, create function to iterate possibilities.
-	TODO: Path ✓  |  List of arguments for command ✓  |  envp  ?
-
+ *	DONE: Check if first argument is an adress or a command.
+ 	TODO: If it's not an adress, create function to iterate possibilities.
 */
 
 /*

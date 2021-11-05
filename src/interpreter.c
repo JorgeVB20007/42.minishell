@@ -55,20 +55,23 @@ void	redirection_finder(char **list, int *fdi, int *fdo, int idx)
 * This function gets the list of parameters, will look  if the first one
 * is a known command and will redirect to the correct funtion.
 */
-void	command_finder(char **list, int *idx, t_str **env_list)
+void	command_finder(char **list, int *idx, t_str **env_list, char **r_env)
 {
 	char	*assist;
 
 	assist = NULL;
+//	r_env = NULL;
 	while (list[*idx] && list[*idx][0] != '|')
 	{
 		assist = adv_qm_rem(list[*idx]);
 		if (!ft_strncmp(assist, "echo\0", 5))
 			ft_echo(list, idx);
-		if (!ft_strncmp(assist, "pwd\0", 4))
+		else if (!ft_strncmp(assist, "pwd\0", 4))
 			ft_pwd();
-		if (!ft_strncmp(assist, "env\0", 4))
+		else if (!ft_strncmp(assist, "env\0", 4))
 			ft_env(*env_list);
+		else
+			exec_command(&list[*idx], /*env_list_to_vector(env_list)*/r_env);
 		free(assist);
 		if (list[*idx])
 			(*idx)++;
@@ -82,7 +85,7 @@ void	command_finder(char **list, int *idx, t_str **env_list)
 ? old_stdin and old_stdout are used to store the adress of the
 ? original STDIN and STDOUT without the need of fork().
 */
-void	interpreter(char **list, t_str **env_list)
+void	interpreter(char **list, t_str **env_list, char **r_env)
 {
 	int		idx;
 	int		fdi;
@@ -98,7 +101,7 @@ void	interpreter(char **list, t_str **env_list)
 	while (list[idx])
 	{
 		redirection_finder(list, &fdi, &fdo, idx);
-		command_finder(list, &idx, env_list);
+		command_finder(list, &idx, env_list, r_env);
 		if (list[idx])
 			idx++;
 	}

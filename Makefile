@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
+#    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/11/01 18:10:15 by emadriga         ###   ########.fr        #
+#    Updated: 2021/11/05 22:25:55 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,16 +30,19 @@ INCLUDES_FILES =	errors.h		\
 					minishell.h
 
 # Source and object files
-SRC_FILES	= 	minishell1.c					\
-				modifsplit.c					\
-				var_expansor.c					\
-				qm_error_detector.c				\
-				interpreter.c					\
-				builtins/env.c					\
-				utils/lst_str_handler.c			\
-				builtins/echo.c					\
-				builtins/pwd.c					\
-				builtins/export.C				\
+SRC_FILES	= 	minishell1.c			\
+				modifsplit.c			\
+				var_expansor.c			\
+				qm_error_detector.c		\
+				interpreter.c			\
+				exec_command.c			\
+				builtins/env.c			\
+				utils/lst_str_handler.c	\
+				utils/ft_strslashjoin.c	\
+				utils/megafree.c		\
+				builtins/echo.c			\
+				builtins/pwd.c			\
+				builtins/export.c		\
 				builtins/unset.c
 
 OBJ_FILES	= $(SRC_FILES:.c=.o)

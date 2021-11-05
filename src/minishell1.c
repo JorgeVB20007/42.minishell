@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	printf("\nhye\n");
+//	printf("\nhye\n");
 	env_list = NULL;
 	init_ms_env(env, &env_list);
 	ft_pwd();
@@ -43,7 +43,7 @@ int	main(int argc, char **argv, char **env)
 		else
 		{
 			param_list = modifsplit(str_got);
-			interpreter(param_list, &env_list);
+			interpreter(param_list, &env_list, env);
 		}
 		free(str_got);
 //		system("lsof -c minishell");

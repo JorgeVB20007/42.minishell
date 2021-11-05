@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_handler.c                                      :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/01 15:07:19 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/05 19:50:09 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,12 +126,12 @@ char **env_list_to_vector(t_str **env_list)
 
 	i = 0;
 	aux = *env_list;
-	while (aux = NULL && i++)
+	while (aux == NULL && i++)
 		aux = aux->next;
 	envp = malloc(sizeof(char *) * (i + 1));
 	aux = *env_list;
 	i = 0;
-	while (aux = NULL && i)
+	while (aux == NULL && i)
 	{
 		envp[i++] = ft_strdup(aux->str);
 		aux = aux->next;
