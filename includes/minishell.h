@@ -30,6 +30,7 @@ char	*adv_qm_rem(char *qm_str);
 int		qm_error_detector(char *str);
 void	init_ms_env(char **env_vector, t_str **env_list);
 void	ft_env(t_str *env_list);
+char 	**env_list_to_vector(t_str **env_list);
 void	ft_pwd(void);
 void	ft_lst_str_add_back(t_str **list, char *str);
 void	ft_lst_str_free(t_str *list);
