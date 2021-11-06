@@ -28,8 +28,15 @@ int	am_of_pipes(char **list)
 TODO	Unsure if SEGFAULT happens if a redir. sign is
 TODO	located at the end of the list
 */
-void	redirection_finder(char **list, int *fdi, int *fdo, int idx)
+void	redirection_finder(char **list, int *fdi, int *fdo, int *nxt)
 {
+	int	idx;
+
+	idx = 0;
+	if (*nxt)
+	{
+		*fdi = *nxt;
+	}
 	while (list[idx] && list[idx][0] != '|')
 	{
 		if (!ft_strncmp(list[idx], ">\0", 2))
@@ -92,27 +99,27 @@ void	interpreter(char **list, t_str **env_list, char **r_env)
 	int		fdo;
 	int		old_stdout;
 	int		old_stdin;
+	int		nxt;
 
 	idx = 0;
-	fdi = 0;
-	fdo = 0;
 	old_stdout = dup(1);
 	old_stdin = dup(0);
+	nxt = 0;
 	while (list[idx])
 	{
-		redirection_finder(list, &fdi, &fdo, idx);
+		fdi = 0;
+		fdo = 0;
+		if (nxt)
+			fdi = nxt;
+		redirection_finder(&list[idx], &fdi, &fdo, &nxt);
 		command_finder(list, &idx, env_list, r_env);
 		if (list[idx])
 			idx++;
-	}
-	if (fdi)
-	{
+		if (fdi)
+			close(fdi);
+		if (fdo)
+			close(fdo);
 		dup2(old_stdout, 1);
-		close(fdi);
-	}
-	if (fdo)
-	{
 		dup2(old_stdin, 0);
-		close(fdo);
 	}
 }

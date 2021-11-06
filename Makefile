@@ -6,7 +6,7 @@
 #    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/11/05 22:25:55 by jvacaris         ###   ########.fr        #
+#    Updated: 2021/11/06 19:08:02 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,7 @@ $(LIBFT):
 $(NAME): $(OBJ)
 	@echo "\033[0;33mCompiling... Wait a sec.\033[0;37m"
 	@gcc $(OBJ) $(FLAGS) $(LNK) $(RLINE_L) -lm -o $(NAME)
-	@echo "\033[0;32m$(NAME) generated!\033[0;37m".
+	@echo "\033[0;32m$(NAME) generated!\033[0;37m"
 
 mynorm:
 	norminette $(SRC_DIR) $(INC_DIR) $(LIBFT_DIR)
