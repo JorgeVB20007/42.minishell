@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2021-11-06 - Edu
+
+### Added
+
+- **lst_str_handlers.c** added ft_lst_str_add_sorted to add items sorted & lst_str_handlers2.c o increase functions to 10
+### Changed
+
+- **env.c** add items sorted to linked list
+- **unset.c** get **argv as input like execve
+- **export.c** get **argv as input like execve
+### Fix
+
+- **env.c** fixed env_list_to_vector, now working properly!
+- **unset.c** fixed, now working properly!
+- **export.c** fixed, now working properly!
 
 ## 2021-11-04 - Edu
 

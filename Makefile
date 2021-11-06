@@ -6,7 +6,7 @@
 #    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/11/01 18:10:15 by emadriga         ###   ########.fr        #
+#    Updated: 2021/11/06 20:46:48 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,10 @@ SRC_FILES	= 	minishell1.c					\
 				interpreter.c					\
 				builtins/env.c					\
 				utils/lst_str_handler.c			\
+				utils/lst_str_handler2.c		\
 				builtins/echo.c					\
 				builtins/pwd.c					\
-				builtins/export.C				\
+				builtins/export.c				\
 				builtins/unset.c
 
 OBJ_FILES	= $(SRC_FILES:.c=.o)
