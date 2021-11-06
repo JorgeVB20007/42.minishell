@@ -6,7 +6,11 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/11/05 19:50:09 by jvacaris         ###   ########.fr       */
+=======
+/*   Updated: 2021/11/06 20:51:26 by emadriga         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +27,10 @@ static void	get_default_env(t_str **env_list)
 
 	pwd_command = NULL;
 	getcwd(pwd, 100);
-	ft_lst_str_add_front(env_list, ft_strjoin("PWD=", pwd));
-	ft_lst_str_add_front(env_list, ft_strdup("SHLVL=1"));
+	ft_lst_str_add_sorted(env_list, ft_strjoin("PWD=", pwd));
+	ft_lst_str_add_sorted(env_list, ft_strdup("SHLVL=1"));
 	pwd_command = ft_strjoin(pwd, "./minishell");
-	ft_lst_str_add_front(env_list, ft_strjoin("_=", pwd_command));
+	ft_lst_str_add_sorted(env_list, ft_strjoin("_=", pwd_command));
 	free(pwd_command);
 }
 
@@ -55,13 +59,13 @@ static int	get_shlvl(char *shlvl)
 	nbr = 0;
 	is_signed = (u_int32_t)(shlvl[0] == '-');
 	shlvl += (*shlvl == '-' || *shlvl == '+');
-	while (*shlvl != '\0' && nbr < MAX_INT)
+	while (*shlvl != '\0' && nbr < INT_MAX)
 	{
 		if (ft_isdigit(*shlvl))
 			nbr = nbr * 10 + *shlvl - '0';
 		shlvl++;
 	}
-	if (nbr > MAX_INT + is_signed)
+	if (nbr > INT_MAX + is_signed)
 		return (1);
 	else if (is_signed == 1)
 		return (0);
@@ -75,8 +79,8 @@ static int	get_shlvl(char *shlvl)
 */
 void	init_ms_env(char **env_vector, t_str **env_list)
 {
-	int	i;
-	char *shlvl;
+	int		i;
+	char	*shlvl;
 
 	if (env_vector[0] == NULL)
 		get_default_env (env_list);
@@ -87,16 +91,16 @@ void	init_ms_env(char **env_vector, t_str **env_list)
 		while (env_vector[i] != NULL)
 		{
 			if (!ft_strncmp(env_vector[i], "SHLVL=", 6))
-				shlvl = ft_itoa(get_shlvl(ft_strchr(env_vector[i],'=') + 1));
+				shlvl = ft_itoa(get_shlvl(ft_strchr(env_vector[i], '=') + 1));
 			else
-				ft_lst_str_add_front(env_list, ft_strdup(env_vector[i]));
+				ft_lst_str_add_sorted(env_list, ft_strdup(env_vector[i]));
 			i++;
 		}
 		if (!shlvl)
-			ft_lst_str_add_front(env_list, ft_strdup("SHLVL=1"));
+			ft_lst_str_add_sorted(env_list, ft_strdup("SHLVL=1"));
 		else
 		{
-			ft_lst_str_add_front(env_list, ft_strjoin("SHLVL=",shlvl));
+			ft_lst_str_add_sorted(env_list, ft_strjoin("SHLVL=", shlvl));
 			free(shlvl);
 		}
 	}
@@ -112,13 +116,12 @@ void	ft_env(t_str *env_list)
 	ft_lst_str_print(env_list);
 }
 
-
 /**
  * * Transform env linked list into vector as intended to work with execve
  * * Returms enviroment variables vector
  * @param env_list	enviroment list
 */
-char **env_list_to_vector(t_str **env_list)
+char	**env_list_to_vector(t_str **env_list)
 {
 	int		i;
 	t_str	*aux;
@@ -126,12 +129,23 @@ char **env_list_to_vector(t_str **env_list)
 
 	i = 0;
 	aux = *env_list;
+<<<<<<< HEAD
 	while (aux == NULL && i++)
+=======
+	while (aux != NULL)
+	{
+>>>>>>> master
 		aux = aux->next;
+		i++;
+	}
 	envp = malloc(sizeof(char *) * (i + 1));
 	aux = *env_list;
 	i = 0;
+<<<<<<< HEAD
 	while (aux == NULL && i)
+=======
+	while (aux != NULL)
+>>>>>>> master
 	{
 		envp[i++] = ft_strdup(aux->str);
 		aux = aux->next;

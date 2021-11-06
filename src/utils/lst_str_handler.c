@@ -1,47 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_linked_list_handler.c                          :+:      :+:    :+:   */
+/*   lst_str_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/01 18:10:39 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/06 20:20:13 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * * Add new str into list at front
+ * * Add new str into list at alphabeticallly sorted
  * @param list	list
  * @param str	new str to link
 */
-void	ft_lst_str_add_front(t_str **list, char *str)
+static void	ft_lst_str_add_sorted2(t_str **list, t_str	*new)
 {
-	t_str	*new;
+	t_str	*aux;
 
-	new = malloc(sizeof(t_str));
-	if (!new)
+	aux = *list;
+	if (ft_strncmp(new->str, aux->str, INT_MAX) < 0)
 	{
-		ft_lst_str_free(*list);
-		free(str);
-		exit(ENOMEM);
+		new->next = aux;
+		*list = new;
 	}
-	new->str = str;
-	new->next = *list;
-	*list = new;
+	while (aux != NULL)
+	{
+		if (ft_strncmp(new->str, aux->str, INT_MAX) > 0 && (aux->next == NULL \
+		|| ft_strncmp(new->str, aux->next->str, INT_MAX) < 0))
+		{
+			new->next = aux->next;
+			aux->next = new;
+		}
+		aux = aux->next;
+	}
 }
 
 /**
- * * Add new str into list at back
+ * * Add new str into list at alphabeticallly sorted
  * @param list	list
  * @param str	new str to link
 */
-void	ft_lst_str_add_back(t_str **list, char *str)
+void	ft_lst_str_add_sorted(t_str **list, char *str)
 {
 	t_str	*new;
-	t_str	*aux;
 
 	new = malloc(sizeof(t_str));
 	if (!new)
@@ -55,12 +60,7 @@ void	ft_lst_str_add_back(t_str **list, char *str)
 	if (*list == NULL)
 		*list = new;
 	else
-	{
-		aux = *list;
-		while (aux->next != NULL)
-			aux = aux->next;
-		aux->next = new;
-	}
+		ft_lst_str_add_sorted2(list, new);
 }
 
 /**
@@ -111,6 +111,7 @@ void	ft_lst_str_delete(t_str **list, char *str)
 	ft_lst_str_add_front(list, NULL);
 	prev = *list;
 	aux = prev->next;
+	printf("\nHello\n");
 	while (aux != NULL)
 	{
 		if (!ft_strncmp(aux->str, str, len))
@@ -123,6 +124,7 @@ void	ft_lst_str_delete(t_str **list, char *str)
 			prev = prev->next;
 		aux = prev->next;
 	}
+	printf("\nHello2\n");
 	aux = *list;
 	*list = aux->next;
 	free(aux);

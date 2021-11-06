@@ -1,4 +1,4 @@
-a.out
+*.out
 .vscode
 playground
 *.gch
@@ -9,3 +9,5 @@ libft/.DS_Store
 *.a
 obj
 minishell
+TEST*
+test*

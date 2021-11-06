@@ -6,7 +6,11 @@
 #    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2021/11/06 19:08:02 by jvacaris         ###   ########.fr        #
+=======
+#    Updated: 2021/11/06 20:46:48 by emadriga         ###   ########.fr        #
+>>>>>>> master
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,19 +34,20 @@ INCLUDES_FILES =	errors.h		\
 					minishell.h
 
 # Source and object files
-SRC_FILES	= 	minishell1.c			\
-				modifsplit.c			\
-				var_expansor.c			\
-				qm_error_detector.c		\
-				interpreter.c			\
-				exec_command.c			\
-				builtins/env.c			\
-				utils/lst_str_handler.c	\
-				utils/ft_strslashjoin.c	\
-				utils/megafree.c		\
-				builtins/echo.c			\
-				builtins/pwd.c			\
-				builtins/export.c		\
+SRC_FILES	= 	minishell1.c				\
+				modifsplit.c				\
+				var_expansor.c				\
+				qm_error_detector.c			\
+				interpreter.c				\
+				exec_command.c				\
+				builtins/env.c				\
+				utils/lst_str_handler.c		\
+				utils/lst_str_handler2.c	\
+				utils/ft_strslashjoin.c		\
+				utils/megafree.c			\
+				builtins/echo.c				\
+				builtins/pwd.c				\
+				builtins/export.c			\
 				builtins/unset.c
 
 OBJ_FILES	= $(SRC_FILES:.c=.o)
