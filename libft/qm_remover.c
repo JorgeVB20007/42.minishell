@@ -1,14 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   qm_remover.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/07 00:43:14 by jvacaris          #+#    #+#             */
+/*   Updated: 2021/11/07 00:43:17 by jvacaris         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 /*
 ? Function created for the project "minishell"
-* This function gets a string that could or could not start with '"' or '''.
-* - If the function starts with any quotation mark, it will make a copy of 
-*	that string without thw firstt and last quotation mark.
-* - If the function does NOT start with a quotation mark, it will return 
-*	a copy of the string given (this is done to make sure it's safe to free 
-*	the return result after it's used).
-! It only works when a string starts AND ENDS with a quotation mark.
+* The functions below get a string which might contain (or not) quotation
+* marks ( ' or " ). The first function (adv_qm_remover) will count the size
+* of each item (ignoring q.m.) and then fill them without the quotation
+* marks.
+! This function doesn't free the first string, as sometimes the previous
+! string is needed. A duplicate function could be created if needed.
 */
 
 /*
@@ -91,9 +102,6 @@ static void	aqr_filler(char *qm_str, char **result)
 	}
 }
 
-/*
-? Use this instead of qm_remover.
-*/
 char	*adv_qm_rem(char *qm_str)
 {
 	char	*result;

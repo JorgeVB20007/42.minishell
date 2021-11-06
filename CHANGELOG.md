@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2021-11-07 - Jorge
+
+### Added
+
+- Added functional pipes. They can be stacked multiple times.
+- Non-builtin functions are now executed using *minishell's* own **env**. Functions that take input from the stdin (*cat*, *wc*...) need some fixes.
+
+### Changed
+
+- Functions after **command_finder** don't need to return the parameters used anymore to *idx*, but a pointer to the first parameter is still suggested.
+- **ft_echo** can now print parameters after a redirection.
+
 ## 2021-11-06 - Edu
 
 ### Added

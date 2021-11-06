@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:10:39 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/10/31 00:25:25 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/07 00:34:08 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,6 @@ static int	countparams(char *input)
 	}
 	if (input[a - 1] == ' ')
 		count--;
-	printf("\nParams: %d\n", count);
 	return (count);
 }
 
@@ -205,7 +204,7 @@ char	**modifsplit(char *input)
 	result = fillparams(input, params);
 
 // ! v v v v  Testing only  v v v v
-	int a = 0;
+	int	a = 0;
 	while (result[a])
 	{
 		printf("\033[0;36m%d - \033[0;37m%s\n", a, result[a]);
@@ -216,26 +215,3 @@ char	**modifsplit(char *input)
 
 	return (result);
 }
-
-/*
- * For testing purposes only. Remove or comment while testing other programs.
- ? ./minishell "cat -e hello"
-*/
-/*
-int	main(void)
-{
-	char	**result;
-	char	*arguments;
-
-	int argc = 0;
-	arguments = ft_strjoin(argv[1], " '$hi' '\\$hi'");
-	printf("\n\033[0;31m ------ Parsing tester for Minishell. Not a final product. ------\n\033[0;32mInput:\033[0;33m %s\n\n\033[0;32mResult:\n\033[0;37m", arguments);
-	result = modifsplit(arguments);
-	while (result[argc])
-	{
-		printf("\033[0;36m%d - \033[0;37m%s\n", argc, result[argc]);
-		argc++;
-	}
-	printf("%s\n\n", result[argc]);
-}
-*/

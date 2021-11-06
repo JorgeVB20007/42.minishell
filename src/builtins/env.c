@@ -6,11 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/11/05 19:50:09 by jvacaris         ###   ########.fr       */
-=======
-/*   Updated: 2021/11/06 20:51:26 by emadriga         ###   ########.fr       */
->>>>>>> master
+/*   Updated: 2021/11/06 21:40:10 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,23 +125,15 @@ char	**env_list_to_vector(t_str **env_list)
 
 	i = 0;
 	aux = *env_list;
-<<<<<<< HEAD
-	while (aux == NULL && i++)
-=======
 	while (aux != NULL)
 	{
->>>>>>> master
 		aux = aux->next;
 		i++;
 	}
 	envp = malloc(sizeof(char *) * (i + 1));
 	aux = *env_list;
 	i = 0;
-<<<<<<< HEAD
-	while (aux == NULL && i)
-=======
 	while (aux != NULL)
->>>>>>> master
 	{
 		envp[i++] = ft_strdup(aux->str);
 		aux = aux->next;

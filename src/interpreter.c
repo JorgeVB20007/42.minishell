@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   interpreter.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/07 00:16:07 by jvacaris          #+#    #+#             */
+/*   Updated: 2021/11/07 00:16:14 by jvacaris         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -20,6 +32,16 @@ int	am_of_pipes(char **list)
 	return (count);
 }
 
+void	make_a_pipe(int *fdo, int *nxt)
+{
+	int	pip_tmp[2];
+
+	pipe(pip_tmp);
+	*nxt = pip_tmp[0];
+	*fdo = pip_tmp[1];
+	dup2(*fdo, 1);
+}
+
 /*
 * This funtion looks for redirection signs before a '|'
 * or the last parameter is found. When it finds one, it'll
@@ -32,25 +54,33 @@ void	redirection_finder(char **list, int *fdi, int *fdo, int *nxt)
 {
 	int	idx;
 
-	idx = 0;
+	idx = -1;
+	*nxt = 0;
+	while (list[++idx])
+		*nxt += (list[idx][0] == '|');
 	if (*nxt)
-	{
-		*fdi = *nxt;
-	}
+		make_a_pipe(fdo, nxt);
+	idx = 0;
 	while (list[idx] && list[idx][0] != '|')
 	{
 		if (!ft_strncmp(list[idx], ">\0", 2))
 		{
+			if (*fdi)
+				close(*fdi);
 			*fdi = open(list[idx + 1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
 			dup2(*fdi, 1);
 		}
 		else if (!ft_strncmp(list[idx], ">>\0", 3))
 		{
+			if (*fdi)
+				close(*fdi);
 			*fdi = open(list[idx + 1], O_CREAT | O_WRONLY | O_APPEND, 0666);
 			dup2(*fdi, 1);
 		}
 		else if (!ft_strncmp(list[idx], "<\0", 2))
 		{
+			if (*fdo)
+				close(*fdo);
 			*fdo = open(list[idx + 1], O_RDONLY, 0666);
 			dup2(*fdo, 0);
 		}
@@ -62,27 +92,25 @@ void	redirection_finder(char **list, int *fdi, int *fdo, int *nxt)
 * This function gets the list of parameters, will look  if the first one
 * is a known command and will redirect to the correct funtion.
 */
-void	command_finder(char **list, int *idx, t_str **env_list, char **r_env)
+static void	command_finder(char **list, int *idx, t_str **env_list)
 {
 	char	*assist;
 
 	assist = NULL;
-//	r_env = NULL;
+	while (list[*idx][0] == '<' || list[*idx][0] == '>')
+		*idx += 2;
+	assist = adv_qm_rem(list[*idx]);
+	if (!ft_strncmp(assist, "echo\0", 5))
+		ft_echo(&list[*idx]);
+	else if (!ft_strncmp(assist, "pwd\0", 4))
+		ft_pwd();
+	else if (!ft_strncmp(assist, "env\0", 4))
+		ft_env(*env_list);
+	else
+		exec_command(&list[*idx], env_list_to_vector(env_list));
+	free(assist);
 	while (list[*idx] && list[*idx][0] != '|')
-	{
-		assist = adv_qm_rem(list[*idx]);
-		if (!ft_strncmp(assist, "echo\0", 5))
-			ft_echo(list, idx);
-		else if (!ft_strncmp(assist, "pwd\0", 4))
-			ft_pwd();
-		else if (!ft_strncmp(assist, "env\0", 4))
-			ft_env(*env_list);
-		else
-			exec_command(&list[*idx], /*env_list_to_vector(env_list)*/r_env);
-		free(assist);
-		if (list[*idx])
-			(*idx)++;
-	}
+		(*idx)++;
 }
 
 /*
@@ -92,34 +120,36 @@ void	command_finder(char **list, int *idx, t_str **env_list, char **r_env)
 ? old_stdin and old_stdout are used to store the adress of the
 ? original STDIN and STDOUT without the need of fork().
 */
-void	interpreter(char **list, t_str **env_list, char **r_env)
+void	interpreter(char **list, t_str **env_list)
 {
-	int		idx;
-	int		fdi;
-	int		fdo;
-	int		old_stdout;
-	int		old_stdin;
-	int		nxt;
+	int	idx;
+	int	fdi;
+	int	fdo;
+	int	old_stds[2];
+	int	nxt;
 
 	idx = 0;
-	old_stdout = dup(1);
-	old_stdin = dup(0);
+	old_stds[1] = dup(1);
+	old_stds[0] = dup(0);
 	nxt = 0;
 	while (list[idx])
 	{
 		fdi = 0;
 		fdo = 0;
 		if (nxt)
+		{
 			fdi = nxt;
+			dup2(fdi, 0);
+		}
 		redirection_finder(&list[idx], &fdi, &fdo, &nxt);
-		command_finder(list, &idx, env_list, r_env);
+		command_finder(list, &idx, env_list);
 		if (list[idx])
 			idx++;
 		if (fdi)
 			close(fdi);
 		if (fdo)
 			close(fdo);
-		dup2(old_stdout, 1);
-		dup2(old_stdin, 0);
+		dup2(old_stds[1], 1);
+		dup2(old_stds[0], 0);
 	}
 }

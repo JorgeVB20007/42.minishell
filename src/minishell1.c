@@ -43,7 +43,7 @@ int	main(int argc, char **argv, char **env)
 		else
 		{
 			param_list = modifsplit(str_got);
-			interpreter(param_list, &env_list, env);
+			interpreter(param_list, &env_list);
 		}
 		free(str_got);
 //		system("lsof -c minishell");

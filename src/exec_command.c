@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_command.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/07 00:15:35 by jvacaris          #+#    #+#             */
+/*   Updated: 2021/11/07 00:34:03 by jvacaris         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	still_command_check(char *list)
@@ -48,27 +60,28 @@ char	*get_command_path(char *command, char **envp)
 	char	**path_list;
 
 	idx = 0;
-	while(envp[idx] && ft_strncmp(envp[idx], "PATH=", 5))
+	while (envp[idx] && ft_strncmp(envp[idx], "PATH=", 5))
 		idx++;
 	if (!envp[idx])
 	{
-		write(1, "Error: env variable 'PATH' not found.\n", 38);
+		write(2, "Error: env variable 'PATH' not found.\n", 38);
 		return (NULL);
 	}
-		
 	path_list = ft_split(&envp[idx][5], ':');
 	idx = 0;
-	while (envp[idx])
+	while (path_list[idx])
 	{
-		str_att = ft_strslashjoin(path_list[idx], command);
+		str_att = ft_strslashjoin(path_list[idx++], command);
 		if (!access(str_att, X_OK))
 		{
 			megafree(&path_list);
 			return (str_att);
 		}
 		free(str_att);
-		idx++;
 	}
+	ft_putstr_fd("Error: command ", 2);
+	ft_putstr_fd(command, 2);
+	ft_putstr_fd(" not found.\n", 2);
 	return (NULL);
 }
 
@@ -85,10 +98,7 @@ void	exec_command(char **list, char **envp)
 	idx = -1;
 	assist = adv_qm_rem(list[0]);
 	if (!access(assist, X_OK))
-	{
 		red_list[++idx] = get_last_file(assist);
-//		free(red_list[0]);
-	}
 	while (still_command_check(list[++idx]))
 		red_list[idx] = list[idx];
 	red_list[idx] = NULL;
@@ -97,53 +107,8 @@ void	exec_command(char **list, char **envp)
 		free(assist);
 		assist = get_command_path(red_list[0], envp);
 	}
+	if (!assist)
+		return ;
 	execve(assist, list, envp);
 	free(assist);
 }
-/* 
- *	DONE: Check if first argument is an adress or a command.
- 	TODO: If it's not an adress, create function to iterate possibilities.
-*/
-
-/*
-int main(int argc, char **argv, char **envp)
-{
-	char	**hello;
-	int		pip[2];
-	int		old;
-
-	old = dup(1);
-	pipe(pip);
-	dup2(pip[0], STDIN_FILENO);
-	dup2(pip[1], STDOUT_FILENO);
-	write(1, "Hello\n\n\n", 8);
-	argc = 0;
-	argv = NULL;
-	close(pip[1]);
-	hello = calloc(sizeof(char *), 3);
-	hello[0] = calloc(sizeof(char), 4);
-	hello[0][0] = 'c';
-	hello[0][1] = 'a';
-	hello[0][2] = 't';
-	hello[0][3] = 0;
-	hello[1] = calloc(sizeof(char), 3);
-	hello[1][0] = '-';
-	hello[1][1] = 'e';
-	hello[1][2] = 0;
-	hello[2] = calloc(sizeof(char), 3);
-	hello[2][0] = 'M';
-	hello[2][1] = 'a';
-	hello[2][2] = 'k';
-	hello[2][3] = 'e';
-	hello[2][4] = 'f';
-	hello[2][5] = 'i';
-	hello[2][6] = 'l';
-	hello[2][7] = 'e';
-	hello[2][8] = 0;
-	hello[2] = NULL;
-	dup2(old, 1);
-	execve("/bin/cat", hello, envp);
-	close(pip[0]);
-	write(1, "Hiiii", 5);
-}
-*/
