@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 20:42:55 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/06 21:20:20 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/07 13:44:06 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#define EXPORT_WRONG_ID "export: `%c': not a valid identifier\n"
+
+/**
+ * * This should recreate the bash funtion "env".
+ * * Returms enviroment variables list
+ * @param env_list	enviroment list
+*/
+void static	ft_print_env_without_last_cmd(t_str **env_list)
+{
+	t_str	*aux;
+
+	aux = *env_list;
+	while (aux != NULL)
+	{
+		if (!ft_strncmp(aux->str, "_=/", 3))
+			printf("%s\n", aux->str);
+		aux = aux->next;
+	}
+}
 
 /**
  * * This should recreate the bash funtion "export".
@@ -28,9 +47,11 @@ void	ft_export(t_str **env_list, char **argv)
 	i = 1;
 	env_desc = NULL;
 	if (argv[i] == NULL)
-		ft_lst_str_print(*env_list);
+		ft_print_env_without_last_cmd(env_list);
 	while (argv[i] != NULL)
 	{
+		if (!ft_isalpha(argv[i][0]))
+			printf(EXPORT_WRONG_ID, argv[i][0]);
 		strchr_n = ft_strchr(argv[i], '=');
 		if (strchr_n)
 			env_desc = ft_substr(argv[i], 0, strchr_n - argv[i] + 1);

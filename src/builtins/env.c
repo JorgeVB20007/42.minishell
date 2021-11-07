@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/06 21:40:10 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/07 13:41:03 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	get_default_env(t_str **env_list)
 	getcwd(pwd, 100);
 	ft_lst_str_add_sorted(env_list, ft_strjoin("PWD=", pwd));
 	ft_lst_str_add_sorted(env_list, ft_strdup("SHLVL=1"));
+	ft_lst_str_add_sorted(env_list, ft_strdup("OLDPWD"));
 	pwd_command = ft_strjoin(pwd, "./minishell");
 	ft_lst_str_add_sorted(env_list, ft_strjoin("_=", pwd_command));
 	free(pwd_command);
@@ -107,9 +108,22 @@ void	init_ms_env(char **env_vector, t_str **env_list)
  * * Returms enviroment variables list
  * @param env_list	enviroment list
 */
-void	ft_env(t_str *env_list)
+void	ft_env(t_str **env_list, char **argv)
 {
-	ft_lst_str_print(env_list);
+	t_str	*aux;
+
+	if (argv[1] != NULL)
+		printf("env: sin opciones o argumentos.");
+	else
+	{
+		aux = *env_list;
+		while (aux != NULL)
+		{
+			if (ft_strchr(aux->str, '='))
+				printf("%s\n", aux->str);
+			aux = aux->next;
+		}		
+	}
 }
 
 /**
