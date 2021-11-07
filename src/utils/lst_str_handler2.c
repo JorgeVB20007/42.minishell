@@ -68,7 +68,7 @@ void	ft_lst_str_add_back(t_str **list, char *str)
  * @param list	list
  * @param str	new str to look for
 */
-t_str	*ft_lst_str_get_str(t_str **list, char *str)
+t_str	*ft_lst_str_get_str(t_str **list, const char *str)
 {
 	t_str	*aux;
 	size_t	len;

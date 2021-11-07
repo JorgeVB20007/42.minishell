@@ -16,5 +16,13 @@
 # define MS_PROMPT_SIG_INT "Minishell>   \n"
 # define MSG_NEW_LINE "%s\n"
 # define MSG_EXIT "exit\n"
+# define LITERAL_OLDPWD "OLDPWD\0"
+# define LITERAL_OLDPWD_LIKE "OLDPWD="
+# define LITERAL_PWD_LIKE "PWD="
+# define LITERAL_HOME_LIKE "HOME="
+# define LITERAL_SHLVL_LIKE "SHLVL="
+# define LITERAL_SHLVL_LIKE_ONE "SHLVL="
+# define LITERAL_EXEC_MINISHELL "./minishell"
+# define LITERAL_LAST_CMD "_="
 
 #endif

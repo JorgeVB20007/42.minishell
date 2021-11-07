@@ -50,7 +50,7 @@ void	ft_lst_str_add_back(t_str **list, char *str);
 void	ft_lst_str_add_front(t_str **list, char *str);
 void	ft_lst_str_add_sorted(t_str **list, char *str);
 void	ft_lst_str_delete(t_str **list, char *str);
-t_str	*ft_lst_str_get_str(t_str **list, char *str);
+t_str	*ft_lst_str_get_str(t_str **list, const char *str);
 void	exec_command(char **list, char **envp);
 char	*ft_strslashjoin(char const *s1, char const *s2);
 void	megafree(char ***list);
