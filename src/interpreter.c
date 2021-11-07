@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:16:07 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/07 00:16:14 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/07 21:21:18 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static void	command_finder(char **list, int *idx, t_str **env_list)
 	assist = NULL;
 	while (list[*idx][0] == '<' || list[*idx][0] == '>')
 		*idx += 2;
-	assist = adv_qm_rem(list[*idx]);
+	assist = adv_qm_rem(list[*idx], 0);
 	if (!ft_strncmp(assist, "echo\0", 5))
 		ft_echo(&list[*idx]);
 	else if (!ft_strncmp(assist, "pwd\0", 4))

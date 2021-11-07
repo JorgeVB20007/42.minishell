@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:26:58 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/07 00:28:04 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/07 19:21:45 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	ft_echo_writing(char **list, int idx, char **assist)
 		else
 		{
 			free(*assist);
-			*assist = adv_qm_rem(list[idx++]);
+			*assist = adv_qm_rem(list[idx++], 0);
 			ft_putstr_fd(*assist, 1);
 			if (list[idx] && list[idx][0] != '|')
 			{
@@ -47,7 +47,9 @@ void	ft_echo(char **list)
 		write(1, "\n", 1);
 		return ;
 	}
-	assist = adv_qm_rem(list[idx]);
+	while (list[idx][0] == '<' || list[idx][0] == '>')
+		idx += 2;
+	assist = adv_qm_rem(list[idx], 0);
 	if (!strncmp(assist, "-n\0", 3))
 	{
 		n_flag = 1;

@@ -6,11 +6,11 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:36:26 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/07 00:36:30 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/07 20:49:02 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 /*
  ? Function created for the project "minishell"

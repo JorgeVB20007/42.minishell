@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:10:39 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/07 00:34:08 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/07 19:14:52 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_modstrcpy(char *orgn, char **end, int len)
 			qm = orgn[a];
 		else if (qm == orgn[a] && qm)
 			qm = 0;
-		if (orgn[a] == '\\' && (orgn[a + 1] == ' ' && !qm))
+		if (orgn[a] == '\\' && (ft_isspace(orgn[a + 1]) && !qm))
 			a++;
 		if (orgn[a] == '\\' && orgn[a + 1] == '$' && (qm == '"' || !qm))
 			a++;
@@ -86,7 +86,7 @@ static int	checklen(char *input, int a)
 	count = 0;
 	if ((input[a] == '<' || input[a] == '>'))
 		return (1 + (input[a + 1] == input[a]));
-	while (input[a] != 0 && (input[a] != ' ' || input[a - 1] == '\\'))
+	while (input[a] != 0 && (!ft_isspace(input[a]) || input[a - 1] == '\\'))
 	{
 		if (input[a] == '<' || input[a] == '>')
 			break ;
@@ -99,7 +99,7 @@ static int	checklen(char *input, int a)
 			count--;
 			a--;
 		}
-		if (input[a] == '\\' && (input[a + 1] == ' ' || input[a + 1] == '$'))
+		if (input[a] == '\\' && (ft_isspace(input[a + 1]) || input[a + 1] == '$'))
 			count--;
 		count++;
 		a++;
@@ -123,14 +123,14 @@ static char	**fillparams(char *input, int params)
 	a = 0;
 	result = malloc(sizeof(char *) * (params + 1));
 	result[params] = NULL;
-	while (input[a] && input[a] == ' ')
+	while (input[a] && ft_isspace(input[a]))
 		a++;
 	while (input[a] != 0)
 	{
 		len = checklen(input, a);
 		result[count] = malloc(len + 1);
 		a = a + ft_modstrcpy(&input[a], &result[count], len);
-		while (input[a] && input[a] == ' ')
+		while (input[a] && ft_isspace(input[a]))
 			a++;
 		count++;
 	}
@@ -149,24 +149,24 @@ static int	countparams(char *input)
 
 	a = 0;
 	count = 0;
-	while (input[a] && input[a] == ' ')
+	while (input[a] && ft_isspace(input[a]))
 		a++;
 	if (input[a])
 		count++;
 	while (input[a] != 0)
 	{
-		if (input[a] == ' ' && input[a - 1] != '\\')
+		if (ft_isspace(input[a]) && input[a - 1] != '\\')
 		{
 			count++;
-			while (input[a] == ' ' && input[a])
+			while (ft_isspace(input[a]) && input[a])
 				a++;
 		}
 		if ((input[a] == '>' || input[a] == '<') && input[a - 1] != '\\')
 		{
-			count += !(input[a - 1] == ' ');
+			count += !(ft_isspace(input[a - 1]));
 			if (input[a] == input[a + 1])
 				a++;
-			count += !(input[a + 1] == ' ');
+			count += !(ft_isspace(input[a + 1]));
 		}
 		else if (input[a] == '"' && (a == 0 || input[a - 1] != '\\'))
 		{
@@ -182,7 +182,7 @@ static int	countparams(char *input)
 		}
 		a++;
 	}
-	if (input[a - 1] == ' ')
+	if (ft_isspace(input[a - 1]))
 		count--;
 	return (count);
 }

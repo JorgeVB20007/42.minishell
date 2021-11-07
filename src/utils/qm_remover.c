@@ -6,11 +6,11 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:14 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/07 00:43:17 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/07 20:48:57 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 /*
 ? Function created for the project "minishell"
@@ -102,7 +102,7 @@ static void	aqr_filler(char *qm_str, char **result)
 	}
 }
 
-char	*adv_qm_rem(char *qm_str)
+char	*adv_qm_rem(char *qm_str, int b_free)
 {
 	char	*result;
 	int		less_chars;
@@ -113,5 +113,7 @@ char	*adv_qm_rem(char *qm_str)
 		return (ft_strdup(qm_str));
 	result = ft_calloc((sizeof(char)), ft_strlen(qm_str) - less_chars + 1);
 	aqr_filler(qm_str, &result);
+	if (b_free)
+		free(qm_str);
 	return (result);
 }

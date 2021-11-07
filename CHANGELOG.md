@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2021-11-07 - Jorge
 
+### Changed
+
+- Other characters (such as '\t') considered spaces when parsing. **ft_isspace** was used for this.
+
+## 2021-11-07 - Jorge
+
 ### Added
 
 - Added functional pipes. They can be stacked multiple times.

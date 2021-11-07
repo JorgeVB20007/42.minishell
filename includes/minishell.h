@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/07 00:43:59 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/07 20:48:46 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	expand_var(char *orgn, char **end, int *a, int *b);
 int		ft_modstrcpy(char *orgn, char **end, int len);
 void	interpreter(char **list, t_str **env_list);
 void	ft_echo(char **list);
-char	*adv_qm_rem(char *qm_str);
+//char	*adv_qm_rem(char *qm_str, int b_free);
 int		qm_error_detector(char *str);
 void	init_ms_env(char **env_vector, t_str **env_list);
 void	ft_env(t_str *env_list);
@@ -55,4 +55,7 @@ char	*ft_strslashjoin(char const *s1, char const *s2);
 void	megafree(char ***list);
 void	ft_unset(t_str **env_list, char **argv);
 void	ft_export(t_str **env_list, char **argv);
+int		is_valid_var(char prv_char, char curr_char, char nxt_char, char qm);
+char	*adv_qm_rem(char *qm_str, int b_free);
+
 #endif
