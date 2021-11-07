@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/06 21:40:10 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/07 13:41:03 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#define ENV_NOT_OPTIONS_OR_ARGUMENT_ALLOWED \
+ "Minishell's subject 'can't 'env with no options or arguments'\n"
 
 /**
  * * Get a default env
@@ -23,10 +25,11 @@ static void	get_default_env(t_str **env_list)
 
 	pwd_command = NULL;
 	getcwd(pwd, 100);
-	ft_lst_str_add_sorted(env_list, ft_strjoin("PWD=", pwd));
-	ft_lst_str_add_sorted(env_list, ft_strdup("SHLVL=1"));
-	pwd_command = ft_strjoin(pwd, "./minishell");
-	ft_lst_str_add_sorted(env_list, ft_strjoin("_=", pwd_command));
+	ft_lst_str_add_sorted(env_list, ft_strjoin(LITERAL_PWD_LIKE, pwd));
+	ft_lst_str_add_sorted(env_list, ft_strdup(LITERAL_SHLVL_LIKE_ONE));
+	ft_lst_str_add_sorted(env_list, ft_strdup(LITERAL_OLDPWD));
+	pwd_command = ft_strjoin(pwd, LITERAL_EXEC_MINISHELL);
+	ft_lst_str_add_sorted(env_list, ft_strjoin(LITERAL_LAST_CMD, pwd_command));
 	free(pwd_command);
 }
 
@@ -86,17 +89,17 @@ void	init_ms_env(char **env_vector, t_str **env_list)
 		shlvl = NULL;
 		while (env_vector[i] != NULL)
 		{
-			if (!ft_strncmp(env_vector[i], "SHLVL=", 6))
+			if (!ft_strncmp(env_vector[i], LITERAL_SHLVL_LIKE, 6))
 				shlvl = ft_itoa(get_shlvl(ft_strchr(env_vector[i], '=') + 1));
 			else
 				ft_lst_str_add_sorted(env_list, ft_strdup(env_vector[i]));
 			i++;
 		}
 		if (!shlvl)
-			ft_lst_str_add_sorted(env_list, ft_strdup("SHLVL=1"));
+			ft_lst_str_add_sorted(env_list, ft_strdup(LITERAL_SHLVL_LIKE_ONE));
 		else
 		{
-			ft_lst_str_add_sorted(env_list, ft_strjoin("SHLVL=", shlvl));
+			ft_lst_str_add_sorted(env_list, ft_strjoin(LITERAL_SHLVL_LIKE, shlvl));
 			free(shlvl);
 		}
 	}
@@ -106,10 +109,24 @@ void	init_ms_env(char **env_vector, t_str **env_list)
  * * This should recreate the bash funtion "env".
  * * Returms enviroment variables list
  * @param env_list	enviroment list
+ * @param argv		vector of arguments (ERROR if not null)
 */
-void	ft_env(t_str *env_list)
+void	ft_env(t_str **env_list, char **argv)
 {
-	ft_lst_str_print(env_list);
+	t_str	*aux;
+
+	if (argv[1] != NULL)
+		printf(ENV_NOT_OPTIONS_OR_ARGUMENT_ALLOWED);
+	else
+	{
+		aux = *env_list;
+		while (aux != NULL)
+		{
+			if (ft_strchr(aux->str, '='))
+				printf("%s\n", aux->str);
+			aux = aux->next;
+		}
+	}
 }
 
 /**

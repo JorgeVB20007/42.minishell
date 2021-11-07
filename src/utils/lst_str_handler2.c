@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_str_handler copy.c                             :+:      :+:    :+:   */
+/*   lst_str_handler2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/06 20:19:58 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/07 11:54:50 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,25 @@ void	ft_lst_str_add_back(t_str **list, char *str)
 			aux = aux->next;
 		aux->next = new;
 	}
+}
+
+/**
+ * * Look for a str on the list returning if found
+ * @param list	list
+ * @param str	new str to look for
+*/
+t_str	*ft_lst_str_get_str(t_str **list, const char *str)
+{
+	t_str	*aux;
+	size_t	len;
+
+	aux = *list;
+	len = ft_strlen(str);
+	while (aux != NULL)
+	{
+		if (!ft_strncmp(aux->str, str, len))
+			return (aux);
+		aux = aux->next;
+	}
+	return (NULL);
 }

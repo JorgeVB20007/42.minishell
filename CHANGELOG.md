@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2021-11-07 - Edu
+
+### Added
+
+- **cd.c** emulates bash cd
+- **env.c** & **export.c**  add their own functions to print env records
+
+### Changed
+
+- Replace several magic strings with constants
+- **env.c** get **argv as input like execve
+- **interpreter.c** added cd, export & unset
+
+### Fixed
+
+- **env.c** & **export.c** dont print same records and export mask them, Fixed!
+- **lst_str_handler.c** remove innecesary printf logs & replace ft_strncmp MAX to compare
+
 ## 2021-11-07 - Jorge
 
 ### Changed
@@ -28,12 +46,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **lst_str_handlers.c** added ft_lst_str_add_sorted to add items sorted & lst_str_handlers2.c o increase functions to 10
+
 ### Changed
 
 - **env.c** add items sorted to linked list
 - **unset.c** get **argv as input like execve
 - **export.c** get **argv as input like execve
-### Fix
+
+### Fixed
 
 - **env.c** fixed env_list_to_vector, now working properly!
 - **unset.c** fixed, now working properly!

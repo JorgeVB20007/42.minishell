@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/06 20:20:13 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/07 10:07:33 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	ft_lst_str_add_sorted2(t_str **list, t_str	*new)
 	}
 	while (aux != NULL)
 	{
-		if (ft_strncmp(new->str, aux->str, INT_MAX) > 0 && (aux->next == NULL \
-		|| ft_strncmp(new->str, aux->next->str, INT_MAX) < 0))
+		if (ft_strncmp(new->str, aux->str, LONG_MAX) > 0 && (aux->next == NULL \
+		|| ft_strncmp(new->str, aux->next->str, LONG_MAX) < 0))
 		{
 			new->next = aux->next;
 			aux->next = new;
@@ -111,7 +111,6 @@ void	ft_lst_str_delete(t_str **list, char *str)
 	ft_lst_str_add_front(list, NULL);
 	prev = *list;
 	aux = prev->next;
-	printf("\nHello\n");
 	while (aux != NULL)
 	{
 		if (!ft_strncmp(aux->str, str, len))
@@ -124,7 +123,6 @@ void	ft_lst_str_delete(t_str **list, char *str)
 			prev = prev->next;
 		aux = prev->next;
 	}
-	printf("\nHello2\n");
 	aux = *list;
 	*list = aux->next;
 	free(aux);

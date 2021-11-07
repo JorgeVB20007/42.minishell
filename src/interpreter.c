@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:16:07 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/07 21:21:18 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/07 21:24:45 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,13 @@ static void	command_finder(char **list, int *idx, t_str **env_list)
 	else if (!ft_strncmp(assist, "pwd\0", 4))
 		ft_pwd();
 	else if (!ft_strncmp(assist, "env\0", 4))
-		ft_env(*env_list);
+		ft_env(env_list, &list[*idx]);
+	else if (!ft_strncmp(assist, "unset\0", 6))
+		ft_unset(env_list, &list[*idx]);
+	else if (!ft_strncmp(assist, "export\0", 7))
+		ft_export(env_list, &list[*idx]);
+	else if (!ft_strncmp(assist, "cd\0", 3))
+		ft_cd(env_list, &list[*idx]);
 	else
 		exec_command(&list[*idx], env_list_to_vector(env_list));
 	free(assist);
