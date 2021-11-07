@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:16:07 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/07 21:24:45 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/08 00:25:23 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,30 @@ void	redirection_finder(char **list, int *fdi, int *fdo, int *nxt)
 	{
 		if (!ft_strncmp(list[idx], ">\0", 2))
 		{
-			if (*fdi)
-				close(*fdi);
-			*fdi = open(list[idx + 1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
-			dup2(*fdi, 1);
+			if (*fdo)
+				close(*fdo);
+			*fdo = open(list[idx + 1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
+			dup2(*fdo, 1);
 		}
 		else if (!ft_strncmp(list[idx], ">>\0", 3))
 		{
-			if (*fdi)
-				close(*fdi);
-			*fdi = open(list[idx + 1], O_CREAT | O_WRONLY | O_APPEND, 0666);
-			dup2(*fdi, 1);
+			if (*fdo)
+				close(*fdo);
+			*fdo = open(list[idx + 1], O_CREAT | O_WRONLY | O_APPEND, 0666);
+			dup2(*fdo, 1);
 		}
 		else if (!ft_strncmp(list[idx], "<\0", 2))
 		{
-			if (*fdo)
-				close(*fdo);
-			*fdo = open(list[idx + 1], O_RDONLY, 0666);
-			dup2(*fdo, 0);
+			if (*fdi)
+				close(*fdi);
+			*fdi = open(list[idx + 1], O_RDONLY, 0666);
+			dup2(*fdi, 0);
+		}
+		else if (!ft_strncmp(list[idx], "<<\0", 3))
+		{
+			if (*fdi)
+				close(*fdi);
+			ft_heredoc(fdi, adv_qm_rem(list[idx + 1], 0));
 		}
 		idx++;
 	}

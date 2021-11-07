@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:10:39 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/07 19:14:52 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/07 22:06:20 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ char	**modifsplit(char *input)
 	params = countparams(input);
 	result = fillparams(input, params);
 
-// ! v v v v  Testing only  v v v v
+/*// ! v v v v  Testing only  v v v v
 	int	a = 0;
 	while (result[a])
 	{
@@ -211,7 +211,7 @@ char	**modifsplit(char *input)
 		a++;
 	}
 	printf("%s\n\n", result[a]);
-// ! ^ ^ ^ ^  Testing only  ^ ^ ^ ^
+// ! ^ ^ ^ ^  Testing only  ^ ^ ^ ^*/
 
 	return (result);
 }

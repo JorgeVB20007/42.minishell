@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/07 21:24:25 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/08 00:01:00 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ void	ft_export(t_str **env_list, char **argv);
 int		is_valid_var(char prv_char, char curr_char, char nxt_char, char qm);
 char	*adv_qm_rem(char *qm_str, int b_free);
 void	ft_cd(t_str **env_list, char **argv);
+void	ft_heredoc(int *fdi, char *last_line);
 
 #endif

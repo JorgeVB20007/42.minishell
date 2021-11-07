@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2021-11-07 - Jorge
+
+### Added
+
+- *heredoc* started, but **readline** doesn't work insde the ft_heredoc() funtion.
+
+### Fixed
+
+- Other characters (such as '\t') considered spaces when parsing. **ft_isspace** was used for this.
+- *fdin* and *fdout* in **redirection_finder()** were messed up. This has been fixed.
+
 ## 2021-11-07 - Edu
 
 ### Added
@@ -22,12 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **env.c** & **export.c** dont print same records and export mask them, Fixed!
 - **lst_str_handler.c** remove innecesary printf logs & replace ft_strncmp MAX to compare
-
-## 2021-11-07 - Jorge
-
-### Changed
-
-- Other characters (such as '\t') considered spaces when parsing. **ft_isspace** was used for this.
 
 ## 2021-11-07 - Jorge
 

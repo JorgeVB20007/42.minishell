@@ -6,7 +6,7 @@
 #    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/11/07 21:25:43 by jvacaris         ###   ########.fr        #
+#    Updated: 2021/11/07 23:42:17 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC_FILES	= 	minishell1.c				\
 				qm_error_detector.c			\
 				interpreter.c				\
 				exec_command.c				\
+				heredoc.c					\
 				builtins/env.c				\
 				utils/lst_str_handler.c		\
 				utils/lst_str_handler2.c	\
