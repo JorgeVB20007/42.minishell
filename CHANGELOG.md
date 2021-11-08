@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **env.c** & **export.c** dont print same records and export mask them, Fixed!
 - **lst_str_handler.c** remove innecesary printf logs & replace ft_strncmp MAX to compare
+- **libft/ft_substr.c** Fix substr malloc
 
 ## 2021-11-07 - Jorge
 
