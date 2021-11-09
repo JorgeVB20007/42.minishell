@@ -11,6 +11,7 @@
 
 * redirecciones rules over pipe  ls-l >file | grep cw
 * > file1  > file 2 echo hola >file3 mundo -> create files 1,2 & 3 and writes Hola mundo on 3 (ignore space, care with explamation)
+* ~/ ->  replace for env's HOME if we want to handle this
 
 ToDo
 - [x] Export should return list orderder
