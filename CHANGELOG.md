@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Contants.h** rename LITERAL -> LIT
 - **pwd.c** get **argv as input like execve
-- **interpreter.c** match builtins keywords with every char no limit size needed, size to INT_MAX
+- **interpreter.c** match builtins keywords without limit size, size to INT_MAX
 ### Fixed
 
 - **libft/ft_strncmp.c** Fix ft_strncmp now check's at end of both str \0
