@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   megafree.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 22:23:47 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/05 22:27:30 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/09 12:16:03 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,17 @@ void	megafree(char ***list)
 		free((*list)[a++]);
 	free((*list)[a]);
 	free(*list);
+}
+
+/**
+ * * Print array of strings
+ * @param array	array
+*/
+void	ft_array_str_print(char **array)
+{
+	int	a;
+
+	a = 0;
+	while (array[a])
+		printf("%s\n", array[a++]);
 }

@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/07 10:07:33 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/09 12:10:09 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ft_lst_str_free(t_str *list)
 }
 
 /**
- * * Print list
+ * * Print list of strings
  * @param list	list
 */
 void	ft_lst_str_print(t_str *list)

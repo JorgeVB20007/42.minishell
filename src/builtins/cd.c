@@ -16,17 +16,17 @@ static void update_env_pwd(t_str **env_list)
 	char	*str;
 	char	cwd[PATH_MAX - 1];
 
-	old_pwd = ft_lst_str_get_str(env_list, LITERAL_OLDPWD_LIKE);
+	old_pwd = ft_lst_str_get_str(env_list, LIT_OLDPWD_LIKE);
 	if (old_pwd == NULL)
-		old_pwd = ft_lst_str_get_str(env_list, LITERAL_OLDPWD);
-	pwd = ft_lst_str_get_str(env_list, LITERAL_PWD_LIKE);
+		old_pwd = ft_lst_str_get_str(env_list, LIT_OLDPWD);
+	pwd = ft_lst_str_get_str(env_list, LIT_PWD_LIKE);
 	if (old_pwd != NULL)
 	{
 		ft_lst_str_delete(env_list, old_pwd->str);
 		if (pwd != NULL)
-			str = ft_strjoin(LITERAL_OLDPWD, ft_strchr(pwd->str, '='));
+			str = ft_strjoin(LIT_OLDPWD, ft_strchr(pwd->str, '='));
 		else
-			str = ft_strdup(LITERAL_OLDPWD_LIKE);
+			str = ft_strdup(LIT_OLDPWD_LIKE);
 		ft_lst_str_add_sorted(env_list, str);
 	}
 	if (pwd != NULL)
@@ -34,7 +34,7 @@ static void update_env_pwd(t_str **env_list)
 		ft_lst_str_delete(env_list, pwd->str);
 		if (getcwd(cwd, sizeof(cwd)) == NULL)
 			perror("getcwd() error");
-		str = ft_strjoin(LITERAL_PWD_LIKE, cwd);
+		str = ft_strjoin(LIT_PWD_LIKE, cwd);
 		ft_lst_str_add_sorted(env_list, str);
 	}
 }
@@ -71,7 +71,7 @@ void	ft_cd(t_str **env_list, char **argv)
 		cant_chdir = ft_cant_chdir(argv[1]);
 	else
 	{
-		aux = ft_lst_str_get_str(env_list, LITERAL_HOME_LIKE);
+		aux = ft_lst_str_get_str(env_list, LIT_HOME_LIKE);
 		if (aux == NULL)
 			printf(HOME_NOT_SET);
 		else

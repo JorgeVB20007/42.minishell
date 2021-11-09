@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/08 00:01:00 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/09 19:22:00 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ void	ft_echo(char **list);
 //char	*adv_qm_rem(char *qm_str, int b_free);
 int		qm_error_detector(char *str);
 void	init_ms_env(char **env_vector, t_str **env_list);
-void	ft_env(t_str **env_list, char **argv);
 char	**env_list_to_vector(t_str **env_list);
-void	ft_pwd(void);
 void	ft_lst_str_free(t_str *list);
 void	ft_lst_str_print(t_str *list);
 void	ft_lst_str_add_back(t_str **list, char *str);
@@ -54,11 +52,14 @@ t_str	*ft_lst_str_get_str(t_str **list, const char *str);
 void	exec_command(char **list, char **envp);
 char	*ft_strslashjoin(char const *s1, char const *s2);
 void	megafree(char ***list);
+void	ft_pwd(t_str **env_list, char **argv);
+void	ft_env(t_str **env_list, char **argv);
 void	ft_unset(t_str **env_list, char **argv);
 void	ft_export(t_str **env_list, char **argv);
 int		is_valid_var(char prv_char, char curr_char, char nxt_char, char qm);
 char	*adv_qm_rem(char *qm_str, int b_free);
 void	ft_cd(t_str **env_list, char **argv);
 void	ft_heredoc(int *fdi, char *last_line);
+void	ft_array_str_print(char **array);
 
 #endif

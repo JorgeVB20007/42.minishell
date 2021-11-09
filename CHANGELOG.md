@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2021-11-09 - Edu
+
+### Added
+
+- **megafree.c** add ft_array_str_print to print array of strings
+
+### Changed
+
+- **Contants.h** rename LITERAL -> LIT
+- **pwd.c** get **argv as input like execve
+- **interpreter.c** match builtins keywords without limit size, size to INT_MAX
+### Fixed
+
+- **libft/ft_strncmp.c** Fix ft_strncmp now check's at end of both str \0
+
 ## 2021-11-07 - Jorge
 
 ### Added
