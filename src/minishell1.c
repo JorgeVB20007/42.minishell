@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **env)
 //	printf("\nhye\n");
 	env_list = NULL;
 	init_ms_env(env, &env_list);
-	ft_pwd();
+//	ft_pwd();
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &ft_signal_handler);
 	while (1)
