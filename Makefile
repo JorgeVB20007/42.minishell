@@ -6,7 +6,7 @@
 #    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/11/07 23:42:17 by jvacaris         ###   ########.fr        #
+#    Updated: 2021/11/11 00:36:00 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC_FILES	= 	minishell1.c				\
 				utils/megafree.c			\
 				utils/is_valid_var.c		\
 				utils/qm_remover.c			\
+				utils/ft_modstrcmp.c		\
 				builtins/cd.c				\
 				builtins/echo.c				\
 				builtins/export.c			\

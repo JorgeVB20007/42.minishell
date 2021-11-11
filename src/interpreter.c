@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:16:07 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/09 19:22:16 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/11 01:04:41 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ void	redirection_finder(char **list, int *fdi, int *fdo, int *nxt)
 		{
 			if (*fdi)
 				close(*fdi);
-			ft_heredoc(fdi, adv_qm_rem(list[idx + 1], 0));
+			if (ft_strchr(list[idx + 1], '\'') || ft_strchr(list[idx + 1], '"'))
+				ft_heredoc_qm(fdi, adv_qm_rem(list[idx + 1], 0));
+			else
+				ft_heredoc(fdi, list[idx + 1]);
 		}
 		idx++;
 	}
