@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **libft/ft_strreplace.c** Returns a new string in which all occurrences of a specified string in the current instance are replaced with another specified string.
+
+### Changed
+
+- Now exit minishell write exits at input level
+
 ## 2021-11-11 - Jorge
 
 ### Added

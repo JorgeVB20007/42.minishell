@@ -105,7 +105,7 @@ int	main(int argc, char **argv, char **env)
 		str_got = readline(MS_PROMPT);
 		if (str_got == NULL)
 		{
-			printf(MSG_EXIT); //TODO write exit at console input's level
+			printf(MSG_EXIT_MINISHELL);
 			exit(0);
 		}
 		if (*str_got != '\0' )
