@@ -16,37 +16,43 @@ static void	ft_signal_handler(int signal)
 
 /**
  * * Replace a set of characters on a string starting at some index
- * @param str		string to modify 
+ * @param str		string to modify
  * @param charset	set of characters to replace
  * @param index		starting point of replacing
 */
 char	*ft_replace(char *str, char const *oldset, char const *newset)
 {
 	char	*out;
-	int		index;
-	int		index_needle_on_haystack;
+	char 	*tmp;
 	size_t	len;
 	char	*strnstr;
-	size_t	old_set_len;
 
-	index = -1;
 	len = ft_strlen(str);
-	old_set_len = ft_strlen(oldset);
-	index_needle_on_haystack = ft_strnstr(str, oldset, len)  - str; 
-	out = malloc(sizeof(char) * (len - old_set_len + ft_strlen(newset) + 1));
-	while (str[++index] != '\0')
-		out[index] = str[index];	
-	index = strnstr - str;
-	index = -1;
-	while (newset[++index] != '\0')
-		out[index_needle_on_haystack + index] = newset[index];
-	free(str);
-	out[index] = '\0';
+	strnstr = ft_strnstr(str, oldset, len);
+	out = ft_substr(str, 0, strnstr - str);
+	tmp = ft_strjoin(out, newset);
+	free(out);
+	out = ft_strjoin(tmp, strnstr + ft_strlen(oldset));
+	free(tmp);
 	return (out);
 }
 
-	// if (curr_char == '$' && prv_char != '\\' && \
-	// (ft_isalnum(nxt_char) || nxt_char == '_') && (qm == '"' || !qm))
+static char *get_valid_ft_strchr_$(const char *str)
+{
+	char	*strchr_$;
+
+	strchr_$ = (char *)str;
+	while (1)
+	{
+		strchr_$ = ft_strchr(strchr_$, '$');
+		if (!strchr_$)
+			return (NULL);
+		if (strchr_$ == str)
+			return (strchr_$);
+		if (strchr_$[-1] != '\\')
+			return (strchr_$);
+	}
+}
 
 static void	ft_expanse_var(char **argv, t_str **env_list)
 {
@@ -57,12 +63,11 @@ static void	ft_expanse_var(char **argv, t_str **env_list)
 	t_str 	*aux;
 
 	i = 0;
+	strchr_$ = NULL;
 	while (argv[i] != 0)
 	{
-		strchr_$ = ft_strchr(argv[i], '$'); 
-		while (strchr_$ != NULL && strchr_$[-1] == '\\' && (ft_isalnum(strchr_$[1]) || strchr_$[1] == '_'))
-			strchr_$ = ft_strchr(strchr_$, '$');
-		printf("%s\n", strchr_$);
+		strchr_$ = get_valid_ft_strchr_$(argv[i]);
+		// strchr_$ = ft_strchr(argv[i], '$');
 		if (!strchr_$)
 			i++;
 		else
@@ -70,16 +75,12 @@ static void	ft_expanse_var(char **argv, t_str **env_list)
 			len = 1;
 			while (ft_isalnum(strchr_$[len]))
 				len++;
-			printf("2 %s\n", strchr_$);
-			tmp = ft_substr(strchr_$, 1, len);
-			printf("3 %s\n", tmp);
-			aux = ft_lst_str_get_str(env_list, tmp);
-			//printf("4 %s\n", aux->str);
+			tmp = ft_substr(strchr_$, 0, len);
+			aux = ft_lst_str_get_str(env_list, &tmp[1]);
 			if (aux != NULL)
-				argv[i] = ft_replace(argv[i], aux->str,strchr_$ - argv[i]);
+				argv[i] = ft_replace(argv[i], tmp, ft_strchr(aux->str, '=') + 1);
 			else
-				argv[i] = ft_replace(argv[i], "", strchr_$ - argv[i]);
-			printf("5 %s\n", argv[i]);
+				argv[i] = ft_replace(argv[i], tmp, "");
 			free(tmp);
 		}
 	}
