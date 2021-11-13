@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/04/25 19:15:33 by auquinta          #+#    #+#              #
-#    Updated: 2021/11/13 12:54:39 by emadriga         ###   ########.fr        #
+#    Created: 2021/04/25 19:15:33 by emadriga          #+#    #+#              #
+#    Updated: 2021/11/13 13:04:45 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,7 @@ SRC	=	ft_atoi.c			ft_bzero.c			ft_calloc.c			ft_isalnum.c		\
 		ft_tolower.c		ft_toupper.c		ft_isspace.c							\
 		ft_lstadd_back.c	ft_lstadd_front.c	ft_lstclear.c		ft_lstdelone.c		\
 		ft_lstiter.c		ft_lstlast.c		ft_lstnew.c			ft_lstsize.c		\
-		ft_lstmap.c			get_next_line.c		is_valid_var.c		qm_remover.c		
-		ft_strreplace
+		ft_lstmap.c			get_next_line.c		ft_strreplace.c
 
 # Name of the Library
 NAME	= libft.a

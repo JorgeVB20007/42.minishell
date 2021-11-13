@@ -6,11 +6,11 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:36:26 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/07 00:36:30 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/10 22:45:00 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 /*
  ? Function created for the project "minishell"
@@ -27,4 +27,23 @@ int	is_valid_var(char prv_char, char curr_char, char nxt_char, char qm)
 		return (1);
 	else
 		return (0);
+}
+
+int	is_valid_var_hd(char *str, int idx)
+{
+	if (!str[idx])
+		return (0);
+	if (!idx)
+	{
+		if (str[idx] == '$' && (ft_isalnum(str[idx + 1]) \
+		|| str[idx + 1] == '_'))
+			return (1);
+	}
+	else
+	{
+		if (str[idx] == '$' && str[idx - 1] != '\\' && \
+		(ft_isalnum(str[idx + 1]) || str[idx + 1] == '_'))
+			return (1);
+	}
+	return (0);
 }

@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **libft/ft_strreplace.c** Returns a new string in which all occurrences of a specified string in the current instance are replaced with another specified string.
+## 2021-11-11 - Jorge
+
+### Added
+
+- **heredoc** works mostly fine (some rules need to be added to 100% emulate the real Bash).
 
 ## 2021-11-09 - Edu
 
@@ -26,6 +31,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **libft/ft_strncmp.c** Fix ft_strncmp now check's at end of both str \0
+
+## 2021-11-07 - Jorge
+
+### Added
+
+- *heredoc* started, but **readline** doesn't work insde the ft_heredoc() funtion.
+
+### Fixed
+
+- Other characters (such as '\t') considered spaces when parsing. **ft_isspace** was used for this.
+- *fdin* and *fdout* in **redirection_finder()** were messed up. This has been fixed.
 
 ## 2021-11-07 - Edu
 

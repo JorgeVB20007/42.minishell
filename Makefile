@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
+#    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/11/07 11:21:06 by emadriga         ###   ########.fr        #
+#    Updated: 2021/11/11 00:36:00 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,11 +36,15 @@ SRC_FILES	= 	minishell1.c				\
 				qm_error_detector.c			\
 				interpreter.c				\
 				exec_command.c				\
+				heredoc.c					\
 				builtins/env.c				\
 				utils/lst_str_handler.c		\
 				utils/lst_str_handler2.c	\
 				utils/ft_strslashjoin.c		\
 				utils/megafree.c			\
+				utils/is_valid_var.c		\
+				utils/qm_remover.c			\
+				utils/ft_modstrcmp.c		\
 				builtins/cd.c				\
 				builtins/echo.c				\
 				builtins/export.c			\

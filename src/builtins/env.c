@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/09 12:58:44 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/09 19:31:22 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ void	ft_env(t_str **env_list, char **argv)
 {
 	t_str	*aux;
 
-	if (argv[1] != NULL)
+	if (argv[1] != NULL && argv[1][0] != '|' && argv[1][0] != '<' \
+	&& argv[1][0] != '>')
 		printf(ENV_NOT_OPTIONS_OR_ARGUMENT_ALLOWED);
 	else
 	{

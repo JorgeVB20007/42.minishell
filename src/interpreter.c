@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpreter.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:16:07 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/09 13:13:10 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/11 01:04:41 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,33 @@ void	redirection_finder(char **list, int *fdi, int *fdo, int *nxt)
 	{
 		if (!ft_strncmp(list[idx], ">\0", 2))
 		{
-			if (*fdi)
-				close(*fdi);
-			*fdi = open(list[idx + 1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
-			dup2(*fdi, 1);
+			if (*fdo)
+				close(*fdo);
+			*fdo = open(list[idx + 1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
+			dup2(*fdo, 1);
 		}
 		else if (!ft_strncmp(list[idx], ">>\0", 3))
 		{
-			if (*fdi)
-				close(*fdi);
-			*fdi = open(list[idx + 1], O_CREAT | O_WRONLY | O_APPEND, 0666);
-			dup2(*fdi, 1);
+			if (*fdo)
+				close(*fdo);
+			*fdo = open(list[idx + 1], O_CREAT | O_WRONLY | O_APPEND, 0666);
+			dup2(*fdo, 1);
 		}
 		else if (!ft_strncmp(list[idx], "<\0", 2))
 		{
-			if (*fdo)
-				close(*fdo);
-			*fdo = open(list[idx + 1], O_RDONLY, 0666);
-			dup2(*fdo, 0);
+			if (*fdi)
+				close(*fdi);
+			*fdi = open(list[idx + 1], O_RDONLY, 0666);
+			dup2(*fdi, 0);
+		}
+		else if (!ft_strncmp(list[idx], "<<\0", 3))
+		{
+			if (*fdi)
+				close(*fdi);
+			if (ft_strchr(list[idx + 1], '\'') || ft_strchr(list[idx + 1], '"'))
+				ft_heredoc_qm(fdi, adv_qm_rem(list[idx + 1], 0));
+			else
+				ft_heredoc(fdi, list[idx + 1]);
 		}
 		idx++;
 	}
@@ -99,7 +108,7 @@ static void	command_finder(char **list, int *idx, t_str **env_list)
 	assist = NULL;
 	while (list[*idx][0] == '<' || list[*idx][0] == '>')
 		*idx += 2;
-	assist = adv_qm_rem(list[*idx]);
+	assist = adv_qm_rem(list[*idx], 0);
 	if (!ft_strncmp(assist, "echo\0", 5))
 		ft_echo(&list[*idx]);
 	else if (!ft_strncmp(assist, "pwd", INT_MAX))

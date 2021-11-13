@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:15:35 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/07 00:34:03 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/07 22:39:04 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	still_command_check(char *list)
 
 	if (!list)
 		return (0);
-	assist = adv_qm_rem(list);
+	assist = adv_qm_rem(list, 0);
 	if (list[0] == '|')
 		return (0);
 	if (!ft_strncmp(assist, ">\0", 2) || !ft_strncmp(assist, ">>\0", 3))
@@ -90,13 +90,14 @@ void	exec_command(char **list, char **envp)
 	int		idx;
 	char	**red_list;
 	char	*assist;
+	int		frk;
 
 	idx = 0;
 	while (still_command_check(list[idx]))
 		idx++;
 	red_list = calloc(sizeof(char *), idx + 1);
 	idx = -1;
-	assist = adv_qm_rem(list[0]);
+	assist = adv_qm_rem(list[0], 0);
 	if (!access(assist, X_OK))
 		red_list[++idx] = get_last_file(assist);
 	while (still_command_check(list[++idx]))
@@ -109,6 +110,9 @@ void	exec_command(char **list, char **envp)
 	}
 	if (!assist)
 		return ;
-	execve(assist, list, envp);
+	frk = fork();
+	if (!frk)
+		execve(assist, red_list, envp);
+	wait(NULL);
 	free(assist);
 }

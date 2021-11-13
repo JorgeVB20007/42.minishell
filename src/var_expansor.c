@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:09:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/10/31 00:25:23 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/10 22:20:41 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 /*
  * This function recieves the adress of the first character of a 
- * variable's name ($varname), reads the variaable name, gets 
- * it's value and returns it.
+ * variable's name ($varname), reads the variable name, gets 
+ * it's value and returns it. 
+ * Inputting the trimmed variable name is not required.
 */
 char	*getvarvalue(char *str)
 {
