@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/07 11:54:50 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/13 20:33:43 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_lst_str_add_back(t_str **list, char *str)
 }
 
 /**
- * * Look for a str on the list returning if found
+ * * Look for a str on the list returning node if found
  * @param list	list
  * @param str	new str to look for
 */
@@ -82,4 +82,24 @@ t_str	*ft_lst_str_get_str(t_str **list, const char *str)
 		aux = aux->next;
 	}
 	return (NULL);
+}
+
+/**
+ * * This should recreate the stdlib.h funtion "getenv".
+ * * Searches the environment list to find the environment variable name, \
+ * * and returns a pointer to the corresponding value string
+ * @param env_list	enviroment list
+ * @param str		new str to look for
+*/
+char	*ft_getenv(t_str **env_list, const char *str)
+{
+	t_str	*aux;
+	char	*str_like;
+
+	str_like = ft_strjoin(str, "=");
+	aux = ft_lst_str_get_str(env_list, str_like);
+	free(str_like);
+	if (aux == NULL)
+		return ("");
+	return (ft_strchr(aux->str, '=') + 1);
 }

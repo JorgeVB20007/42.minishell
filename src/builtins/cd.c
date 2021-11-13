@@ -8,18 +8,16 @@
  * * OLDPWD get update with currrent env's PWD
  * * PWD get updated with current working directory
  * @param env_list	enviroment list
+ * @param pwd		env's current PWD
+ * @param old_pwd	env's current OLDPWD
 */
-static void update_env_pwd(t_str **env_list)
+static void	update_env_pwd(t_str **env_list, t_str	*pwd, t_str	*old_pwd)
 {
-	t_str	*pwd;
-	t_str	*old_pwd;
 	char	*str;
 	char	cwd[PATH_MAX - 1];
 
-	old_pwd = ft_lst_str_get_str(env_list, LIT_OLDPWD_LIKE);
 	if (old_pwd == NULL)
 		old_pwd = ft_lst_str_get_str(env_list, LIT_OLDPWD);
-	pwd = ft_lst_str_get_str(env_list, LIT_PWD_LIKE);
 	if (old_pwd != NULL)
 	{
 		ft_lst_str_delete(env_list, old_pwd->str);
@@ -78,5 +76,6 @@ void	ft_cd(t_str **env_list, char **argv)
 			cant_chdir = ft_cant_chdir(ft_strchr(aux->str, '/'));
 	}
 	if (!cant_chdir)
-		update_env_pwd(env_list);
+		update_env_pwd(env_list, ft_lst_str_get_str(env_list, LIT_PWD_LIKE), \
+						ft_lst_str_get_str(env_list, LIT_OLDPWD_LIKE));
 }

@@ -10,11 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **utils/lst_str_handler2.c.c** added ft_getenv.c recreates the stdlib.h funtion "getenv"
 - **libft/ft_strreplace.c** Returns a new string in which all occurrences of a specified string in the current instance are replaced with another specified string.
+- **libft/ft_strreplaceat.c** Returns a new string in which occurrence at index (if found) of a specified string in the current instance are replaced with another specified string.
 
 ### Changed
 
 - Now exit minishell write 'exit' at input level
+- **builtins/cd.c** refactor to fullfill norm
 
 ## 2021-11-11 - Jorge
 
