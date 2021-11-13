@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Now exit minishell write exits at input level
+- Now exit minishell write 'exit' at input level
 
 ## 2021-11-11 - Jorge
 
