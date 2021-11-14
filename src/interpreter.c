@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:16:07 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/11 01:04:41 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/12 23:55:02 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,12 @@ TODO	located at the end of the list
 */
 void	redirection_finder(char **list, int *fdi, int *fdo, int *nxt)
 {
-	int	idx;
+	int		idx;
+	char	*no_qm;
 
 	idx = -1;
 	*nxt = 0;
+	no_qm = NULL;
 	while (list[++idx])
 		*nxt += (list[idx][0] == '|');
 	if (*nxt)
@@ -63,25 +65,28 @@ void	redirection_finder(char **list, int *fdi, int *fdo, int *nxt)
 	idx = 0;
 	while (list[idx] && list[idx][0] != '|')
 	{
+		no_qm = NULL;
+		if (list[idx + 1])
+			no_qm = adv_qm_rem(list[idx + 1], 0);
 		if (!ft_strncmp(list[idx], ">\0", 2))
 		{
 			if (*fdo)
 				close(*fdo);
-			*fdo = open(list[idx + 1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
+			*fdo = open(no_qm, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 			dup2(*fdo, 1);
 		}
 		else if (!ft_strncmp(list[idx], ">>\0", 3))
 		{
 			if (*fdo)
 				close(*fdo);
-			*fdo = open(list[idx + 1], O_CREAT | O_WRONLY | O_APPEND, 0666);
+			*fdo = open(no_qm, O_CREAT | O_WRONLY | O_APPEND, 0666);
 			dup2(*fdo, 1);
 		}
 		else if (!ft_strncmp(list[idx], "<\0", 2))
 		{
 			if (*fdi)
 				close(*fdi);
-			*fdi = open(list[idx + 1], O_RDONLY, 0666);
+			*fdi = open(no_qm, O_RDONLY, 0666);
 			dup2(*fdi, 0);
 		}
 		else if (!ft_strncmp(list[idx], "<<\0", 3))
@@ -89,10 +94,11 @@ void	redirection_finder(char **list, int *fdi, int *fdo, int *nxt)
 			if (*fdi)
 				close(*fdi);
 			if (ft_strchr(list[idx + 1], '\'') || ft_strchr(list[idx + 1], '"'))
-				ft_heredoc_qm(fdi, adv_qm_rem(list[idx + 1], 0));
+				ft_heredoc_qm(fdi, no_qm);
 			else
 				ft_heredoc(fdi, list[idx + 1]);
 		}
+		free(no_qm);
 		idx++;
 	}
 }

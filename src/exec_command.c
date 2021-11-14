@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:15:35 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/07 22:39:04 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/13 23:03:02 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,10 @@ void	exec_command(char **list, char **envp)
 		return ;
 	frk = fork();
 	if (!frk)
-		execve(assist, red_list, envp);
+	{
+		if (execve(assist, red_list, envp) < 0)
+			perror("Error:");
+	}
 	wait(NULL);
 	free(assist);
 }
