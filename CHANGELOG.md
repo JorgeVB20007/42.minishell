@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
+## 2021-11-13 - Edu
+
+### Added
+
+- **utils/lst_str_handler2.c.c** added ft_getenv.c recreates the stdlib.h funtion "getenv"
+- **libft/ft_strreplace.c** Returns a new string in which all occurrences of a specified string in the current instance are replaced with another specified string.
+- **libft/ft_strreplaceat.c** Returns a new string in which occurrence at index (if found) of a specified string in the current instance are replaced with another specified string.
+
+### Changed
+
+- Now exit minishell write 'exit' at input level
+- **builtins/cd.c** refactor to fullfill norm
+
 ## 2021-11-11 - Jorge
 
 ### Added

@@ -2,6 +2,7 @@
 * Log with errors and locations (function throwing them) 'd be great
 * top | cat -> espera el enter de cat y mientras imprime cada poo tiempo TOP
 * cat | cat | cat | ls/echo "hello world!" -> immprime hello world ! o ls espera 3 enters de cat
+* system("lsof -c minishell"); to check unclosed elements
 * apavel  suggestions se parte en
 	cmd
 	argv

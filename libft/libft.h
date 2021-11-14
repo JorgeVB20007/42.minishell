@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:15:07 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/07 21:38:09 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/13 20:58:55 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
 int		get_next_line(int fd, char **line);
-
+char	*ft_strreplace(const char *str, char const *oldset, char const *newset);
+char	*ft_strreplaceat(const char *str, char const *oldset, \
+		char const *newset, size_t index);
 #endif

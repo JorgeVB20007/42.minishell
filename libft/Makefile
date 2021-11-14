@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
+#    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/25 19:15:33 by emadriga          #+#    #+#              #
-#    Updated: 2021/11/07 21:38:53 by jvacaris         ###   ########.fr        #
+#    Updated: 2021/11/13 20:59:12 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC	=	ft_atoi.c			ft_bzero.c			ft_calloc.c			ft_isalnum.c		\
 		ft_tolower.c		ft_toupper.c		ft_isspace.c							\
 		ft_lstadd_back.c	ft_lstadd_front.c	ft_lstclear.c		ft_lstdelone.c		\
 		ft_lstiter.c		ft_lstlast.c		ft_lstnew.c			ft_lstsize.c		\
-		ft_lstmap.c			get_next_line.c	
+		ft_lstmap.c			get_next_line.c		ft_strreplace.c		ft_strreplaceat.c
 
 # Name of the Library
 NAME	= libft.a

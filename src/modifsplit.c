@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   modifsplit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:10:39 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/07 22:06:20 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/13 13:05:40 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,20 @@ int	ft_modstrcpy(char *orgn, char **end, int len)
 	a = 0;
 	b = 0;
 	qm = 0;
-	if (b >= len && is_valid_var(orgn[a - 1], orgn[a], orgn[a + 1], qm))
-		expand_var(orgn, end, &a, &b);
+	// if (b >= len && is_valid_var(orgn[a - 1], orgn[a], orgn[a + 1], qm))
+	// 	expand_var(orgn, end, &a, &b);
 	while (b < len)
 	{
-		if (is_valid_var(orgn[a - 1], orgn[a], orgn[a + 1], qm))
-			expand_var(orgn, end, &a, &b);
+		// if (is_valid_var(orgn[a - 1], orgn[a], orgn[a + 1], qm))
+		// 	expand_var(orgn, end, &a, &b);
 		if ((orgn[a] == '\'' || orgn[a] == '"') && !qm)
 			qm = orgn[a];
 		else if (qm == orgn[a] && qm)
 			qm = 0;
 		if (orgn[a] == '\\' && (ft_isspace(orgn[a + 1]) && !qm))
 			a++;
-		if (orgn[a] == '\\' && orgn[a + 1] == '$' && (qm == '"' || !qm))
+		if (orgn[a] == '\\' && (qm == '"' || !qm))
+		// if (orgn[a] == '\\' && orgn[a + 1] == '$' && (qm == '"' || !qm))
 			a++;
 		(*end)[b++] = orgn[a++];
 	}
@@ -62,9 +63,10 @@ static void	quotemarksfound(int *a, int *count, char *input, char quotemark)
 	(*count)++;
 	while ((input[*a] != quotemark || input[*a - 1] == '\\') && input[*a])
 	{
-		if (is_valid_var(input[*a - 1], input[*a], input[*a + 1], quotemark))
-			dollarfound_getlen(a, count, input);
-		else if (input[*a] == '$' && input[*a - 1] == '\\' && quotemark == '"')
+		// if (is_valid_var(input[*a - 1], input[*a], input[*a + 1], quotemark))
+		// 	dollarfound_getlen(a, count, input);
+		if (input[*a - 1] == '\\' && quotemark == '"')
+		// else if (input[*a] == '$' && input[*a - 1] == '\\' && quotemark == '"')
 			(*a)++;
 		else
 		{
