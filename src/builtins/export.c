@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 20:42:55 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/07 13:44:06 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/14 20:39:52 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,36 @@
 #define EXPORT_WRONG_ID "export: `%c': not a valid identifier\n"
 
 /**
- * * This should recreate the bash funtion "env".
- * * Returms enviroment variables list
+ * * Evals vallid export to add
+ * * Returns ENV alphabetically-sorted
+ * @param str	enviroment list
+*/
+static int	is_valid_add_export(const char *str)
+{
+	char	*aux;
+	int		has_like;
+	int		ok;
+
+	aux = (char *)str;
+	has_like = 0;
+	ok = ft_isalpha(*aux++);
+	while (*aux != '\0' && !has_like && ok == 1)
+	{
+		if (!ft_isalnum(*aux) && !ft_strchr("=\"", *aux))
+			ok = 0;
+		if (*aux == '=')
+			has_like = 1;
+		aux++;
+	}
+	--aux;
+	if (!ok)
+		printf(EXPORT_WRONG_ID, *aux);
+	return (ok);
+}
+
+/**
+ * * This should recreate the bash funtion "export".
+ * * Returns ENV alphabetically-sorted
  * @param env_list	enviroment list
 */
 static void	ft_print_env_without_last_cmd(t_str **env_list)
@@ -25,6 +53,7 @@ static void	ft_print_env_without_last_cmd(t_str **env_list)
 	t_str	*aux;
 	char	*strchr;
 	int		width;
+	char	*strchr_replaced;
 
 	aux = *env_list;
 	while (aux != NULL)
@@ -35,8 +64,10 @@ static void	ft_print_env_without_last_cmd(t_str **env_list)
 			if (strchr != NULL)
 			{
 				strchr++;
+				strchr_replaced = ft_strreplace(strchr, "\"", "\\\"");
 				width = (int)(strchr - aux->str);
-				printf(PRINT_DECLARE_COMPLEX, width, aux->str, strchr);
+				printf(PRINT_DECLARE_COMPLEX, width, aux->str, strchr_replaced);
+				free(strchr_replaced);
 			}
 			else
 				printf(PRINT_DECLARE_SIMPLE, aux->str);
@@ -57,23 +88,28 @@ void	ft_export(t_str **env_list, char **argv)
 	int		i;
 	char	*env_desc;
 	char	*strchr;
+	char	*argv_without_qm;
 
 	i = 1;
 	env_desc = NULL;
+	argv_without_qm = NULL;
 	if (argv[i] == NULL)
 		ft_print_env_without_last_cmd(env_list);
 	while (argv[i] != NULL)
 	{
-		if (!ft_isalpha(argv[i][0]))
-			printf(EXPORT_WRONG_ID, argv[i][0]);
-		strchr = ft_strchr(argv[i], '=');
-		if (strchr)
-			env_desc = ft_substr(argv[i], 0, strchr - argv[i] + 1);
-		else
-			env_desc = ft_strdup(argv[i]);
-		ft_lst_str_delete(env_list, env_desc);
-		ft_lst_str_add_sorted(env_list, argv[i]);
-		free(env_desc);
+		if (is_valid_add_export(argv[i]))
+		{			
+			argv_without_qm = adv_qm_rem(argv[i], 0);
+			strchr = ft_strchr(argv_without_qm, '=');
+			if (strchr)
+				env_desc = ft_substr(argv_without_qm, 0, \
+							strchr - argv_without_qm + 1);
+			else
+				env_desc = ft_strdup(argv_without_qm);
+			ft_lst_str_delete(env_list, env_desc);
+			ft_lst_str_add_sorted(env_list, argv_without_qm);
+			free(env_desc);
+		}
 		i++;
 	}
 }

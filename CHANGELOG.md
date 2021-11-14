@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2021-11-14 - Edu
+
+### Added
+
+- **libft/ft_strcmp.c**  recreates the string.h funtion "strcmp"
+
+### Fixed
+
+- Fixed size_t MAX for str functions as limits.h ULONG_MAX
+- **builtins/export.c** not allowing characters before '=' and handling \' \" combinations properly
+- **libft/ft_strreplace.c** fix loop when newset chars contains oldset chars
+- **src/minishell1.c** Remove some wrong functions (wrong previous commit)
 
 ## 2021-11-13 - Edu
 

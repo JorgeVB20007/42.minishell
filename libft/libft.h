@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:15:07 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/13 20:58:55 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/14 21:45:34 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include	<string.h>
 # include	<stdlib.h>
 # include	<unistd.h>
+# include	<limits.h>
 
 typedef struct s_list
 {
@@ -72,4 +73,5 @@ int		get_next_line(int fd, char **line);
 char	*ft_strreplace(const char *str, char const *oldset, char const *newset);
 char	*ft_strreplaceat(const char *str, char const *oldset, \
 		char const *newset, size_t index);
+int		ft_strcmp(const char *s1, const char *s2);
 #endif
