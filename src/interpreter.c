@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:16:07 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/12 23:55:02 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/15 17:02:10 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,15 +117,15 @@ static void	command_finder(char **list, int *idx, t_str **env_list)
 	assist = adv_qm_rem(list[*idx], 0);
 	if (!ft_strncmp(assist, "echo\0", 5))
 		ft_echo(&list[*idx]);
-	else if (!ft_strncmp(assist, "pwd", INT_MAX))
+	else if (!ft_strncmp(assist, "pwd", ULONG_MAX))
 		ft_pwd(env_list, &list[*idx]);
-	else if (!ft_strncmp(assist, "env", INT_MAX))
+	else if (!ft_strncmp(assist, "env", ULONG_MAX))
 		ft_env(env_list, &list[*idx]);
-	else if (!ft_strncmp(assist, "unset", INT_MAX))
+	else if (!ft_strncmp(assist, "unset", ULONG_MAX))
 		ft_unset(env_list, &list[*idx]);
-	else if (!ft_strncmp(assist, "export", INT_MAX))
+	else if (!ft_strncmp(assist, "export", ULONG_MAX))
 		ft_export(env_list, &list[*idx]);
-	else if (!ft_strncmp(assist, "cd", INT_MAX))
+	else if (!ft_strncmp(assist, "cd", ULONG_MAX))
 		ft_cd(env_list, &list[*idx]);
 	else
 		exec_command(&list[*idx], env_list_to_vector(env_list));

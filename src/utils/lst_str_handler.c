@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/09 12:10:09 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/14 20:16:57 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ static void	ft_lst_str_add_sorted2(t_str **list, t_str	*new)
 	t_str	*aux;
 
 	aux = *list;
-	if (ft_strncmp(new->str, aux->str, INT_MAX) < 0)
+	if (ft_strncmp(new->str, aux->str, ULONG_MAX) < 0)
 	{
 		new->next = aux;
 		*list = new;
 	}
 	while (aux != NULL)
 	{
-		if (ft_strncmp(new->str, aux->str, LONG_MAX) > 0 && (aux->next == NULL \
-		|| ft_strncmp(new->str, aux->next->str, LONG_MAX) < 0))
+		if (ft_strncmp(new->str, aux->str, ULONG_MAX) > 0 && (aux->next == NULL \
+		|| ft_strncmp(new->str, aux->next->str, ULONG_MAX) < 0))
 		{
 			new->next = aux->next;
 			aux->next = new;

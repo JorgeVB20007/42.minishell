@@ -19,3 +19,6 @@ ToDo
 - [x] Export dont allow start with every char like number or symbols
 - [ ] Unificar entradas para Builtins
 - [ ] Gestionar correctamente ERNO
+- [ ] Gestionar señales en procesos hijos (open heredoc.s)
+- [ ] Hacer Env global a todas las funciones
+
