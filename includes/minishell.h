@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/13 20:51:11 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/20 10:56:12 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,15 @@ typedef struct s_str
 	char			*str;
 	struct s_str	*next;
 }t_str;
+
+typedef struct s_red
+{
+	int				pip[2];
+	char			*path;
+	char			**params;
+	char			**redirs;
+	struct s_red	*next;
+}t_red;
 
 char	**modifsplit(char *input);
 void	dollarfound_getlen(int *a, int *count, char *input);
