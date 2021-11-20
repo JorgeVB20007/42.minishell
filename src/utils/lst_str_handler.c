@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/14 20:16:57 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/20 22:16:06 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ static void	ft_lst_str_add_sorted2(t_str **list, t_str	*new)
 	t_str	*aux;
 
 	aux = *list;
-	if (ft_strncmp(new->str, aux->str, ULONG_MAX) < 0)
+	if (ft_strcmp(new->str, aux->str) < 0)
 	{
 		new->next = aux;
 		*list = new;
 	}
 	while (aux != NULL)
 	{
-		if (ft_strncmp(new->str, aux->str, ULONG_MAX) > 0 && (aux->next == NULL \
-		|| ft_strncmp(new->str, aux->next->str, ULONG_MAX) < 0))
+		if (ft_strcmp(new->str, aux->str) > 0 && (aux->next == NULL \
+		|| ft_strcmp(new->str, aux->next->str) < 0))
 		{
 			new->next = aux->next;
 			aux->next = new;
@@ -97,17 +97,16 @@ void	ft_lst_str_print(t_str *list)
 }
 
 /**
- * * Delete every str from list
+ * * Delete every matched str of size len from list
  * @param list	list
  * @param str	str to delete
+ * @param len	len to match with ft_strncmp
 */
-void	ft_lst_str_delete(t_str **list, char *str)
+void	ft_lst_str_delete(t_str **list, char *str, size_t len)
 {
 	t_str	*prev;
 	t_str	*aux;
-	size_t	len;
 
-	len = ft_strlen(str);
 	ft_lst_str_add_front(list, NULL);
 	prev = *list;
 	aux = prev->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_expansor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:09:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/10 22:20:41 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/20 13:38:05 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,13 @@ void	expand_var(char *orgn, char **end, int *a, int *b)
 */
 void	dollarfound_getlen(int *a, int *count, char *input)
 {
+	char	*value;
+
+	value = NULL;
+	value = getvarvalue(&input[*a]);
 	(*a)++;
-	if (getvarvalue(&input[*a]))
-		*count += ft_strlen(getvarvalue(&input[*a]));
+	if (value)
+		*count += ft_strlen(value);
 	while ((ft_isalnum(input[*a]) || input[*a] == '_') && input[*a])
 		(*a)++;
 }

@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 20:42:55 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/14 20:39:52 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/20 22:10:12 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 /**
  * * Evals vallid export to add
- * * Returns ENV alphabetically-sorted
  * @param str	enviroment list
 */
 static int	is_valid_add_export(const char *str)
@@ -44,8 +43,7 @@ static int	is_valid_add_export(const char *str)
 }
 
 /**
- * * This should recreate the bash funtion "export".
- * * Returns ENV alphabetically-sorted
+ * * Print ENV list
  * @param env_list	enviroment list
 */
 static void	ft_print_env_without_last_cmd(t_str **env_list)
@@ -77,6 +75,34 @@ static void	ft_print_env_without_last_cmd(t_str **env_list)
 }
 
 /**
+ * * Add str to enviroment variables list (alphabetically-sorted)
+ * * if str exist updates value
+ * @param env_list	enviroment list
+ * @param str		str to add
+*/
+static void	ft_export_add(t_str **env_list, char *str)
+{
+	char	*env_desc;
+	char	*strchr;
+
+	env_desc = NULL;
+	strchr = ft_strchr(str, '=');
+	if (strchr)
+	{
+		env_desc = ft_substr(str, 0, strchr - str + 1);
+		ft_lst_str_delete(env_list, env_desc, strchr - str + 1);
+		free(env_desc);
+		env_desc = ft_substr(str, 0, strchr - str);
+	}
+	else
+		env_desc = ft_strdup(str);
+	ft_lst_str_delete(env_list, env_desc, ULONG_MAX);
+	if (!ft_strcmp(ft_getenv(env_list, env_desc), ""))
+		ft_lst_str_add_sorted(env_list, str);
+	free(env_desc);
+}
+
+/**
  * * This should recreate the bash funtion "export".
  * * Returns ENV alphabetically-sorted
  * * Add records (through argumment vector) to enviroment variables list
@@ -86,12 +112,9 @@ static void	ft_print_env_without_last_cmd(t_str **env_list)
 void	ft_export(t_str **env_list, char **argv)
 {
 	int		i;
-	char	*env_desc;
-	char	*strchr;
 	char	*argv_without_qm;
 
 	i = 1;
-	env_desc = NULL;
 	argv_without_qm = NULL;
 	if (argv[i] == NULL)
 		ft_print_env_without_last_cmd(env_list);
@@ -99,16 +122,8 @@ void	ft_export(t_str **env_list, char **argv)
 	{
 		if (is_valid_add_export(argv[i]))
 		{			
-			argv_without_qm = adv_qm_rem(argv[i], 0);
-			strchr = ft_strchr(argv_without_qm, '=');
-			if (strchr)
-				env_desc = ft_substr(argv_without_qm, 0, \
-							strchr - argv_without_qm + 1);
-			else
-				env_desc = ft_strdup(argv_without_qm);
-			ft_lst_str_delete(env_list, env_desc);
-			ft_lst_str_add_sorted(env_list, argv_without_qm);
-			free(env_desc);
+			argv_without_qm = adv_qm_rem(argv[i], NOT_FREE);
+			ft_export_add(env_list, argv_without_qm);
 		}
 		i++;
 	}

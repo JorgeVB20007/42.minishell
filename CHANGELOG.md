@@ -10,6 +10,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **utils/lst_red_handler.c**  Include basic functions to handle red list (new, add_front, add_back & free_list)
+- **qm_error_detector.c** added functions ro check open redirections
+
+### Changed
+
+- **utils/lst_str_handler.c.c** ft_lst_str_delete modified now deletes every matched str of size len from list
+- Replaced **libft/ft_strncmp** with **libft/ft_strcmp** is possible 
+- **var_expansor.c** improve performance dollarfound_getlen 
+
+### Fixed
+
+- **builtins/export.c** Fix updating variables with and without equals
 
 ## 2021-11-14 - Edu
 

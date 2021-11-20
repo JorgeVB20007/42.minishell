@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/20 10:56:12 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/20 20:58:40 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_lst_str_print(t_str *list);
 void	ft_lst_str_add_back(t_str **list, char *str);
 void	ft_lst_str_add_front(t_str **list, char *str);
 void	ft_lst_str_add_sorted(t_str **list, char *str);
-void	ft_lst_str_delete(t_str **list, char *str);
+void	ft_lst_str_delete(t_str **list, char *str, size_t len);
 t_str	*ft_lst_str_get_str(t_str **list, const char *str);
 void	exec_command(char **list, char **envp);
 char	*ft_strslashjoin(char const *s1, char const *s2);
@@ -75,4 +75,5 @@ void	ft_array_str_print(char **array);
 char	*getvarvalue(char *str);
 int		modstrcmp(char *str1, char *str2);		// ? Es como el strcmp, pero le llamo "mod" porque no me he dedicado a comprobar que esté bien.
 char	*ft_getenv(t_str **env_list, const char *str);
+int		has_last_redirection_open(const char *str);
 #endif
