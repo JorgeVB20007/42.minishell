@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:22:19 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/20 22:26:18 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/21 15:15:53 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,18 @@
 unexpected token `%s'\n"
 #define LIT_NEWLINE "newline"
 
-/*
-* This function detects if there's quotation marks unclosed through the input 
-* given. Quotation marks inside other types of quotation marks are excluded.
-* If all goes well, the value 0 is returned.
+enum e_token
+{
+	NONE,
+	PIPE,
+	REDIRECTION
+};
+
+/**
+* * This function detects if there's quotation marks unclosed through the input 
+* * given. Quotation marks inside other types of quotation marks are excluded.
+* * If all goes well, the value 0 is returned.
+* @return 		ERNNO code is returnerd
 */
 int	qm_error_detector(char *str)
 {
@@ -48,55 +56,51 @@ int	qm_error_detector(char *str)
 }
 
 /**
- * * Detects open redirection at the end of str return error if finds one 
- * @param path	path
+ * * Eval str to check between EOF, PIPE, REDIRECTION or NONE
+ * @param token	token
+ * @return 		token identiifcator 
 */
-int	has_last_redirection_open(const char *str)
+static int	ft_strcmp_token(char *token)
 {
-	size_t	len;
-	int		ok;
-	char	*trim;
-
-	ok = 1;
-	trim = ft_strtrim(str, " ");
-	len = ft_strlen(trim);
-	if (ft_strchr("<>", trim[len - 1]) || !ft_strcmp(&trim[len - 2], ">|"))
-		ok = 0;
-	if (!ok)
-		printf(ERROR_OPEN_REDIR, LIT_NEWLINE);
-	free(trim);
-	return (ok);
+	if (!token)
+		return (EOF);
+	else if (!ft_strcmp(token, "|"))
+		return (PIPE);
+	else if (!ft_strcmp(token, ">") || !ft_strcmp(token, "<") \
+		|| !ft_strcmp(token, ">>") || !ft_strcmp(token, "<<"))
+		return (REDIRECTION);
+	return (NONE);
 }
 
 /**
- * * Detects open redirections 
- * @param path	path
+ * * Detects open redirections
+ * @param array	array of args (input splited in eseful tokens)
+ * @return 		ERNNO code is returnerd
 */
-int	has_redirection_open(const char **array)
+int	has_pipe_redir_open(char **array)
 {
-	int		i;
 	char	*token;
+	int		current;
+	int		next;
 
-	i = 0;
 	token = NULL;
-	while (array[i])
+	while (*array != NULL && !token)
 	{
-		if (ft_strcmp(array[i], ">") || ft_strcmp(array[i], "<") \
-		|| ft_strcmp(array[i], ">>") || ft_strcmp(array[i++], "<<"))
-		{
-			if (array[i])
-				token = ft_strdup(LIT_NEWLINE);
-			else if (ft_strcmp(array[i], ">") || ft_strcmp(array[i], "<") \
-				|| ft_strcmp(array[i], ">>") || ft_strcmp(array[i], "<<") \
-				|| ft_strcmp(array[i], "|"))
-				token = ft_strdup(array[i]);
-		}
+		current = ft_strcmp_token(*array);
+		array++;
+		next = ft_strcmp_token(*array);
+		if (current == REDIRECTION && next == EOF)
+			token = ft_strdup(LIT_NEWLINE);
+		else if (current == REDIRECTION && next != NONE)
+			token = ft_strdup(*array);
+		else if (current == PIPE && next == PIPE)
+			token = ft_strdup(*array);
 	}
 	if (token != NULL)
 	{
 		printf(ERROR_OPEN_REDIR, token);
 		free(token);
-		return (1);
-	}	
+		return (258);
+	}
 	return (0);
 }

@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2021-11-21 - Edu
+
+### Added
+
+- **includes/constants.c** add FREE/NOT_FREE status enumerable
+
+### Fixed
+
+- **qm_error_detector.c** fix has_pipe_redir_open to handle pipe &redir errors with ERNNO code
+
 ## 2021-11-20 - Edu
 
 ### Added
