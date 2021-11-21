@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:22:19 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/21 17:00:56 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:16:55 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ int	qm_error_detector(char *str)
 }
 
 /**
- * * Eval str to check between EOF, PIPE, REDIRECTION or NONE
+ * * Eval token to check between EOF, PIPE, REDIRECTION or NONE
  * @param token	token
  * @return 		token identiifcator 
 */
-static int	ft_strcmp_token(char *token)
+static int	eval_token(char *token)
 {
 	if (!token)
 		return (EOF);
@@ -77,18 +77,18 @@ static int	ft_strcmp_token(char *token)
  * @param array	array of args (input splited in useful tokens)
  * @return 		ERNNO code is returnerd
 */
-int	has_pipe_redir_open(char **array)
+int	has_pipe_redir_open(char **array, char	*token)
 {
-	char	*token;
 	int		current;
 	int		next;
 
-	token = NULL;
+	if (eval_token(*array) == PIPE)
+		token = ft_strdup(*array);
 	while (*array != NULL && !token)
 	{
-		current = ft_strcmp_token(*array);
+		current = eval_token(*array);
 		array++;
-		next = ft_strcmp_token(*array);
+		next = eval_token(*array);
 		if ((current == REDIRECTION || current == PIPE) && next == EOF)
 			token = ft_strdup(LIT_NEWLINE);
 		else if (current == REDIRECTION && next != NONE)
