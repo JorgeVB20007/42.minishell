@@ -152,38 +152,34 @@ char	**getredirections(char **list)
 }
 
 /*
-?	Aquí se supone que metía las cosas en la estructura.
-!	Epic fail. 
+?		Aquí se supone que metía las cosas en la estructura.
+TODO	Epic fail. 
 */
-t_red	**put_params_in_struct(char **list, t_str **env_list, int *items)
+static void	put_params_in_struct(char **list, t_str **env_list, int *items, t_red **red_list)
 {
 	int		a;
-	t_red	**full_red;
 	t_red	*item_red;
 
 	a = 0;
-	full_red = NULL;
 	while (list[a])
 	{
 		item_red = lst_red_new();
 		dprintf(2, "> %p <\n", item_red);
 		(*items)++;
-		if (!full_red)
-			full_red = &item_red;
-		else
-			lst_red_add_back(full_red, item_red);
 		item_red -> path = new_getpath(list[a], env_list);
 		item_red -> params = getparams(&list[a]);
 		item_red -> redirs = getredirections(&list[a]);
 		item_red -> pip_in = 0;
 		item_red -> pip_out = 1;
+		lst_red_add_back(red_list, item_red);
 		while (list[a] && list[a][0] != '|')
 			a++;
 		if (list[a])
 			a++;
 	}
-	dprintf(2, "\n>>> %p <<<\n>>> %p <<<\n", full_red, *full_red);
-	return (full_red);
+	// lst_red_print(*red_list);
+	// lst_red_free(red_list);
+	// lst_red_print(*red_list);
 }
 
 
@@ -203,9 +199,13 @@ void	new_redirections(char **list, t_str **env_list)
 	int		items;
 	int		frk;
 	int		pip[2];
+	t_red	*red_list;
+
+	red_list = NULL;
 
 	items = 0;
-	sep_params = put_params_in_struct(list, env_list, &items);
+	put_params_in_struct(list, env_list, &items, &red_list);
+	lst_red_print(red_list);
 	env_array = env_list_to_vector(env_list);
 	write(2, "A", 1);
 	while (items--)
