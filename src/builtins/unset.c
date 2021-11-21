@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 12:09:09 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/06 20:32:46 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/20 20:58:04 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_unset(t_str **env_list, char **argv)
 	i = 1;
 	while (argv[i] != NULL)
 	{
-		ft_lst_str_delete(env_list, argv[i]);
+		ft_lst_str_delete(env_list, argv[i], ft_strlen(argv[i]));
 		i++;
 	}
 }

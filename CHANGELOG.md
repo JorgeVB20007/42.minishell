@@ -5,11 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2021-11-21 - Edu
+
+### Added
+
+- **includes/constants.c** add FREE/NOT_FREE status enumerable
+
+### Fixed
+
+- **qm_error_detector.c** fix has_pipe_redir_open to handle pipe &redir errors with ERNNO code
+- **utils//lst_str_handler.c** fix ft_lst_str_free list should be NULL at free
+
 ## 2021-11-20 - Edu
 
 ### Added
 
 - **utils/lst_red_handler.c**  Include basic functions to handle red list (new, add_front, add_back & free_list)
+- **qm_error_detector.c** added functions ro check open redirections
+
+### Changed
+
+- **utils/lst_str_handler.c.c** ft_lst_str_delete modified now deletes every matched str of size len from list
+- Replaced **libft/ft_strncmp** with **libft/ft_strcmp** is possible 
+- **var_expansor.c** improve performance dollarfound_getlen 
+
+### Fixed
+
+- **builtins/export.c** Fix updating variables with and without equals
 
 ## 2021-11-14 - Edu
 

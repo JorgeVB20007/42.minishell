@@ -20,7 +20,7 @@ static void	update_env_pwd(t_str **env_list, t_str	*pwd, t_str	*old_pwd)
 		old_pwd = ft_lst_str_get_str(env_list, LIT_OLDPWD);
 	if (old_pwd != NULL)
 	{
-		ft_lst_str_delete(env_list, old_pwd->str);
+		ft_lst_str_delete(env_list, old_pwd->str, ULONG_MAX);
 		if (pwd != NULL)
 			str = ft_strjoin(LIT_OLDPWD, ft_strchr(pwd->str, '='));
 		else
@@ -29,7 +29,7 @@ static void	update_env_pwd(t_str **env_list, t_str	*pwd, t_str	*old_pwd)
 	}
 	if (pwd != NULL)
 	{
-		ft_lst_str_delete(env_list, pwd->str);
+		ft_lst_str_delete(env_list, pwd->str, ULONG_MAX);
 		if (getcwd(cwd, sizeof(cwd)) == NULL)
 			perror("getcwd() error");
 		str = ft_strjoin(LIT_PWD_LIKE, cwd);

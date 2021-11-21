@@ -14,11 +14,20 @@
 * > file1  > file 2 echo hola >file3 mundo -> create files 1,2 & 3 and writes Hola mundo on 3 (ignore space, care with explamation)
 * ~/ ->  replace for env's HOME if we want to handle this
 
+tomartin jalvarad tips
+* 1st handle errors not closed quotes
+* jalvarad 2nd handle errors is last redirection
+* tomartin 3rd tokenizes input
+* jalvarad 3rd split by pipes 
+
 ToDo
 - [x] Export should return list orderder
 - [x] Export dont allow start with every char like number or symbols
 - [ ] Unificar entradas para Builtins
 - [ ] Gestionar correctamente ERNO
-- [ ] Gestionar señales en procesos hijos (open heredoc.s)
+- [ ] Gestionar señales en procesos hijos (open heredocs)
 - [ ] Hacer Env global a todas las funciones
+- [ ] Sacar expandir variables de la entrada
+- [x] Test redirection functions
+- [ ] Use enumerables for status like philoforks ex(FREE, NOT_FREE, KO, OK) wacht out literas alredy in use like NEWLINE
 

@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:36 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/13 17:58:14 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/21 11:55:00 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,11 @@
 # define LIT_SHLVL_LIKE_ONE "SHLVL=1"
 # define LIT_EXEC_MINISHELL "./minishell"
 # define LIT_LAST_CMD "_="
+
+enum e_free_status
+{
+	NOT_FREE,
+	FREE	
+};
 
 #endif
