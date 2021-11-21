@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/20 22:16:06 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/21 19:10:32 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_lst_str_add_sorted(t_str **list, char *str)
 	new = malloc(sizeof(t_str));
 	if (!new)
 	{
-		ft_lst_str_free(*list);
+		ft_lst_str_free(list);
 		free(str);
 		exit(ENOMEM);
 	}
@@ -67,13 +67,13 @@ void	ft_lst_str_add_sorted(t_str **list, char *str)
  * * Free list
  * @param list	list
 */
-void	ft_lst_str_free(t_str *list)
+void	ft_lst_str_free(t_str **list)
 {
 	t_str	*next;
 	t_str	*aux;
 
-	next = list;
-	aux = list;
+	next = *list;
+	aux = *list;
 	while (next != NULL)
 	{
 		next = next->next;
@@ -81,6 +81,7 @@ void	ft_lst_str_free(t_str *list)
 		free(aux);
 		aux = next;
 	}
+	*list = NULL;
 }
 
 /**

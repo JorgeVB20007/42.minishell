@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **qm_error_detector.c** fix has_pipe_redir_open to handle pipe &redir errors with ERNNO code
+- **utils//lst_str_handler.c** fix ft_lst_str_free list should be NULL at free
 
 ## 2021-11-20 - Edu
 

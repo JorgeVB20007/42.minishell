@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/21 15:53:48 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/21 19:07:36 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_echo(char **list);
 int		qm_error_detector(char *str);
 void	init_ms_env(char **env_vector, t_str **env_list);
 char	**env_list_to_vector(t_str **env_list);
-void	ft_lst_str_free(t_str *list);
+void	ft_lst_str_free(t_str **list);
 void	ft_lst_str_print(t_str *list);
 void	ft_lst_str_add_back(t_str **list, char *str);
 void	ft_lst_str_add_front(t_str **list, char *str);

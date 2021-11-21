@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/13 20:33:43 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/21 19:11:04 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_lst_str_add_front(t_str **list, char *str)
 	new = malloc(sizeof(t_str));
 	if (!new)
 	{
-		ft_lst_str_free(*list);
+		ft_lst_str_free(list);
 		free(str);
 		exit(ENOMEM);
 	}
@@ -46,7 +46,7 @@ void	ft_lst_str_add_back(t_str **list, char *str)
 	new = malloc(sizeof(t_str));
 	if (!new)
 	{
-		ft_lst_str_free(*list);
+		ft_lst_str_free(list);
 		free(str);
 		exit(ENOMEM);
 	}
