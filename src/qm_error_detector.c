@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:22:19 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/21 15:49:07 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:00:56 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	has_pipe_redir_open(char **array)
 		current = ft_strcmp_token(*array);
 		array++;
 		next = ft_strcmp_token(*array);
-		if (current == REDIRECTION && next == EOF)
+		if ((current == REDIRECTION || current == PIPE) && next == EOF)
 			token = ft_strdup(LIT_NEWLINE);
 		else if (current == REDIRECTION && next != NONE)
 			token = ft_strdup(*array);
