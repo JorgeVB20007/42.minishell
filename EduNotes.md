@@ -25,9 +25,9 @@ ToDo
 - [x] Export dont allow start with every char like number or symbols
 - [ ] Unificar entradas para Builtins
 - [ ] Gestionar correctamente ERNO
-- [ ] Gestionar señales en procesos hijos (open heredoc.s)
+- [ ] Gestionar señales en procesos hijos (open heredocs)
 - [ ] Hacer Env global a todas las funciones
 - [ ] Sacar expandir variables de la entrada
-- [ ] Test redirection functions
+- [x] Test redirection functions
 - [ ] Use enumerables for status like philoforks ex(FREE, NOT_FREE, KO, OK) wacht out literas alredy in use like NEWLINE
 
