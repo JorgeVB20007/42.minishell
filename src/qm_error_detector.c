@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:22:19 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/21 17:16:55 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:27:34 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,29 +77,30 @@ static int	eval_token(char *token)
  * @param array	array of args (input splited in useful tokens)
  * @return 		ERNNO code is returnerd
 */
-int	has_pipe_redir_open(char **array, char	*token)
+int	has_pipe_redir_open(char **array)
 {
 	int		current;
 	int		next;
+	char	*error_near_token;
 
+	error_near_token = NULL;
 	if (eval_token(*array) == PIPE)
-		token = ft_strdup(*array);
-	while (*array != NULL && !token)
+		error_near_token = ft_strdup(*array);
+	while (*array != NULL && !error_near_token)
 	{
-		current = eval_token(*array);
-		array++;
+		current = eval_token(*array++);
 		next = eval_token(*array);
 		if ((current == REDIRECTION || current == PIPE) && next == EOF)
-			token = ft_strdup(LIT_NEWLINE);
+			error_near_token = ft_strdup(LIT_NEWLINE);
 		else if (current == REDIRECTION && next != NONE)
-			token = ft_strdup(*array);
+			error_near_token = ft_strdup(*array);
 		else if (current == PIPE && next == PIPE)
-			token = ft_strdup(*array);
+			error_near_token = ft_strdup(*array);
 	}
-	if (token != NULL)
+	if (error_near_token != NULL)
 	{
-		printf(ERROR_OPEN_REDIR, token);
-		free(token);
+		printf(ERROR_OPEN_REDIR, error_near_token);
+		free(error_near_token);
 		return (258);
 	}
 	return (0);
