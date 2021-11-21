@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/20 20:58:40 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/21 15:53:48 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,5 @@ char	*getvarvalue(char *str);
 int		modstrcmp(char *str1, char *str2);		// ? Es como el strcmp, pero le llamo "mod" porque no me he dedicado a comprobar que esté bien.
 char	*ft_getenv(t_str **env_list, const char *str);
 int		has_last_redirection_open(const char *str);
+int		has_pipe_redir_open(char **array);
 #endif
