@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:22:19 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/21 15:15:53 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/21 15:49:07 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ static int	ft_strcmp_token(char *token)
 }
 
 /**
- * * Detects open redirections
- * @param array	array of args (input splited in eseful tokens)
+ * * Detects open pipes & redirections
+ * @param array	array of args (input splited in useful tokens)
  * @return 		ERNNO code is returnerd
 */
 int	has_pipe_redir_open(char **array)
