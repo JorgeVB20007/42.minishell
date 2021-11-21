@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   megafree.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 22:23:47 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/09 12:16:03 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/20 23:29:16 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@ void	megafree(char ***list)
 	int	a;
 
 	a = 0;
-	while ((*list)[a])
-		free((*list)[a++]);
-	free((*list)[a]);
-	free(*list);
+	if (*list)
+	{
+		while ((*list)[a])
+			free((*list)[a++]);
+		free((*list)[a]);
+		free(*list);
+	}
 }
 
 /**

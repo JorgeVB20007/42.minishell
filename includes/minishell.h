@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/20 17:06:02 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/21 00:42:49 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ typedef struct s_str
 
 typedef struct s_red
 {
-	int				pip[2];
+	int				pip_in;
+	int				pip_out;
 	char			*path;
 	char			**params;
 	char			**redirs;
@@ -47,7 +48,6 @@ void	expand_var(char *orgn, char **end, int *a, int *b);
 int		ft_modstrcpy(char *orgn, char **end, int len);
 void	interpreter(char **list, t_str **env_list);
 void	ft_echo(char **list);
-//char	*adv_qm_rem(char *qm_str, int b_free);
 int		qm_error_detector(char *str);
 void	init_ms_env(char **env_vector, t_str **env_list);
 char	**env_list_to_vector(t_str **env_list);
@@ -75,4 +75,12 @@ void	ft_array_str_print(char **array);
 char	*getvarvalue(char *str);
 int		modstrcmp(char *str1, char *str2);		// ? Es como el strcmp, pero le llamo "mod" porque no me he dedicado a comprobar que esté bien.
 char	*ft_getenv(t_str **env_list, const char *str);
+void	new_redirections(char **list, t_str **env_list);
+void	lst_red_free(t_red *list);
+t_red	*lst_red_new(void);
+void	lst_red_add_back(t_red **list, t_red *new);
+void	lst_red_add_front(t_red **list, t_red *new);
+void	new_exec_command(t_red *red_node, char **env);
+
+
 #endif

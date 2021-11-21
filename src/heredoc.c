@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 01:11:34 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/11 01:14:00 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/21 00:37:50 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,4 @@ void	ft_heredoc(int *fdi, char *last_line)
 		free(str_got);
 	}
 	close(pip[1]);
-	dup2(*fdi, 0);
 }

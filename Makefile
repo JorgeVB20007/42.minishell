@@ -6,7 +6,7 @@
 #    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/11/18 20:49:53 by jvacaris         ###   ########.fr        #
+#    Updated: 2021/11/21 00:43:25 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC_FILES	= 	minishell1.c				\
 				exec_command.c				\
 				heredoc.c					\
 				new_redirections.c			\
+				new_exec_command.c			\
 				builtins/env.c				\
 				utils/lst_str_handler.c		\
 				utils/lst_str_handler2.c	\
@@ -46,6 +47,7 @@ SRC_FILES	= 	minishell1.c				\
 				utils/is_valid_var.c		\
 				utils/qm_remover.c			\
 				utils/ft_modstrcmp.c		\
+				utils/lst_red_handler.c		\
 				builtins/cd.c				\
 				builtins/echo.c				\
 				builtins/export.c			\
@@ -83,7 +85,7 @@ $(LIBFT):
 
 # Compiling
 $(NAME): $(OBJ)
-	@echo "\033[0;33mCompiling... Wait a sec.\033[0;37m"
+	@echo "\033[0;33mCompiling... Wait a sec.\033[0;31m"
 	@gcc $(OBJ) $(FLAGS) $(LNK) $(RLINE_L) -lm -o $(NAME)
 	@echo "\033[0;32m$(NAME) generated!\033[0;37m"
 
