@@ -25,6 +25,7 @@ int	main(int argc, char **argv, char **env)
 //	printf("\nhye\n");
 	env_list = NULL;
 	init_ms_env(env, &env_list);
+	lst_str_print(env_list);
 //	ft_pwd();
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &ft_signal_handler);
@@ -42,8 +43,11 @@ int	main(int argc, char **argv, char **env)
 			write(1, "Error: quotation marks not properly closed!\n", 44);
 		else
 		{
-			param_list = modifsplit(str_got);
-			interpreter(param_list, &env_list);
+			str_got = ft_recursive_expand(str_got, &env_list);
+			printf("%s\n", str_got);
+			param_list = get_tokens(str_got);
+			ft_array_str_print(param_list);
+			//interpreter(param_list, &env_list);
 		}
 		free(str_got);
 //		system("lsof -c minishell");

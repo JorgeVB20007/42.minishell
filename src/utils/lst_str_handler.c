@@ -17,7 +17,7 @@
  * @param list	list
  * @param str	new str to link
 */
-static void	ft_lst_str_add_sorted2(t_str **list, t_str	*new)
+static void	lst_str_add_sorted2(t_str **list, t_str	*new)
 {
 	t_str	*aux;
 
@@ -44,14 +44,14 @@ static void	ft_lst_str_add_sorted2(t_str **list, t_str	*new)
  * @param list	list
  * @param str	new str to link
 */
-void	ft_lst_str_add_sorted(t_str **list, char *str)
+void	lst_str_add_sorted(t_str **list, char *str)
 {
 	t_str	*new;
 
 	new = malloc(sizeof(t_str));
 	if (!new)
 	{
-		ft_lst_str_free(list);
+		lst_str_free(list);
 		free(str);
 		exit(ENOMEM);
 	}
@@ -60,14 +60,14 @@ void	ft_lst_str_add_sorted(t_str **list, char *str)
 	if (*list == NULL)
 		*list = new;
 	else
-		ft_lst_str_add_sorted2(list, new);
+		lst_str_add_sorted2(list, new);
 }
 
 /**
  * * Free list
  * @param list	list
 */
-void	ft_lst_str_free(t_str **list)
+void	lst_str_free(t_str **list)
 {
 	t_str	*next;
 	t_str	*aux;
@@ -88,7 +88,7 @@ void	ft_lst_str_free(t_str **list)
  * * Print list of strings
  * @param list	list
 */
-void	ft_lst_str_print(t_str *list)
+void	lst_str_print(t_str *list)
 {
 	while (list != NULL)
 	{
@@ -103,12 +103,12 @@ void	ft_lst_str_print(t_str *list)
  * @param str	str to delete
  * @param len	len to match with ft_strncmp
 */
-void	ft_lst_str_delete(t_str **list, char *str, size_t len)
+void	lst_str_delete(t_str **list, char *str, size_t len)
 {
 	t_str	*prev;
 	t_str	*aux;
 
-	ft_lst_str_add_front(list, NULL);
+	lst_str_add_front(list, NULL);
 	prev = *list;
 	aux = prev->next;
 	while (aux != NULL)

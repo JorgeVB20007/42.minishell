@@ -25,11 +25,11 @@ static void	get_default_env(t_str **env_list)
 
 	pwd_command = NULL;
 	getcwd(pwd, 100);
-	ft_lst_str_add_sorted(env_list, ft_strjoin(LIT_PWD_LIKE, pwd));
-	ft_lst_str_add_sorted(env_list, ft_strdup(LIT_SHLVL_LIKE_ONE));
-	ft_lst_str_add_sorted(env_list, ft_strdup(LIT_OLDPWD));
+	lst_str_add_sorted(env_list, ft_strjoin(LIT_PWD_LIKE, pwd));
+	lst_str_add_sorted(env_list, ft_strdup(LIT_SHLVL_LIKE_ONE));
+	lst_str_add_sorted(env_list, ft_strdup(LIT_OLDPWD));
 	pwd_command = ft_strjoin(pwd, LIT_EXEC_MINISHELL);
-	ft_lst_str_add_sorted(env_list, ft_strjoin(LIT_LAST_CMD, pwd_command));
+	lst_str_add_sorted(env_list, ft_strjoin(LIT_LAST_CMD, pwd_command));
 	free(pwd_command);
 }
 
@@ -92,14 +92,14 @@ void	init_ms_env(char **env_vector, t_str **env_list)
 			if (!ft_strncmp(env_vector[i], LIT_SHLVL_LIKE, 6))
 				shlvl = ft_itoa(get_shlvl(ft_strchr(env_vector[i], '=') + 1));
 			else
-				ft_lst_str_add_sorted(env_list, ft_strdup(env_vector[i]));
+				lst_str_add_sorted(env_list, ft_strdup(env_vector[i]));
 			i++;
 		}
 		if (!shlvl)
-			ft_lst_str_add_sorted(env_list, ft_strdup(LIT_SHLVL_LIKE_ONE));
+			lst_str_add_sorted(env_list, ft_strdup(LIT_SHLVL_LIKE_ONE));
 		else
 		{
-			ft_lst_str_add_sorted(env_list, ft_strjoin(LIT_SHLVL_LIKE, shlvl));
+			lst_str_add_sorted(env_list, ft_strjoin(LIT_SHLVL_LIKE, shlvl));
 			free(shlvl);
 		}
 	}
@@ -131,31 +131,22 @@ void	ft_env(t_str **env_list, char **argv)
 }
 
 /**
- * * Transform env linked list into vector as intended to work with execve
- * * Returms enviroment variables vector
+ * * This should recreate the stdlib.h funtion "getenv".
+ * * Searches the environment list to find the environment variable name, \
+ * * and returns a pointer to the corresponding value string
  * @param env_list	enviroment list
+ * @param str		new str to look for
 */
-char	**env_list_to_vector(t_str **env_list)
+char	*ft_getenv(t_str **env_list, const char *str)
 {
-	int		i;
 	t_str	*aux;
-	char	**envp;
+	char	*str_like;
 
-	i = 0;
-	aux = *env_list;
-	while (aux != NULL)
-	{
-		aux = aux->next;
-		i++;
-	}
-	envp = malloc(sizeof(char *) * (i + 1));
-	aux = *env_list;
-	i = 0;
-	while (aux != NULL)
-	{
-		envp[i++] = ft_strdup(aux->str);
-		aux = aux->next;
-	}
-	envp[i] = NULL;
-	return (envp);
+	str_like = ft_strjoin(str, "=");
+	aux = lst_str_get_str(env_list, str_like);
+	free(str_like);
+	if (aux == NULL)
+		return ("");
+	return (ft_strchr(aux->str, '=') + 1);
 }
+

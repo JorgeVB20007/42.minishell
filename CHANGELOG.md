@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2021-11-22 - Edu
+
+### Added
+
+- **ms_parser.c** added file to parses minishell's input into array of tokens
+- **var_expansor.c** added function ft_recursive_expand Given str expand environment variables, input str should come malloc
+
+### Changed
+
+- **utils/lst_str_handler.c** rename ft_lst_str to lst_str
+- **env_list_to_vector** rename into **lst_str_to_array** is reused for other purposes, and also moved to **utils/lst_str_handler.c**
+- **ft_getenv** moved to **builtins/env.c**
+
 ## 2021-11-21 - Edu
 
 ### Added
@@ -25,9 +38,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **utils/lst_str_handler.c.c** ft_lst_str_delete modified now deletes every matched str of size len from list
-- Replaced **libft/ft_strncmp** with **libft/ft_strcmp** is possible 
-- **var_expansor.c** improve performance dollarfound_getlen 
+- **utils/lst_str_handler.c** ft_lst_str_delete modified now deletes every matched str of size len from list
+- Replaced **libft/ft_strncmp** with **libft/ft_strcmp** is possible
+- **var_expansor.c** improve performance dollarfound_getlen
 
 ### Fixed
 

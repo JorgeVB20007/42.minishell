@@ -18,7 +18,7 @@ tomartin jalvarad tips
 * 1st handle errors not closed quotes
 * jalvarad 2nd handle errors is last redirection
 * tomartin 3rd tokenizes input
-* jalvarad 3rd split by pipes 
+* jalvarad 3rd split by pipes
 
 ToDo
 - [x] Export should return list orderder
@@ -31,3 +31,5 @@ ToDo
 - [x] Test redirection functions
 - [ ] Use enumerables for status like philoforks ex(FREE, NOT_FREE, KO, OK) wacht out literas alredy in use like NEWLINE
 
+Test parser.c aas basfbaskfhbsajhb ||| <<< >>> as|da>sa<s>>asf<<asdfd
+test ft_recursive_expand sasdfsad$USER fas'd$TE'RM fasdfsadfsdf

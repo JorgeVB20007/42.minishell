@@ -17,8 +17,8 @@ NAME	= minishell
 FLAGS	= -Wall -Wextra -Werror $(SANITIZE)
 
 # sanitize
-SANITIZE =
-# SANITIZE = -g3 -fsanitize=address
+# SANITIZE =
+SANITIZE = -g3 -fsanitize=address
 
 # readline doing readliney things
 RLINE_INC	= -I/Users/$(USER)/.brew/opt/readline/include
@@ -32,6 +32,7 @@ INCLUDES_FILES =	errors.h		\
 # Source and object files
 SRC_FILES	= 	minishell1.c				\
 				modifsplit.c				\
+				ms_parser.c					\
 				var_expansor.c				\
 				qm_error_detector.c			\
 				interpreter.c				\

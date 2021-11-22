@@ -90,15 +90,15 @@ static void	ft_export_add(t_str **env_list, char *str)
 	if (strchr)
 	{
 		env_desc = ft_substr(str, 0, strchr - str + 1);
-		ft_lst_str_delete(env_list, env_desc, strchr - str + 1);
+		lst_str_delete(env_list, env_desc, strchr - str + 1);
 		free(env_desc);
 		env_desc = ft_substr(str, 0, strchr - str);
 	}
 	else
 		env_desc = ft_strdup(str);
-	ft_lst_str_delete(env_list, env_desc, ULONG_MAX);
+	lst_str_delete(env_list, env_desc, ULONG_MAX);
 	if (!ft_strcmp(ft_getenv(env_list, env_desc), ""))
-		ft_lst_str_add_sorted(env_list, str);
+		lst_str_add_sorted(env_list, str);
 	free(env_desc);
 }
 
@@ -121,7 +121,7 @@ void	ft_export(t_str **env_list, char **argv)
 	while (argv[i] != NULL)
 	{
 		if (is_valid_add_export(argv[i]))
-		{			
+		{
 			argv_without_qm = adv_qm_rem(argv[i], NOT_FREE);
 			ft_export_add(env_list, argv_without_qm);
 		}
