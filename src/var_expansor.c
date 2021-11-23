@@ -110,26 +110,27 @@ static size_t get_start_expand(const char *str)
 
 /**
  * * Replace environment variable of given str from start with some lenght
- * @param str			str to expand it content
+ * * Frees input str malloc
+ * @param malloc_str	str to expand it content
  * @param env_list		environment list
  * @param start_expand	index of start to replace
  * @param len_expand	lenght to replace
  * @return				str expanded
 */
-static char *ft_expand_at(char *str, t_str **env_list, size_t start_expand, \
+static char *expand_at_free(char *malloc_str, t_str **env_list, size_t start_expand, \
 							 size_t len_expand)
 {
 	char	*oldset;
 	char	*newset;
 	char	*out;
 
-	oldset = ft_substr(str, start_expand, len_expand);
+	oldset = ft_substr(malloc_str, start_expand, len_expand);
 	newset = ft_getenv(env_list, &oldset[1]);
 	if (!newset)
-		out = ft_strreplaceat(str, oldset, "", start_expand);
+		out = ft_strreplaceat(malloc_str, oldset, "", start_expand);
 	else
-		out = ft_strreplaceat(str, oldset, newset, start_expand);
-	free(str);
+		out = ft_strreplaceat(malloc_str, oldset, newset, start_expand);
+	free(malloc_str);
 	free(oldset);
 	return (out);
 }
@@ -141,13 +142,12 @@ static char *ft_expand_at(char *str, t_str **env_list, size_t start_expand, \
  * @param env_list		environment list
  * @return				str expanded
 */
-char	*ft_recursive_expand(char *malloc_str, t_str **env_list)
+char	*recursive_expand(char *malloc_str, t_str **env_list)
 {
 	size_t	start_expand;
 	size_t	len_expand;
 	char	*aux;
 
-	len_expand = 0;
 	start_expand = get_start_expand(malloc_str);
 	if (start_expand != 0)
 	{
@@ -155,11 +155,8 @@ char	*ft_recursive_expand(char *malloc_str, t_str **env_list)
 		aux = &malloc_str[start_expand];
 		while (ft_isalnum(aux[len_expand]) || aux[len_expand] == '_')
 			len_expand++;
-		if (len_expand != 0)
-		{
-			malloc_str = ft_expand_at(malloc_str, env_list, start_expand, len_expand);
-			return (ft_recursive_expand(malloc_str, env_list));
-		}
+		malloc_str = expand_at_free(malloc_str, env_list, start_expand, len_expand);
+		return (recursive_expand(malloc_str, env_list));
 	}
 	return (malloc_str);
 }

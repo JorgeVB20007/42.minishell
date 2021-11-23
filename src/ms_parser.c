@@ -67,7 +67,7 @@ static size_t add_default_token(t_str **list,  const char *input)
  * @param input			input to tokenize
  * @return				List of tokens
 */
-static void get_token_list(t_str **token_list, char **input)
+static void recursive_get_token_list(t_str **token_list, char **input)
 {
 	while (ft_isspace(**input))
 		*input += 1;
@@ -81,7 +81,7 @@ static void get_token_list(t_str **token_list, char **input)
 	else
 		*input += add_default_token(token_list, *input);
 	if (**input != '\0')
-		get_token_list(token_list, input);
+		recursive_get_token_list(token_list, input);
 }
 
 /**
@@ -96,7 +96,8 @@ char	**get_tokens(char *input)
 	char	**result;
 
 	token_list = NULL;
-	get_token_list(&token_list, &input);
+	recursive_get_token_list(&token_list, &input);
 	result = lst_str_to_array(&token_list);
+	lst_str_free(&token_list);
 	return (result);
 }

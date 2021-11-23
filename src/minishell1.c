@@ -43,7 +43,7 @@ int	main(int argc, char **argv, char **env)
 			write(1, "Error: quotation marks not properly closed!\n", 44);
 		else
 		{
-			str_got = ft_recursive_expand(str_got, &env_list);
+			str_got = recursive_expand(str_got, &env_list);
 			printf("%s\n", str_got);
 			param_list = get_tokens(str_got);
 			ft_array_str_print(param_list);

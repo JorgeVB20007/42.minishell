@@ -78,5 +78,5 @@ int		modstrcmp(char *str1, char *str2);		// ? Es como el strcmp, pero le llamo "
 char	*ft_getenv(t_str **env_list, const char *str);
 int		has_last_redirection_open(const char *str);
 int		has_pipe_redir_open(char **array);
-char	*ft_recursive_expand(char *str, t_str **env_list);
+char	*recursive_expand(char *str, t_str **env_list);
 #endif
