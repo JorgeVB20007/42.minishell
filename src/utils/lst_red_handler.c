@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 11:27:35 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/21 19:03:47 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/21 21:12:12 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_red	*lst_red_new(void)
 	if (!output)
 		return (NULL);
 	output->next = NULL;
-	dprintf(2, "> %p <\n", output);
+//	dprintf(2, "> %p <\n", output);
 	return (output);
 }
 

@@ -155,17 +155,19 @@ char	**getredirections(char **list)
 ?		Aquí se supone que metía las cosas en la estructura.
 TODO	Epic fail. 
 */
-static void	put_params_in_struct(char **list, t_str **env_list, int *items, t_red **red_list)
+static int	put_params_in_struct(char **list, t_str **env_list, t_red **red_list)
 {
 	int		a;
+	int		items;
 	t_red	*item_red;
 
 	a = 0;
+	items = 0;
 	while (list[a])
 	{
 		item_red = lst_red_new();
-		dprintf(2, "> %p <\n", item_red);
-		(*items)++;
+//		dprintf(2, "> %p <\n", item_red);
+		items++;
 		item_red -> path = new_getpath(list[a], env_list);
 		item_red -> params = getparams(&list[a]);
 		item_red -> redirs = getredirections(&list[a]);
@@ -177,9 +179,7 @@ static void	put_params_in_struct(char **list, t_str **env_list, int *items, t_re
 		if (list[a])
 			a++;
 	}
-	// lst_red_print(*red_list);
-	// lst_red_free(red_list);
-	// lst_red_print(*red_list);
+	return(items);
 }
 
 
@@ -194,41 +194,42 @@ static void	put_params_in_struct(char **list, t_str **env_list, int *items, t_re
 */
 void	new_redirections(char **list, t_str **env_list)
 {
-	t_red	**sep_params;
 	char	**env_array;
 	int		items;
+	int		ctr;
 	int		frk;
 	int		pip[2];
 	t_red	*red_list;
 
 	red_list = NULL;
 
-	items = 0;
-	put_params_in_struct(list, env_list, &items, &red_list);
-	lst_red_print(red_list);
+	items = put_params_in_struct(list, env_list, &red_list);
 	env_array = env_list_to_vector(env_list);
-	write(2, "A", 1);
-	while (items--)
+	ctr = 0;
+	while (ctr++ < items)
 	{
-		write(2, "a", 1);
-		if (items)
+		if (ctr != items)
 		{
-			write(2, "x", 1);
 			pipe(pip);
-			write(2, "y", 1);
-			(*sep_params) -> pip_out = pip[1];
-			write(2, "z", 1);
+			red_list -> pip_out = pip[1];
 		}
-		write(2, "b", 1);
 		frk = fork();
 		if (frk)
 		{
-			write(2, "c", 1);
-			new_exec_command(*sep_params, env_array);
+			new_exec_command(red_list, env_array);
 		}
-		write(2, "d", 1);
-		sep_params = &(*sep_params) -> next;
-		write(2, "e", 1);
-		(*sep_params)-> pip_in = pip[0];
+		if (ctr > 1)
+			close(red_list -> pip_in);
+		if (ctr < items)
+			close(red_list -> pip_out);
+		red_list = red_list -> next;
+		if (ctr != items)
+			red_list -> pip_in = pip[0];
 	}
+	ctr = 0;
+	while (ctr++ < items)
+	{
+		wait(NULL);
+	}
+	write(1, "Ehperate, pesao.", 16);
 }
