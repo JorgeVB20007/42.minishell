@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2021-11-24 - Edu
+
+### Fixed
+
+- **ms_parser.c** Protect get_tokens from empty inputs "\0"
+- **megafree.c** Protect ft_array_str_print  from NULL input
+
 ## 2021-11-23 - Edu
 
 ### Changed

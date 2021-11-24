@@ -95,6 +95,8 @@ char	**get_tokens(char *input)
 	t_str	*token_list;
 	char	**result;
 
+	if (*input == '\0')
+		return (NULL);
 	token_list = NULL;
 	recursive_get_token_list(&token_list, &input);
 	result = lst_str_to_array(&token_list);
