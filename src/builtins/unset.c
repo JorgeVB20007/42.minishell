@@ -25,7 +25,7 @@ void	ft_unset(t_str **env_list, char **argv)
 	i = 1;
 	while (argv[i] != NULL)
 	{
-		ft_lst_str_delete(env_list, argv[i], ft_strlen(argv[i]));
+		lst_str_delete(env_list, argv[i], ft_strlen(argv[i]));
 		i++;
 	}
 }

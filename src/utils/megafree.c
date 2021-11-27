@@ -39,6 +39,7 @@ void	ft_array_str_print(char **array)
 	int	a;
 
 	a = 0;
-	while (array[a])
-		printf("%s\n", array[a++]);
+	if (array != NULL)
+		while (array[a])
+			printf("%s\n", array[a++]);
 }

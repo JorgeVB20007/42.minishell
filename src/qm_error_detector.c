@@ -18,13 +18,13 @@ unexpected token `%s'\n"
 
 enum e_token
 {
-	NONE,
+	DEFAULT,
 	PIPE,
 	REDIRECTION
 };
 
 /**
-* * This function detects if there's quotation marks unclosed through the input 
+* * This function detects if there's quotation marks unclosed through the input
 * * given. Quotation marks inside other types of quotation marks are excluded.
 * * If all goes well, the value 0 is returned.
 * @return 		ERNNO code is returnerd
@@ -58,7 +58,7 @@ int	qm_error_detector(char *str)
 /**
  * * Eval token to check between EOF, PIPE, REDIRECTION or NONE
  * @param token	token
- * @return 		token identiifcator 
+ * @return 		token identiifcator
 */
 static int	eval_token(char *token)
 {

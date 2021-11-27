@@ -17,14 +17,14 @@
  * @param list	list
  * @param str	new str to link
 */
-void	ft_lst_str_add_front(t_str **list, char *str)
+void	lst_str_add_front(t_str **list, char *str)
 {
 	t_str	*new;
 
 	new = malloc(sizeof(t_str));
 	if (!new)
 	{
-		ft_lst_str_free(list);
+		lst_str_free(list);
 		free(str);
 		exit(ENOMEM);
 	}
@@ -38,7 +38,7 @@ void	ft_lst_str_add_front(t_str **list, char *str)
  * @param list	list
  * @param str	new str to link
 */
-void	ft_lst_str_add_back(t_str **list, char *str)
+void	lst_str_add_back(t_str **list, char *str)
 {
 	t_str	*new;
 	t_str	*aux;
@@ -46,7 +46,7 @@ void	ft_lst_str_add_back(t_str **list, char *str)
 	new = malloc(sizeof(t_str));
 	if (!new)
 	{
-		ft_lst_str_free(list);
+		lst_str_free(list);
 		free(str);
 		exit(ENOMEM);
 	}
@@ -68,7 +68,7 @@ void	ft_lst_str_add_back(t_str **list, char *str)
  * @param list	list
  * @param str	new str to look for
 */
-t_str	*ft_lst_str_get_str(t_str **list, const char *str)
+t_str	*lst_str_get_str(t_str **list, const char *str)
 {
 	t_str	*aux;
 	size_t	len;
@@ -85,21 +85,31 @@ t_str	*ft_lst_str_get_str(t_str **list, const char *str)
 }
 
 /**
- * * This should recreate the stdlib.h funtion "getenv".
- * * Searches the environment list to find the environment variable name, \
- * * and returns a pointer to the corresponding value string
- * @param env_list	enviroment list
- * @param str		new str to look for
+ * * Transform str linked list into array
+ * * Returns array of str
+ * @param list	str list
 */
-char	*ft_getenv(t_str **env_list, const char *str)
+char	**lst_str_to_array(t_str **list)
 {
+	int		i;
 	t_str	*aux;
-	char	*str_like;
+	char	**array;
 
-	str_like = ft_strjoin(str, "=");
-	aux = ft_lst_str_get_str(env_list, str_like);
-	free(str_like);
-	if (aux == NULL)
-		return ("");
-	return (ft_strchr(aux->str, '=') + 1);
+	i = 0;
+	aux = *list;
+	while (aux != NULL)
+	{
+		aux = aux->next;
+		i++;
+	}
+	array = malloc(sizeof(char *) * (i + 1));
+	aux = *list;
+	i = 0;
+	while (aux != NULL)
+	{
+		array[i++] = ft_strdup(aux->str);
+		aux = aux->next;
+	}
+	array[i] = NULL;
+	return (array);
 }

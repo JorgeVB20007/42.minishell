@@ -22,10 +22,9 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-//	printf("\nhye\n");
 	env_list = NULL;
 	init_ms_env(env, &env_list);
-//	ft_pwd();
+	lst_str_print(env_list);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &ft_signal_handler);
 	while (1)
@@ -39,12 +38,11 @@ int	main(int argc, char **argv, char **env)
 		if (*str_got != '\0' )
 			add_history(str_got);
 		if (qm_error_detector(str_got))
-			write(1, "Error: quotation marks not properly closed!\n", 44);
+			write(2, "Error: quotation marks not properly closed!\n", 44);
 		else
 		{
-			param_list = modifsplit(str_got);
+			param_list = get_tokens(str_got);
 			new_redirections(param_list, &env_list);
-//			interpreter(param_list, &env_list);
 		}
 		free(str_got);
 //		system("lsof -c minishell");

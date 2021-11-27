@@ -128,7 +128,7 @@ static void	command_finder(char **list, int *idx, t_str **env_list)
 	else if (!ft_strncmp(assist, "cd", ULONG_MAX))
 		ft_cd(env_list, &list[*idx]);
 	else
-		exec_command(&list[*idx], env_list_to_vector(env_list));
+		exec_command(&list[*idx], lst_str_to_array(env_list));
 	free(assist);
 	while (list[*idx] && list[*idx][0] != '|')
 		(*idx)++;

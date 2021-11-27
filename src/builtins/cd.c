@@ -17,23 +17,23 @@ static void	update_env_pwd(t_str **env_list, t_str	*pwd, t_str	*old_pwd)
 	char	cwd[PATH_MAX - 1];
 
 	if (old_pwd == NULL)
-		old_pwd = ft_lst_str_get_str(env_list, LIT_OLDPWD);
+		old_pwd = lst_str_get_str(env_list, LIT_OLDPWD);
 	if (old_pwd != NULL)
 	{
-		ft_lst_str_delete(env_list, old_pwd->str, ULONG_MAX);
+		lst_str_delete(env_list, old_pwd->str, ULONG_MAX);
 		if (pwd != NULL)
 			str = ft_strjoin(LIT_OLDPWD, ft_strchr(pwd->str, '='));
 		else
 			str = ft_strdup(LIT_OLDPWD_LIKE);
-		ft_lst_str_add_sorted(env_list, str);
+		lst_str_add_sorted(env_list, str);
 	}
 	if (pwd != NULL)
 	{
-		ft_lst_str_delete(env_list, pwd->str, ULONG_MAX);
+		lst_str_delete(env_list, pwd->str, ULONG_MAX);
 		if (getcwd(cwd, sizeof(cwd)) == NULL)
 			perror("getcwd() error");
 		str = ft_strjoin(LIT_PWD_LIKE, cwd);
-		ft_lst_str_add_sorted(env_list, str);
+		lst_str_add_sorted(env_list, str);
 	}
 }
 
@@ -69,13 +69,13 @@ void	ft_cd(t_str **env_list, char **argv)
 		cant_chdir = ft_cant_chdir(argv[1]);
 	else
 	{
-		aux = ft_lst_str_get_str(env_list, LIT_HOME_LIKE);
+		aux = lst_str_get_str(env_list, LIT_HOME_LIKE);
 		if (aux == NULL)
 			printf(HOME_NOT_SET);
 		else
 			cant_chdir = ft_cant_chdir(ft_strchr(aux->str, '/'));
 	}
 	if (!cant_chdir)
-		update_env_pwd(env_list, ft_lst_str_get_str(env_list, LIT_PWD_LIKE), \
-						ft_lst_str_get_str(env_list, LIT_OLDPWD_LIKE));
+		update_env_pwd(env_list, lst_str_get_str(env_list, LIT_PWD_LIKE), \
+						lst_str_get_str(env_list, LIT_OLDPWD_LIKE));
 }

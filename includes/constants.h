@@ -28,7 +28,14 @@
 enum e_free_status
 {
 	NOT_FREE,
-	FREE	
+	FREE
+};
+
+enum e_quotes_status
+{
+	NONE,
+	SINGLE,
+	DOUBLE
 };
 
 #endif
