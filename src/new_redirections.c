@@ -220,7 +220,7 @@ void	new_redirections(char **list, t_str **env_list)
 	red_list = NULL;
 
 	items = put_params_in_struct(list, env_list, &red_list);
-	env_array = env_list_to_vector(env_list);
+	env_array = lst_str_to_array(env_list);
 //	assign_pipes(&red_list, items);
 	ctr = 0;
 	while (ctr++ < items)

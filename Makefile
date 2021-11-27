@@ -6,7 +6,7 @@
 #    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/11/21 00:43:25 by jvacaris         ###   ########.fr        #
+#    Updated: 2021/11/27 17:20:03 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ INCLUDES_FILES =	errors.h		\
 
 # Source and object files
 SRC_FILES	= 	minishell1.c				\
-				modifsplit.c				\
 				ms_parser.c					\
 				var_expansor.c				\
 				qm_error_detector.c			\
@@ -53,7 +52,8 @@ SRC_FILES	= 	minishell1.c				\
 				builtins/echo.c				\
 				builtins/export.c			\
 				builtins/pwd.c				\
-				builtins/unset.c
+				builtins/unset.c			\
+				# modifsplit.c				
 
 OBJ_FILES	= $(SRC_FILES:.c=.o)
 

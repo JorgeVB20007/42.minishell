@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/21 19:16:39 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/27 17:33:31 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ typedef struct s_red
 	struct s_red	*next;
 }t_red;
 
-char	**modifsplit(char *input);
+t_str	 *g_env;
+
+// char	**modifsplit(char *input);
 char	**get_tokens(char *input);
-void	dollarfound_getlen(int *a, int *count, char *input);
-void	expand_var(char *orgn, char **end, int *a, int *b);
-int		ft_modstrcpy(char *orgn, char **end, int len);
+// void	dollarfound_getlen(int *a, int *count, char *input);
+// void	expand_var(char *orgn, char **end, int *a, int *b);
+// int		ft_modstrcpy(char *orgn, char **end, int len);
 void	interpreter(char **list, t_str **env_list);
 void	ft_echo(char **list);
 int		qm_error_detector(char *str);

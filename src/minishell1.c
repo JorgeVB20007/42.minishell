@@ -18,13 +18,11 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*str_got;
 	char	**param_list;
-	t_str	*env_list;
 
 	(void)argc;
 	(void)argv;
-	env_list = NULL;
-	init_ms_env(env, &env_list);
-	lst_str_print(env_list);
+	g_env = NULL;
+	init_ms_env(env, &g_env);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &ft_signal_handler);
 	while (1)
@@ -42,7 +40,7 @@ int	main(int argc, char **argv, char **env)
 		else
 		{
 			param_list = get_tokens(str_got);
-			new_redirections(param_list, &env_list);
+			new_redirections(param_list, &g_env);
 		}
 		free(str_got);
 //		system("lsof -c minishell");

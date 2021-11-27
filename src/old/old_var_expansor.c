@@ -6,11 +6,81 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:09:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/27 17:34:38 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/27 16:17:27 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+ * This function recieves the adress of the first character of a
+ * variable's name ($varname), reads the variable name, gets
+ * it's value and returns it.
+ * Inputting the trimmed variable name is not required.
+*/
+char	*getvarvalue(char *str)
+{
+	int		a;
+	char	*varname;
+	char	*result;
+
+	a = 0;
+	while ((ft_isalnum(str[a]) || str[a] == '_') && str[a])
+		a++;
+	varname = ft_calloc(sizeof(char), a + 1);
+	a = 0;
+	while ((ft_isalnum(str[a]) || str[a] == '_') && str[a])
+	{
+		varname[a] = str[a];
+		a++;
+	}
+	result = getenv(varname);
+	free(varname);
+	return (result);
+}
+
+/*
+ *This function recieves a string (orgn) and it's current position (a),
+ * and a pointer to a string (end) and it's current position.
+ *The function is called once the parent function locates a variable name.
+ * This will read the variable name, get it's value, copy it into end and
+ * advance both indexes (a and b) to the last character read/written so
+ * the parent function can keep working.
+*/
+void	expand_var(char *orgn, char **end, int *a, int *b)
+{
+	char	*value;
+	int		c;
+
+	(*a)++;
+	c = 0;
+	value = getvarvalue(&orgn[*a]);
+	if (value)
+	{
+		while (value[c])
+			(*end)[(*b)++] = value[c++];
+	}
+	while ((ft_isalnum(orgn[*a]) || orgn[*a] == '_') && orgn[*a])
+		(*a)++;
+}
+
+/*
+ * This function is similar to expand_var, but it will not copy the result
+ * of the variable into any string. It just counts the length of the
+ * variable and advances the index to the string to the end of the var name.
+*/
+void	dollarfound_getlen(int *a, int *count, char *input)
+{
+	char	*value;
+
+	value = NULL;
+	value = getvarvalue(&input[*a]);
+	(*a)++;
+	if (value)
+		*count += ft_strlen(value);
+	while ((ft_isalnum(input[*a]) || input[*a] == '_') && input[*a])
+		(*a)++;
+}
 
 /**
  * * Get next index of a str to expand
