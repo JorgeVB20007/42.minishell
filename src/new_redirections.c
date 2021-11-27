@@ -151,10 +151,6 @@ char	**getredirections(char **list)
 	return (ret);
 }
 
-/*
-?		Aquí se supone que metía las cosas en la estructura.
-TODO	Epic fail. 
-*/
 static int	put_params_in_struct(char **list, t_str **env_list, t_red **red_list)
 {
 	int		a;
@@ -166,7 +162,6 @@ static int	put_params_in_struct(char **list, t_str **env_list, t_red **red_list)
 	while (list[a])
 	{
 		item_red = lst_red_new();
-//		dprintf(2, "> %p <\n", item_red);
 		items++;
 		item_red -> path = new_getpath(list[a], env_list);
 		item_red -> params = getparams(&list[a]);
@@ -182,6 +177,27 @@ static int	put_params_in_struct(char **list, t_str **env_list, t_red **red_list)
 	return(items);
 }
 
+/*static void	assign_pipes(t_red **red_list, int items)
+{
+	int		ctr = 0;
+	int 	pip[2];
+	t_red	*local_red;
+
+	local_red = *red_list;
+	if (items == 1)
+		return ;
+	while (ctr++ < items)
+	{
+		if (ctr != items)
+		{
+			pipe(pip);
+			local_red -> pip_out = pip[1];
+		}
+		local_red = local_red -> next;
+		if (ctr != 1)
+			local_red -> pip_in = pip[0];
+	}
+}*/
 
 
 /*
@@ -205,6 +221,7 @@ void	new_redirections(char **list, t_str **env_list)
 
 	items = put_params_in_struct(list, env_list, &red_list);
 	env_array = env_list_to_vector(env_list);
+//	assign_pipes(&red_list, items);
 	ctr = 0;
 	while (ctr++ < items)
 	{
@@ -214,22 +231,15 @@ void	new_redirections(char **list, t_str **env_list)
 			red_list -> pip_out = pip[1];
 		}
 		frk = fork();
-		if (frk)
-		{
+		if (!frk)
 			new_exec_command(red_list, env_array);
-		}
-		if (ctr > 1)
-			close(red_list -> pip_in);
-		if (ctr < items)
-			close(red_list -> pip_out);
+		if (ctr != items)
+			close(pip[1]);
 		red_list = red_list -> next;
 		if (ctr != items)
 			red_list -> pip_in = pip[0];
 	}
 	ctr = 0;
-	while (ctr++ < items)
-	{
+	while (ctr++ != items)
 		wait(NULL);
-	}
-	write(1, "Ehperate, pesao.", 16);
 }
