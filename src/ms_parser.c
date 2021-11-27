@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ms_parser.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/27 10:32:31 by emadriga          #+#    #+#             */
+/*   Updated: 2021/11/27 10:32:33 by emadriga         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 #define ENDTOKEN "|<>\0"
@@ -8,7 +20,7 @@
  * @param input			input to tokenize
  * @return				input's processed characters
 */
-static int add_redir_token(t_str **list, const char *input)
+static int	add_redir_token(t_str **list, const char *input)
 {
 	if (input[0] != input[1])
 	{
@@ -35,7 +47,7 @@ static int add_redir_token(t_str **list, const char *input)
  * @param input			input to tokenize
  * @return				input's processed characters
 */
-static size_t add_default_token(t_str **list,  const char *input)
+static size_t	add_default_token(t_str **list, const char *input)
 {
 	char	*s;
 	int		quotes;
@@ -67,7 +79,7 @@ static size_t add_default_token(t_str **list,  const char *input)
  * @param input			input to tokenize
  * @return				List of tokens
 */
-static void recursive_get_token_list(t_str **token_list, char **input)
+static void	recursive_get_token_list(t_str **token_list, char **input)
 {
 	while (ft_isspace(**input))
 		*input += 1;

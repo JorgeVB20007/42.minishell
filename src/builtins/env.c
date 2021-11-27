@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/09 19:31:22 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/27 10:32:16 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,4 +149,3 @@ char	*ft_getenv(t_str **env_list, const char *str)
 		return ("");
 	return (ft_strchr(aux->str, '=') + 1);
 }
-

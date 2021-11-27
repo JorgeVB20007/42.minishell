@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:09:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/20 13:38:05 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/27 10:34:45 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	dollarfound_getlen(int *a, int *count, char *input)
  * @param str		str to expand it content
  * @return			str expanded
 */
-static size_t get_start_expand(const char *str)
+static size_t	get_start_expand(const char *str)
 {
 	int		quotes;
 	char	*start_expand;
@@ -107,7 +107,6 @@ static size_t get_start_expand(const char *str)
 	return (0);
 }
 
-
 /**
  * * Replace environment variable of given str from start with some lenght
  * * Frees input str malloc
@@ -117,8 +116,8 @@ static size_t get_start_expand(const char *str)
  * @param len_expand	lenght to replace
  * @return				str expanded
 */
-static char *expand_at_free(char *malloc_str, t_str **env_list, size_t start_expand, \
-							 size_t len_expand)
+static char	*expand_at_free(char *malloc_str, t_str **env_list, \
+				size_t start_expand, size_t len_expand)
 {
 	char	*oldset;
 	char	*newset;
@@ -155,7 +154,8 @@ char	*recursive_expand(char *malloc_str, t_str **env_list)
 		aux = &malloc_str[start_expand];
 		while (ft_isalnum(aux[len_expand]) || aux[len_expand] == '_')
 			len_expand++;
-		malloc_str = expand_at_free(malloc_str, env_list, start_expand, len_expand);
+		malloc_str = expand_at_free(malloc_str, env_list, \
+							start_expand, len_expand);
 		return (recursive_expand(malloc_str, env_list));
 	}
 	return (malloc_str);
