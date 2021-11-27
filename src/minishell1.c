@@ -40,11 +40,11 @@ int	main(int argc, char **argv, char **env)
 		if (*str_got != '\0' )
 			add_history(str_got);
 		if (qm_error_detector(str_got))
-			write(1, "Error: quotation marks not properly closed!\n", 44);
+			write(2, "Error: quotation marks not properly closed!\n", 44);
 		else
 		{
-			str_got = recursive_expand(str_got, &env_list);
-			printf("%s\n", str_got);
+			// str_got = recursive_expand(str_got, &env_list);
+			// printf("%s\n", str_got);
 			param_list = get_tokens(str_got);
 			ft_array_str_print(param_list);
 			//interpreter(param_list, &env_list);
