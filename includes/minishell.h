@@ -46,6 +46,7 @@ t_str	 *g_env;
 
 // char	**modifsplit(char *input);
 char	**get_tokens(char *input);
+int		has_token(const char *input);
 // void	dollarfound_getlen(int *a, int *count, char *input);
 // void	expand_var(char *orgn, char **end, int *a, int *b);
 // int		ft_modstrcpy(char *orgn, char **end, int len);

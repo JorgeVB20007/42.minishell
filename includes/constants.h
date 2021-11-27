@@ -38,4 +38,10 @@ enum e_quotes_status
 	DOUBLE
 };
 
+enum e_bool
+{
+	FALSE,
+	TRUE
+};
+
 #endif

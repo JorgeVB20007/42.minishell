@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-#define ERROR_OPEN_REDIR "minishel: syntax error near \
+#define ERROR_OPEN_REDIR "minishell: syntax error near \
 unexpected token `%s'\n"
 #define LIT_NEWLINE "newline"
 
@@ -49,7 +49,7 @@ int	qm_error_detector(char *str)
 	}
 	if (qm)
 	{
-		write(1, "minishell: unclosed quotation marks\n", 37);
+		ft_putstr_fd("minishell: unclosed quotation marks\n", 2);
 		return (1);
 	}
 	return (0);

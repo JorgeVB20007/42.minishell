@@ -117,3 +117,18 @@ char	**get_tokens(char *input)
 	lst_str_free(&token_list);
 	return (result);
 }
+
+/**
+ * * Eval if input has valid token to process
+ * * Token is the minimun divisible item to handle on MiniShell
+ * @param input	input to tokenize
+ * @return		if input has valid token to process
+*/
+int has_token(const char *input)
+{
+	while (ft_isspace(*input))
+		input += 1;
+	if (*input != '\0')
+		return (TRUE);
+	return (FALSE);
+}
