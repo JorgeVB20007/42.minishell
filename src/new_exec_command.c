@@ -1,5 +1,24 @@
 #include "minishell.h"
 
+void	command_sorter(t_red *red_node, char **env)
+{
+	if (!strcmp(red_node -> params[0], "echo"))
+		ft_echo(red_node -> params);
+	else if (!strcmp(red_node -> params[0], "export"))
+		ft_export(&g_env, red_node -> params);
+	else if (!strcmp(red_node -> params[0], "pwd"))
+		ft_pwd(&g_env, red_node -> params);
+	else if (!strcmp(red_node -> params[0], "unset"))
+		ft_unset(&g_env, red_node -> params);
+	else if (!strcmp(red_node -> params[0], "env"))
+		ft_env(&g_env, red_node -> params);
+	else if (!strcmp(red_node -> params[0], "cd"))
+		ft_cd(&g_env, red_node -> params);
+	else
+		execve(red_node -> path, red_node -> params, env);
+	exit (0);
+}
+
 void	new_exec_command(t_red *red_node, char **env)
 {
 	int		a;
@@ -49,5 +68,5 @@ void	new_exec_command(t_red *red_node, char **env)
 		free(no_qm);
 		a += 2;
 	}
-	execve(red_node -> path, red_node -> params, env);
+	command_sorter(red_node, env);
 }

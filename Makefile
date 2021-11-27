@@ -6,7 +6,7 @@
 #    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/11/27 17:20:03 by jvacaris         ###   ########.fr        #
+#    Updated: 2021/11/27 22:16:43 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,7 +99,7 @@ bonus:	all
 clean:
 			@rm -Rf $(OBJ_DIR)
 			@make -C $(LIBFT_DIR) clean
-			@echo "[INFO] Objects removed!"
+			@echo "\033[1;34m[INFO]\033[0m Objects removed!"
 
 # fclean rule
 fclean:		clean

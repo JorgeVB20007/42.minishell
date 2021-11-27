@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2021-11-27 - Jorge
+
+### Fixed
+- Pipes now work how they're supposed to work, but there's still some bugs to fix.
+	- Builtins are already in use with these new pipes.
+
 ## 2021-11-24 - Edu
 
 ### Fixed
