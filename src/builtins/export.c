@@ -6,14 +6,14 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 20:42:55 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/20 22:10:12 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/28 11:48:35 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #define PRINT_DECLARE_SIMPLE "declare -x %s\n"
 #define PRINT_DECLARE_COMPLEX "declare -x %.*s\"%s\"\n"
-#define EXPORT_WRONG_ID "export: `%c': not a valid identifier\n"
+#define EXPORT_WRONG_ID "export: `{0}': not a valid identifier\n"
 
 /**
  * * Evals vallid export to add
@@ -38,7 +38,7 @@ static int	is_valid_add_export(const char *str)
 	}
 	--aux;
 	if (!ok)
-		printf(EXPORT_WRONG_ID, *aux);
+		log_error_free(ft_strreplace(EXPORT_WRONG_ID, "{0}", str), 1);
 	return (ok);
 }
 

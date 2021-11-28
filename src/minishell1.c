@@ -14,35 +14,41 @@ static void	ft_signal_handler(int signal)
 	rl_redisplay();
 }
 
-int	main(int argc, char **argv, char **env)
+static void	processline(void)
 {
 	char	*str_got;
 	char	**param_list;
 
+	str_got = readline(MS_PROMPT);
+	if (str_got == NULL)
+	{
+		printf(MSG_EXIT_MINISHELL);
+		exit(0);
+	}
+	if (*str_got != '\0')
+	{
+		add_history(str_got);
+		if (!qm_error_detector(str_got) && has_token(str_got))
+		{
+			param_list = get_tokens(str_got);
+			if (!has_pipe_redir_open(param_list))
+				new_redirections(param_list, &g_var.env);
+		}
+		free(str_got);
+	}
+}
+
+int	main(int argc, char **argv, char **env)
+{
 	(void)argc;
 	(void)argv;
-	g_env = NULL;
-	init_ms_env(env, &g_env);
+	g_var.env = NULL;
+	init_ms_env(env, &g_var.env);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &ft_signal_handler);
 	while (1)
 	{
-		str_got = readline(MS_PROMPT);
-		if (str_got == NULL)
-		{
-			printf(MSG_EXIT_MINISHELL);
-			exit(0);
-		}
-		if (*str_got != '\0' )
-			add_history(str_got);
-		if (qm_error_detector(str_got))
-			write(2, "Error: quotation marks not properly closed!\n", 44);
-		else
-		{
-			param_list = get_tokens(str_got);
-			new_redirections(param_list, &g_env);
-		}
-		free(str_got);
+		processline();
 //		system("lsof -c minishell");
 	}
 	return (0);
