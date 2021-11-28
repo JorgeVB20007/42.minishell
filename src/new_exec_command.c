@@ -24,7 +24,7 @@ static void	command_sorter_no_pipes(t_red *red_node, char **env, int fdi, int fd
 		if (!frk)
 			execve(red_node -> path, red_node -> params, env);
 		wait(&status);
-		g_var.status_error = WEXITSTATUS(status);
+		g_var.last_cmd_status = WEXITSTATUS(status);
 		if (fdi)
 			close(fdi);
 		if (fdo)

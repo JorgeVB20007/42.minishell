@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **utils/error_handler.c** where the error handles
 - add status_error to global
+- **var_expansor.c** expands exit status of the last executed command 
 
 ### Changed
 

@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/29 00:03:28 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/29 00:29:39 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_red
 typedef struct s_var
 {
 	t_str	*env;
-	int		status_error;
+	int		last_cmd_status;
 }t_var;
 
 t_var	g_var;
@@ -82,8 +82,8 @@ void	ft_unset(t_str **env_list, char **argv);
 char	*recursive_expand(char *str, t_str **env_list);
 
 //*		utils / error_handler.c
-void	log_error(char *str_error, int status_error_error);
-void	log_error_free(char *malloc_str_error, int status_error_error);
+void	log_error(char *str_error, int status_error);
+void	log_error_free(char *malloc_str_error, int status_error);
 
 //*		utils / ft_modstrcmp.c
 int		modstrcmp(char *str1, char *str2);
@@ -156,4 +156,5 @@ int		put_params_in_struct(char **list, t_str **env_list, t_red **red_list);
 
 //?		Unknown
 int		has_last_redirection_open(const char *str);
+
 #endif

@@ -41,7 +41,6 @@ void	new_redirections(char **list, t_str **env_list)
 				pipe(pip);
 				red_list -> pip_out = pip[1];
 			}
-			printf(">%d<\n", g_var.status_error);
 			frk = fork();
 			if (!frk)
 				new_exec_command(red_list, env_array, 1);
@@ -55,7 +54,7 @@ void	new_redirections(char **list, t_str **env_list)
 		while (ctr++ != items)
 		{
 			wait(&status);
-			g_var.status_error = WEXITSTATUS(status);
+			g_var.last_cmd_status = WEXITSTATUS(status);
 		}
 	}
 }
