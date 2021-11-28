@@ -1,8 +1,9 @@
 #include "minishell.h"
 
-void	command_sorter_no_pipes(t_red *red_node, char **env)
+static void	command_sorter_no_pipes(t_red *red_node, char **env, int fdi, int fdo)
 {
 	int	frk;
+	int	status;
 
 	frk = 0;
 	if (!strcmp(red_node -> params[0], "echo"))
@@ -22,11 +23,16 @@ void	command_sorter_no_pipes(t_red *red_node, char **env)
 		frk = fork();
 		if (!frk)
 			execve(red_node -> path, red_node -> params, env);
-		wait(NULL);
+		wait(&status);
+		g_var.status_error = WEXITSTATUS(status);
+		if (fdi)
+			close(fdi);
+		if (fdo)
+			close(fdo);
 	}
 }
 
-void	command_sorter_wth_pipes(t_red *red_node, char **env)
+static void	command_sorter_wth_pipes(t_red *red_node, char **env)
 {
 	if (!strcmp(red_node -> params[0], "echo"))
 		ft_echo(red_node -> params);
@@ -41,10 +47,14 @@ void	command_sorter_wth_pipes(t_red *red_node, char **env)
 	else if (!strcmp(red_node -> params[0], "cd"))
 		ft_cd(&g_var.env, red_node -> params);
 	else
-		execve(red_node -> path, red_node -> params, env);
+		exit(execve(red_node -> path, red_node -> params, env));
 	exit (0);
 }
 
+/*
+TODO	Check whether the infile/outfile are valid files. \
+TODO		Directories are not valid files (check stat function).
+*/
 void	new_exec_command(t_red *red_node, char **env, int bool_addexit)
 {
 	int		a;
@@ -97,5 +107,5 @@ void	new_exec_command(t_red *red_node, char **env, int bool_addexit)
 	if (bool_addexit)
 		command_sorter_wth_pipes(red_node, env);
 	else
-		command_sorter_no_pipes(red_node, env);
+		command_sorter_no_pipes(red_node, env, fdi, fdo);
 }

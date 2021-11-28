@@ -43,6 +43,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	g_var.env = NULL;
+	g_var.status_error = 0;
 	init_ms_env(env, &g_var.env);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &ft_signal_handler);
