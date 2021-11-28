@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/28 12:01:46 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/28 17:29:47 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_red
 typedef struct s_var
 {
 	t_str	*env;
-	int		status_error;
+	int		last_cmd_status;
 }t_var;
 
 t_var	g_var;
@@ -96,6 +96,6 @@ void	lst_red_print(t_red *list);
 int		has_last_redirection_open(const char *str);
 int		has_pipe_redir_open(char **array);
 char	*recursive_expand(char *str, t_str **env_list);
-void	log_error(char *str_error, int status_error_error);
-void	log_error_free(char *malloc_str_error, int status_error_error);
+void	log_error(char *str_error, int status_error);
+void	log_error_free(char *malloc_str_error, int status_error);
 #endif
