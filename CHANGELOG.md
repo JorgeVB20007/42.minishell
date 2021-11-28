@@ -20,6 +20,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **ms_parser.c** Protect readline from emptys with new function **has_token**
+## 2021-11-27 - Jorge
+
+### Fixed
+- Pipes now work how they're supposed to work, but there's still some bugs to fix.
+	- Builtins are already in use with these new pipes.
 
 ## 2021-11-24 - Edu
 

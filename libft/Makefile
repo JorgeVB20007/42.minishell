@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
+#    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/25 19:15:33 by emadriga          #+#    #+#              #
-#    Updated: 2021/11/14 20:04:17 by emadriga         ###   ########.fr        #
+#    Updated: 2021/11/27 22:17:24 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,16 +44,16 @@ all:		$(NAME)
 $(NAME):	$(OBJS)
 			@ar rc $(NAME) $(OBJS)
 			@ranlib $(NAME)
-			@echo "[INFO] Library [$(NAME)] created!"
+			@echo "\033[1;34m[INFO]\033[0m Library [$(NAME)] created!"
 		
 # clean rule			
 clean:
 			@rm -f $(OBJS) 
-			@echo "[INFO] Objects removed!"
+			@echo "\033[1;34m[INFO]\033[0m Objects removed!"
 # fclean rule
 fclean:		clean
 			@rm -f $(NAME)
-			@echo "[INFO] Library removed!"
+			@echo "\033[1;34m[INFO]\033[0m Library removed!"
 			
 # re rule
 re:			fclean all
