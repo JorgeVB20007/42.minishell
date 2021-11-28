@@ -1,25 +1,51 @@
 #include "minishell.h"
 
-void	command_sorter(t_red *red_node, char **env)
+void	command_sorter_no_pipes(t_red *red_node, char **env)
+{
+	int	frk;
+
+	frk = 0;
+	if (!strcmp(red_node -> params[0], "echo"))
+		ft_echo(red_node -> params);
+	else if (!strcmp(red_node -> params[0], "export"))
+		ft_export(&g_var.env, red_node -> params);
+	else if (!strcmp(red_node -> params[0], "pwd"))
+		ft_pwd(&g_var.env, red_node -> params);
+	else if (!strcmp(red_node -> params[0], "unset"))
+		ft_unset(&g_var.env, red_node -> params);
+	else if (!strcmp(red_node -> params[0], "env"))
+		ft_env(&g_var.env, red_node -> params);
+	else if (!strcmp(red_node -> params[0], "cd"))
+		ft_cd(&g_var.env, red_node -> params);
+	else
+	{
+		frk = fork();
+		if (!frk)
+			execve(red_node -> path, red_node -> params, env);
+		wait(NULL);
+	}
+}
+
+void	command_sorter_wth_pipes(t_red *red_node, char **env)
 {
 	if (!strcmp(red_node -> params[0], "echo"))
 		ft_echo(red_node -> params);
 	else if (!strcmp(red_node -> params[0], "export"))
-		ft_export(&g_env, red_node -> params);
+		ft_export(&g_var.env, red_node -> params);
 	else if (!strcmp(red_node -> params[0], "pwd"))
-		ft_pwd(&g_env, red_node -> params);
+		ft_pwd(&g_var.env, red_node -> params);
 	else if (!strcmp(red_node -> params[0], "unset"))
-		ft_unset(&g_env, red_node -> params);
+		ft_unset(&g_var.env, red_node -> params);
 	else if (!strcmp(red_node -> params[0], "env"))
-		ft_env(&g_env, red_node -> params);
+		ft_env(&g_var.env, red_node -> params);
 	else if (!strcmp(red_node -> params[0], "cd"))
-		ft_cd(&g_env, red_node -> params);
+		ft_cd(&g_var.env, red_node -> params);
 	else
 		execve(red_node -> path, red_node -> params, env);
 	exit (0);
 }
 
-void	new_exec_command(t_red *red_node, char **env)
+void	new_exec_command(t_red *red_node, char **env, int bool_addexit)
 {
 	int		a;
 	int		fdi;
@@ -68,5 +94,8 @@ void	new_exec_command(t_red *red_node, char **env)
 		free(no_qm);
 		a += 2;
 	}
-	command_sorter(red_node, env);
+	if (bool_addexit)
+		command_sorter_wth_pipes(red_node, env);
+	else
+		command_sorter_no_pipes(red_node, env);
 }

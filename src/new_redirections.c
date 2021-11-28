@@ -1,11 +1,11 @@
 #include "minishell.h"
 
 /*
-?	(Continuación de la función de abajo)
+?   (Continuación de la función de abajo)
 */
 char	*new_get_command_path(char *command, t_str **env_list)
 {
-	int		idx;
+	int	 idx;
 	char	*str_att;
 	char	*paths;
 	char	**path_list;
@@ -35,13 +35,13 @@ char	*new_get_command_path(char *command, t_str **env_list)
 }
 
 /*
-?	Esta función te saca el path correcto para el comando que le pasas.
-?	Si le pasas la dirección a un ejecutable, te devuelve esa misma
-?	dirección malloqueada.
+?   Esta función te saca el path correcto para el comando que le pasas.
+?   Si le pasas la dirección a un ejecutable, te devuelve esa misma
+?   dirección malloqueada.
 */
 char	*new_getpath(char *raw_cmd, t_str **env_list)
 {
-	int	a;
+	int a;
 
 	a = 0;
 	while (raw_cmd[a] && raw_cmd[a] == '.')
@@ -58,23 +58,23 @@ char	*new_getpath(char *raw_cmd, t_str **env_list)
 }
 
 /*
-?	Misma función que la de abajo, pero te saca los parámetros 
-?	quitando las redireccioones en lugar de lo contrario.
+?   Misma función que la de abajo, pero te saca los parámetros 
+?   quitando las redireccioones en lugar de lo contrario.
 
-*	Ej:
+*   Ej:
 	cat
 	-e
 	a.txt
 
-?	NOTA: Hay que pasarle un puntero al primer parámetro del que se quieran sacar los parámetros.
+?   NOTA: Hay que pasarle un puntero al primer parámetro del que se quieran sacar los parámetros.
 	cat -n  <  a.txt  |  grep Error  |  wc -la  >  b.txt  |  cat -e  << end
-!	^~~~~~ (1) ~~~~~     ^~~ (2) ~~     ^~~~~~ (3) ~~~~~     ^~~~~ (4) ~~~~
+!   ^~~~~~ (1) ~~~~~	 ^~~ (2) ~~	 ^~~~~~ (3) ~~~~~	 ^~~~~ (4) ~~~~
 */
 char	**getparams(char **list)
 {
-	int		a;
-	int		b;
-	int		c;
+	int	 a;
+	int	 b;
+	int	 c;
 	char	*fst;
 	char	**ret;
 
@@ -108,25 +108,25 @@ char	**getparams(char **list)
 }
 
 /*
-?	Este recibe los parámetros spliteados, y devuelve todas las redirecciones en formato:
-*	'<' '>' '<<' '>>' 
-?	y el archivo en el siguiente puntero.
+?   Este recibe los parámetros spliteados, y devuelve todas las redirecciones en formato:
+*   '<' '>' '<<' '>>' 
+?   y el archivo en el siguiente puntero.
 
-*	Ej:
+*   Ej:
 	>
 	a.txt
 	<<
 	"goodbye"
 
 
-?	NOTA: Hay que pasarle un puntero al primer parámetro del que se quieran sacar las redirecciones.
+?   NOTA: Hay que pasarle un puntero al primer parámetro del que se quieran sacar las redirecciones.
 	cat -n  <  a.txt  |  grep Error  |  wc -la  >  b.txt  |  cat -e  << end
-!	^~~~~~ (1) ~~~~~     ^~~ (2) ~~     ^~~~~~ (3) ~~~~~     ^~~~~ (4) ~~~~
+!   ^~~~~~ (1) ~~~~~	 ^~~ (2) ~~	 ^~~~~~ (3) ~~~~~	 ^~~~~ (4) ~~~~
 */
 char	**getredirections(char **list)
 {
-	int		a;
-	int		c;
+	int	 a;
+	int	 c;
 	char	**ret;
 
 	a = -1;
@@ -151,11 +151,11 @@ char	**getredirections(char **list)
 	return (ret);
 }
 
-static int	put_params_in_struct(char **list, t_str **env_list, t_red **red_list)
+static int  put_params_in_struct(char **list, t_str **env_list, t_red **red_list)
 {
-	int		a;
-	int		items;
-	t_red	*item_red;
+	int	 a;
+	int	 items;
+	t_red   *item_red;
 
 	a = 0;
 	items = 0;
@@ -177,11 +177,11 @@ static int	put_params_in_struct(char **list, t_str **env_list, t_red **red_list)
 	return(items);
 }
 
-/*static void	assign_pipes(t_red **red_list, int items)
+/*static void   assign_pipes(t_red **red_list, int items)
 {
-	int		ctr = 0;
-	int 	pip[2];
-	t_red	*local_red;
+	int	 ctr = 0;
+	int	 pip[2];
+	t_red   *local_red;
 
 	local_red = *red_list;
 	if (items == 1)
@@ -201,28 +201,32 @@ static int	put_params_in_struct(char **list, t_str **env_list, t_red **red_list)
 
 
 /*
-?	Aquí quería llamar a una función para rellenar la lista enlazada
-?	para luego crear forks en un while y pasarle a cada fork su item de la
-?	lista con su path, sus parámetros y todas sus redirecciones.
+?   Aquí quería llamar a una función para rellenar la lista enlazada
+?   para luego crear forks en un while y pasarle a cada fork su item de la
+?   lista con su path, sus parámetros y todas sus redirecciones.
 
-*	Lo que es seguro es que cada item de la lista es un comando, y se 
-*	separan los unos de los otros al encontrarse con un | sin comillas.
+*   Lo que es seguro es que cada item de la lista es un comando, y se 
+*   separan los unos de los otros al encontrarse con un | sin comillas.
 */
 void	new_redirections(char **list, t_str **env_list)
 {
 	char	**env_array;
-	int		items;
-	int		ctr;
-	int		frk;
-	int		pip[2];
-	t_red	*red_list;
+	int	 items;
+	int	 ctr;
+	int	 frk;
+	int	 pip[2];
+	t_red   *red_list;
 
 	red_list = NULL;
 
 	items = put_params_in_struct(list, env_list, &red_list);
 	env_array = lst_str_to_array(env_list);
-//	assign_pipes(&red_list, items);
+//  assign_pipes(&red_list, items);
 	ctr = 0;
+	if (items == 1)
+	{
+
+	}
 	while (ctr++ < items)
 	{
 		if (ctr != items)
@@ -232,7 +236,7 @@ void	new_redirections(char **list, t_str **env_list)
 		}
 		frk = fork();
 		if (!frk)
-			new_exec_command(red_list, env_array);
+			new_exec_command(red_list, env_array, 1);
 		if (ctr != items)
 			close(pip[1]);
 		red_list = red_list -> next;
