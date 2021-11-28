@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **utils/error_handler.c** where the error handles
+- add status_error to global
+
+### Changed
+
+- **builtins** errors logged now on STDERR_FILENO
 
 ## 2021-11-27 - Edu
 

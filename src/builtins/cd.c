@@ -49,7 +49,7 @@ static int	ft_cant_chdir(const char *path)
 
 	cant_chdir = chdir(path);
 	if (cant_chdir != 0)
-		printf(WRONG_CHDIR, path);
+		log_error_free(ft_strreplace(WRONG_CHDIR, "{0}", path), 1);
 	return (cant_chdir);
 }
 
@@ -71,7 +71,7 @@ void	ft_cd(t_str **env_list, char **argv)
 	{
 		aux = lst_str_get_str(env_list, LIT_HOME_LIKE);
 		if (aux == NULL)
-			printf(HOME_NOT_SET);
+			log_error(HOME_NOT_SET, 1);
 		else
 			cant_chdir = ft_cant_chdir(ft_strchr(aux->str, '/'));
 	}

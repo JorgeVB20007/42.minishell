@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 01:11:34 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/27 17:24:31 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/28 09:59:39 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_heredoc(int *fdi, char *last_line)
 			if (is_valid_var_hd(str_got, idx))
 			{
 				//ft_putstr_fd(getvarvalue(&str_got[++idx]), pip[1]);
-				ft_putstr_fd(ft_getenv(&g_env, &str_got[++idx]), pip[1]);
+				ft_putstr_fd(ft_getenv(&g_var.env, &str_got[++idx]), pip[1]);
 				while (ft_isalnum(str_got[idx]) || str_got[idx] == '_')
 					idx++;
 			}

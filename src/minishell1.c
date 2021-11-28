@@ -14,7 +14,7 @@ static void	ft_signal_handler(int signal)
 	rl_redisplay();
 }
 
-static void processline(void)
+static void	processline(void)
 {
 	char	*str_got;
 	char	**param_list;
@@ -32,7 +32,7 @@ static void processline(void)
 		{
 			param_list = get_tokens(str_got);
 			if (!has_pipe_redir_open(param_list))
-				new_redirections(param_list, &g_env);
+				new_redirections(param_list, &g_var.env);
 		}
 		free(str_got);
 	}
@@ -42,8 +42,8 @@ int	main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
-	g_env = NULL;
-	init_ms_env(env, &g_env);
+	g_var.env = NULL;
+	init_ms_env(env, &g_var.env);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &ft_signal_handler);
 	while (1)

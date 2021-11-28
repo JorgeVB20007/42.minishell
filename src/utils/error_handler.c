@@ -1,8 +1,16 @@
 #include "minishell.h"
 
-void	log_error(char *str_error, int errno)
+# define MS_ERROR "Minishell: "
+
+void	log_error(char *str_error, int status_error)
 {
-	ft_putstr(MS_EROR, STDERR_FILENO);
-	ft_putstr(str_error, STDERR_FILENO);
-	g_var.status = errno;
+	ft_putstr_fd(MS_ERROR, STDERR_FILENO);
+	ft_putstr_fd(str_error, STDERR_FILENO);
+	g_var.status_error = status_error;
+}
+
+void	log_error_free(char *malloc_str_error, int status_error)
+{
+	log_error(malloc_str_error, status_error);
+	free(malloc_str_error);
 }

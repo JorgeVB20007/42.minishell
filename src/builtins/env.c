@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/27 10:32:16 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/11/28 11:40:58 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	ft_env(t_str **env_list, char **argv)
 
 	if (argv[1] != NULL && argv[1][0] != '|' && argv[1][0] != '<' \
 	&& argv[1][0] != '>')
-		printf(ENV_NOT_OPTIONS_OR_ARGUMENT_ALLOWED);
+		log_error(ENV_NOT_OPTIONS_OR_ARGUMENT_ALLOWED, 1);
 	else
 	{
 		aux = *env_list;

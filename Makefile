@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
+#    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/11/27 22:16:43 by jvacaris         ###   ########.fr        #
+#    Updated: 2021/11/28 10:50:47 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRC_FILES	= 	minishell1.c				\
 				utils/qm_remover.c			\
 				utils/ft_modstrcmp.c		\
 				utils/lst_red_handler.c		\
+				utils/error_handler.c		\
 				builtins/cd.c				\
 				builtins/echo.c				\
 				builtins/export.c			\
