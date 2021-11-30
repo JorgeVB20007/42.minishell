@@ -6,7 +6,7 @@
 #    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/11/28 23:25:31 by jvacaris         ###   ########.fr        #
+#    Updated: 2021/11/30 19:25:42 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRC_FILES	= 	minishell1.c				\
 				utils/ft_modstrcmp.c		\
 				utils/lst_red_handler.c		\
 				utils/error_handler.c		\
+				utils/ft_is_directory.c		\
 				builtins/cd.c				\
 				builtins/echo.c				\
 				builtins/export.c			\

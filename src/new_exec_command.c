@@ -52,8 +52,8 @@ static void	command_sorter_wth_pipes(t_red *red_node, char **env)
 }
 
 /*
-TODO	Check whether the infile/outfile are valid files. \
-TODO		Directories are not valid files (check stat function).
+TODO	Investigate under what circumstances a command should fail when
+TODO	an invalid file is given as a redirection and when should it continue.
 */
 void	new_exec_command(t_red *red_node, char **env, int bool_addexit)
 {
@@ -72,24 +72,39 @@ void	new_exec_command(t_red *red_node, char **env, int bool_addexit)
 		no_qm = adv_qm_rem(red_node -> redirs[a + 1], 0);
 		if (!ft_strcmp(red_node -> redirs[a], "<"))
 		{
-			if (fdi)
-				close(fdi);
-			fdi = open(no_qm, O_RDONLY, 0666);
-			dup2(fdi, 0);
+			if (!access(no_qm, R_OK) && ft_is_directory(no_qm))
+			{
+				if (fdi)
+					close(fdi);
+				fdi = open(no_qm, O_RDONLY, 0666);
+				dup2(fdi, 0);
+			}
+			else
+				perror("Error:");
 		}
 		if (!ft_strcmp(red_node -> redirs[a], ">"))
 		{
-			if (fdo)
-				close(fdo);
-			fdo = open(no_qm, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-			dup2(fdo, 1);
+			if ((!access(no_qm, W_OK)  && ft_is_directory(no_qm)) || access(no_qm, F_OK))
+			{
+				if (fdo)
+					close(fdo);
+				fdo = open(no_qm, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+				dup2(fdo, 1);
+			}
+			else
+				perror("Error:");
 		}
 		if (!ft_strcmp(red_node -> redirs[a], ">>"))
 		{
-			if (fdo)
-				close(fdo);
-			fdo = open(no_qm, O_CREAT | O_WRONLY | O_APPEND, 0666);
-			dup2(fdo, 1);
+			if (!access(no_qm, R_OK) && ft_is_directory(no_qm))
+			{
+				if (fdo)
+					close(fdo);
+				fdo = open(no_qm, O_CREAT | O_WRONLY | O_APPEND, 0666);
+				dup2(fdo, 1);
+			}
+			else
+				perror("Error:");
 		}
 		if (!ft_strcmp(red_node -> redirs[a], "<<"))
 		{

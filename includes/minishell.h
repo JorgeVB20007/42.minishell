@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/29 00:29:39 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/11/30 19:27:22 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <sys/param.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
@@ -84,6 +85,9 @@ char	*recursive_expand(char *str, t_str **env_list);
 //*		utils / error_handler.c
 void	log_error(char *str_error, int status_error);
 void	log_error_free(char *malloc_str_error, int status_error);
+
+//*		utils / ft_is_it_directory.c
+int		ft_is_directory(char *path);
 
 //*		utils / ft_modstrcmp.c
 int		modstrcmp(char *str1, char *str2);
