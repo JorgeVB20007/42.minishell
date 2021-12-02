@@ -1,6 +1,38 @@
 #include "minishell.h"
 
-void	command_sorter(t_red *red_node, char **env)
+static void	command_sorter_no_pipes(t_red *red_node, char **env, int fdi, int fdo)
+{
+	int	frk;
+	int	status;
+
+	frk = 0;
+	if (!strcmp(red_node -> params[0], "echo"))
+		ft_echo(red_node -> params);
+	else if (!strcmp(red_node -> params[0], "export"))
+		ft_export(&g_var.env, red_node -> params);
+	else if (!strcmp(red_node -> params[0], "pwd"))
+		ft_pwd(&g_var.env, red_node -> params);
+	else if (!strcmp(red_node -> params[0], "unset"))
+		ft_unset(&g_var.env, red_node -> params);
+	else if (!strcmp(red_node -> params[0], "env"))
+		ft_env(&g_var.env, red_node -> params);
+	else if (!strcmp(red_node -> params[0], "cd"))
+		ft_cd(&g_var.env, red_node -> params);
+	else
+	{
+		frk = fork();
+		if (!frk)
+			execve(red_node -> path, red_node -> params, env);
+		wait(&status);
+		g_var.last_cmd_status = WEXITSTATUS(status);
+		if (fdi)
+			close(fdi);
+		if (fdo)
+			close(fdo);
+	}
+}
+
+static void	command_sorter_wth_pipes(t_red *red_node, char **env)
 {
 	if (!strcmp(red_node -> params[0], "echo"))
 		ft_echo(red_node -> params);
@@ -15,11 +47,15 @@ void	command_sorter(t_red *red_node, char **env)
 	else if (!strcmp(red_node -> params[0], "cd"))
 		ft_cd(&g_var.env, red_node -> params);
 	else
-		execve(red_node -> path, red_node -> params, env);
+		exit(execve(red_node -> path, red_node -> params, env));
 	exit (0);
 }
 
-void	new_exec_command(t_red *red_node, char **env)
+/*
+TODO	Investigate under what circumstances a command should fail when
+TODO	an invalid file is given as a redirection and when should it continue.
+*/
+void	new_exec_command(t_red *red_node, char **env, int bool_addexit)
 {
 	int		a;
 	int		fdi;
@@ -36,24 +72,39 @@ void	new_exec_command(t_red *red_node, char **env)
 		no_qm = adv_qm_rem(red_node -> redirs[a + 1], 0);
 		if (!ft_strcmp(red_node -> redirs[a], "<"))
 		{
-			if (fdi)
-				close(fdi);
-			fdi = open(no_qm, O_RDONLY, 0666);
-			dup2(fdi, 0);
+			if (!access(no_qm, R_OK) && ft_is_directory(no_qm))
+			{
+				if (fdi)
+					close(fdi);
+				fdi = open(no_qm, O_RDONLY, 0666);
+				dup2(fdi, 0);
+			}
+			else
+				perror("Error:");
 		}
 		if (!ft_strcmp(red_node -> redirs[a], ">"))
 		{
-			if (fdo)
-				close(fdo);
-			fdo = open(no_qm, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-			dup2(fdo, 1);
+			if ((!access(no_qm, W_OK)  && ft_is_directory(no_qm)) || access(no_qm, F_OK))
+			{
+				if (fdo)
+					close(fdo);
+				fdo = open(no_qm, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+				dup2(fdo, 1);
+			}
+			else
+				perror("Error:");
 		}
 		if (!ft_strcmp(red_node -> redirs[a], ">>"))
 		{
-			if (fdo)
-				close(fdo);
-			fdo = open(no_qm, O_CREAT | O_WRONLY | O_APPEND, 0666);
-			dup2(fdo, 1);
+			if (!access(no_qm, R_OK) && ft_is_directory(no_qm))
+			{
+				if (fdo)
+					close(fdo);
+				fdo = open(no_qm, O_CREAT | O_WRONLY | O_APPEND, 0666);
+				dup2(fdo, 1);
+			}
+			else
+				perror("Error:");
 		}
 		if (!ft_strcmp(red_node -> redirs[a], "<<"))
 		{
@@ -68,5 +119,8 @@ void	new_exec_command(t_red *red_node, char **env)
 		free(no_qm);
 		a += 2;
 	}
-	command_sorter(red_node, env);
+	if (bool_addexit)
+		command_sorter_wth_pipes(red_node, env);
+	else
+		command_sorter_no_pipes(red_node, env, fdi, fdo);
 }
