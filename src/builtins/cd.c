@@ -1,7 +1,7 @@
 #include "minishell.h"
 
 #define HOME_NOT_SET "cd: HOME not set\n"
-#define WRONG_CHDIR "cd: %s: No such file or directory\n"
+#define WRONG_CHDIR "cd: {0}: No such file or directory\n"
 
 /**
  * * Updates env's records of PWD and OLDPWD if exists
@@ -14,7 +14,7 @@
 static void	update_env_pwd(t_str **env_list, t_str	*pwd, t_str	*old_pwd)
 {
 	char	*str;
-	char	cwd[PATH_MAX - 1];
+	char	cwd[PATH_MAX];
 
 	if (old_pwd == NULL)
 		old_pwd = lst_str_get_str(env_list, LIT_OLDPWD);
@@ -30,8 +30,7 @@ static void	update_env_pwd(t_str **env_list, t_str	*pwd, t_str	*old_pwd)
 	if (pwd != NULL)
 	{
 		lst_str_delete(env_list, pwd->str, ULONG_MAX);
-		if (getcwd(cwd, sizeof(cwd)) == NULL)
-			perror("getcwd() error");
+		getcwd(cwd, PATH_MAX);
 		str = ft_strjoin(LIT_PWD_LIKE, cwd);
 		lst_str_add_sorted(env_list, str);
 	}
