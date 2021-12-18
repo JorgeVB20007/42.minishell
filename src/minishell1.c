@@ -1,19 +1,5 @@
 #include "minishell.h"
 
-/**
- * * Handle SIGINT signal CTRL+C, promping new Line
- * @param signal	signal identifier (see man signal)
-*/
-static void	ft_signal_handler(int signal)
-{
-	(void)signal;
-	//TODO handle when there is some text
-	write(1, MS_PROMPT_SIG_INT, ft_strlen(MS_PROMPT_SIG_INT));
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-}
-
 static void	processline(void)
 {
 	char	*str_got;
@@ -45,10 +31,9 @@ int	main(int argc, char **argv, char **env)
 	g_var.env = NULL;
 	g_var.last_cmd_status = 0;
 	init_ms_env(env, &g_var.env);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, &ft_signal_handler);
 	while (1)
 	{
+		signal_handler_default();
 		processline();
 //		system("lsof -c minishell");
 	}

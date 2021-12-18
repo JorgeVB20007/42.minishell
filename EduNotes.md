@@ -33,3 +33,5 @@ ToDo
 
 Test parser.c aas basfbaskfhbsajhb ||| <<< >>> as|da>sa<s>>asf<<asdfd
 test ft_recursive_expand sasdfsad$USER fas'd$TE'RM fasdfsadfsdf
+
+WIFSIGNALED() to set status error by signals 
