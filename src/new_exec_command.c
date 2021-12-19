@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static void	command_sorter_no_pipes(t_red *red_node, char **env, int fdi, int fdo)
+void	command_sorter_no_pipes(t_red *red_node, char **env, int fdi, int fdo)
 {
 	int	frk;
 	int	status;
@@ -21,41 +21,55 @@ static void	command_sorter_no_pipes(t_red *red_node, char **env, int fdi, int fd
 	else
 	{
 		frk = fork();
+		if (env)
+			write(1, "hi", 0);
+		signal_handler_forks(!frk);
 		if (!frk)
+		{
 			execve(red_node -> path, red_node -> params, env);
+			exit(0);
+		}
 		wait(&status);
 		g_var.last_cmd_status = WEXITSTATUS(status);
-		if (fdi)
+		if (fdi != 0)
 			close(fdi);
-		if (fdo)
+		if (fdo != 1)
 			close(fdo);
 	}
 }
 
-static void	command_sorter_wth_pipes(t_red *red_node, char **env)
+void	command_sorter_wth_pipes(t_red *red_node, char **env)
 {
-	if (!strcmp(red_node -> params[0], "echo"))
-		ft_echo(red_node -> params);
-	else if (!strcmp(red_node -> params[0], "export"))
-		ft_export(&g_var.env, red_node -> params);
-	else if (!strcmp(red_node -> params[0], "pwd"))
-		ft_pwd(&g_var.env, red_node -> params);
-	else if (!strcmp(red_node -> params[0], "unset"))
-		ft_unset(&g_var.env, red_node -> params);
-	else if (!strcmp(red_node -> params[0], "env"))
-		ft_env(&g_var.env, red_node -> params);
-	else if (!strcmp(red_node -> params[0], "cd"))
-		ft_cd(&g_var.env, red_node -> params);
-	else
-		exit(execve(red_node -> path, red_node -> params, env));
-	exit (0);
+	int	frk;
+
+	frk = fork();
+	signal_handler_forks(!frk);
+	if (!frk)
+	{
+		if (!strcmp(red_node -> params[0], "echo"))
+			ft_echo(red_node -> params);
+		else if (!strcmp(red_node -> params[0], "export"))
+			ft_export(&g_var.env, red_node -> params);
+		else if (!strcmp(red_node -> params[0], "pwd"))
+			ft_pwd(&g_var.env, red_node -> params);
+		else if (!strcmp(red_node -> params[0], "unset"))
+			ft_unset(&g_var.env, red_node -> params);
+		else if (!strcmp(red_node -> params[0], "env"))
+			ft_env(&g_var.env, red_node -> params);
+		else if (!strcmp(red_node -> params[0], "cd"))
+			ft_cd(&g_var.env, red_node -> params);
+		else
+			exit(execve(red_node -> path, red_node -> params, env));
+		exit (0);
+	}
 }
 
 /*
 TODO	Investigate under what circumstances a command should fail when
 TODO	an invalid file is given as a redirection and when should it continue.
+!		This might be removed soon.
 */
-void	new_exec_command(t_red *red_node, char **env, int bool_addexit)
+/*void	new_exec_command(t_red *red_node, char **env, int bool_addexit)
 {
 	int		a;
 	int		fdi;
@@ -120,7 +134,8 @@ void	new_exec_command(t_red *red_node, char **env, int bool_addexit)
 		a += 2;
 	}
 	if (bool_addexit)
+		bool_addexit++;									// ? To avoid errors. This is temporary
 		command_sorter_wth_pipes(red_node, env);
 	else
 		command_sorter_no_pipes(red_node, env, fdi, fdo);
-}
+}*/

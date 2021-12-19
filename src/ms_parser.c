@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 10:32:31 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/27 15:53:00 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/12/18 17:00:26 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ char	**get_tokens(char *input)
  * @param input	input to tokenize
  * @return		if input has valid token to process
 */
-int has_token(const char *input)
+int	has_token(const char *input)
 {
 	while (ft_isspace(*input))
 		input += 1;

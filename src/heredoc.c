@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 01:11:34 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/28 09:59:39 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/12/18 21:00:41 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,34 +40,47 @@ void	ft_heredoc_qm(int *fdi, char *last_line)
 *	Heredoc when no quotation marks were found in *last_line*, so variables
 *	expand properly.
 */
-void	ft_heredoc(int *fdi, char *last_line)
+void	ft_heredoc(int *fdi, char *last_line, int orig_fds[2])
 {
 	int		pip[2];
 	char	*str_got;
 	int		idx;
+	int		frk;
 
 	pipe(pip);
 	*fdi = pip[0];
-	while (1)
+	frk = fork();
+	signal_handler_forks(!frk);
+	if (!frk)
 	{
-		idx = -1;
-		str_got = readline("> ");
-		if (!modstrcmp(str_got, last_line) || str_got == NULL)
-			break ;
-		while (str_got[++idx])
+		dprintf(2, "\n(No qm)\n");
+		dup2(orig_fds[0], 0);
+		dup2(orig_fds[1], 1);
+		while (1)
 		{
-			if (is_valid_var_hd(str_got, idx))
+			idx = -1;
+			str_got = readline("> ");
+			if (!modstrcmp(str_got, last_line) || str_got == NULL)
+				break ;
+			while (str_got[++idx])
 			{
-				//ft_putstr_fd(getvarvalue(&str_got[++idx]), pip[1]);
-				ft_putstr_fd(ft_getenv(&g_var.env, &str_got[++idx]), pip[1]);
-				while (ft_isalnum(str_got[idx]) || str_got[idx] == '_')
-					idx++;
+				if (is_valid_var_hd(str_got, idx))
+				{
+					//ft_putstr_fd(getvarvalue(&str_got[++idx]), pip[1]);
+					ft_putstr_fd(ft_getenv(&g_var.env, &str_got[++idx]), pip[1]);
+					while (ft_isalnum(str_got[idx]) || str_got[idx] == '_')
+						idx++;
+				}
+				else
+					ft_putchar_fd(str_got[idx], pip[1]);
 			}
-			else
-				ft_putchar_fd(str_got[idx], pip[1]);
+			ft_putstr_fd("\n", pip[1]);
+			free(str_got);
 		}
-		ft_putstr_fd("\n", pip[1]);
-		free(str_got);
+		close(pip[1]);
+		exit(0);
 	}
 	close(pip[1]);
+	wait(0);  // ! There's a problem here.
+	dprintf(2, "\n(I waited!)\n");
 }

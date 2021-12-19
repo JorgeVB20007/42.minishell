@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/30 19:27:22 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/12/18 18:50:34 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	exec_command(char **list, char **envp);
 
 //*		heredoc.c
 void	ft_heredoc_qm(int *fdi, char *last_line);
-void	ft_heredoc(int *fdi, char *last_line);
+void	ft_heredoc(int *fdi, char *last_line, int orig_fds[2]);
 
 //*		interpreter.c
 void	interpreter(char **list, t_str **env_list);
@@ -143,6 +143,8 @@ int		has_token(const char *input);
 
 //*		new_exec_command.c
 void	new_exec_command(t_red *red_node, char **env, int bool_addexit);
+void	command_sorter_no_pipes(t_red *red_node, char **env, int fdi, int fdo);
+void	command_sorter_wth_pipes(t_red *red_node, char **env);
 
 //*		new_redirections.c
 void	new_redirections(char **list, t_str **env_list);
@@ -154,11 +156,14 @@ int		has_pipe_redir_open(char **array);
 //*		red_struct_filler.c
 int		put_params_in_struct(char **list, t_str **env_list, t_red **red_list);
 
-
 //*		var_expansor.c
 // !	Function recursive_expand() is duplicated.
 
 //?		Unknown
 int		has_last_redirection_open(const char *str);
+
+void	signal_handler_forks(int is_children);
+
+void	signal_handler_default(void);
 
 #endif
