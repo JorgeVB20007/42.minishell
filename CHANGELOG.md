@@ -8,8 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 2021-12-19 - Jorge
 ### Changed
 - **new_exec_command** renamed to **command_sorter.c**
+- **exec_command.c** and **interpreter.c** moved to **/old**
 ### Fixed
-- fix **MS_PROMPT_SIG_INT** to clean lines properly on SIG_INT
+- **heredoc** should now work even with pipes.
 
 ## 2021-12-19 - Edu
 ### Changed
