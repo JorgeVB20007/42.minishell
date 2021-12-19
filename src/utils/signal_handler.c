@@ -1,19 +1,22 @@
 #include "minishell.h"
 
 /**
- * * Handle SIGINT signal CTRL+C, promping new Line
+ * * Handles SIGINT signal CTRL+C, promping new Line
  * @param signal	signal identifier (see man signal)
 */
 static void	signal_handler_default_sigint(int signal)
 {
 	(void)signal;
-	//TODO handle when there is some text
 	write(1, MS_PROMPT_SIG_INT, ft_strlen(MS_PROMPT_SIG_INT));
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
 }
 
+/**
+ * * Handles signals at forks, different behaviour between father and children
+ * @param is_children	bool process is children
+*/
 void	signal_handler_forks(int is_children)
 {
 	signal(SIGQUIT, SIG_IGN);
@@ -23,6 +26,9 @@ void	signal_handler_forks(int is_children)
 		signal(SIGINT, SIG_IGN);
 }
 
+/**
+ * * Handles signals out of forks
+*/
 void	signal_handler_default(void)
 {
 	signal(SIGQUIT, SIG_IGN);
