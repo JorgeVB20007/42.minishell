@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 10:32:31 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/27 15:53:00 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/12/19 10:15:15 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ char	**get_tokens(char *input)
  * @param input	input to tokenize
  * @return		if input has valid token to process
 */
-int has_token(const char *input)
+int	has_token(const char *input)
 {
 	while (ft_isspace(*input))
 		input += 1;

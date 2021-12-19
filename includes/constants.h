@@ -6,14 +6,14 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:36 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/21 11:55:00 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/12/19 10:11:16 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
 # define MS_PROMPT "Minishell> "
-# define MS_PROMPT_SIG_INT "Minishell>   \n"
+# define MS_PROMPT_SIG_INT "\033[KMinishell>   \n"
 # define MSG_NEW_LINE "%s\n"
 # define MSG_EXIT_MINISHELL "\033[AMinishell> exit\n"
 # define LIT_OLDPWD "OLDPWD"
