@@ -6,7 +6,7 @@
 #    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/12/18 18:53:18 by jvacaris         ###   ########.fr        #
+#    Updated: 2021/12/19 23:55:40 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,11 +34,9 @@ SRC_FILES	= 	minishell1.c				\
 				ms_parser.c					\
 				var_expansor.c				\
 				qm_error_detector.c			\
-				interpreter.c				\
-				exec_command.c				\
 				heredoc.c					\
 				new_redirections.c			\
-				new_exec_command.c			\
+				command_sorter.c			\
 				red_struct_filler.c			\
 				builtins/env.c				\
 				utils/lst_str_handler.c		\
@@ -57,7 +55,9 @@ SRC_FILES	= 	minishell1.c				\
 				builtins/export.c			\
 				builtins/pwd.c				\
 				builtins/unset.c			\
-				# modifsplit.c				
+				# modifsplit.c
+				# interpreter.c
+				# exec_command.c
 
 OBJ_FILES	= $(SRC_FILES:.c=.o)
 

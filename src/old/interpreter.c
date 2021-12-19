@@ -6,12 +6,17 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:16:07 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/12/18 15:09:37 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/12/19 21:24:24 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+!	 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!	| This whole file is outdated. |
+!	 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
 /*
 * This has no use yet. It might be used later to count how many
 * pipes are required and create an appropriate amount of forks.
@@ -50,7 +55,7 @@ void	make_a_pipe(int *fdo, int *nxt)
 TODO	Unsure if SEGFAULT happens if a redir. sign is
 TODO	located at the end of the list
 */
-void	redirection_finder(char **list, int *fdi, int *fdo, int *nxt)
+static void	redirection_finder(char **list, int *fdi, int *fdo, int *nxt)
 {
 	int		idx;
 	char	*no_qm;

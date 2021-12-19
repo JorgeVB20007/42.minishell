@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:14 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/13 00:40:53 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/12/19 22:21:37 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,6 @@
 ! This function doesn't free the first string, as sometimes the previous
 ! string is needed. A duplicate function could be created if needed.
 */
-
-/*
-! This function will probably be removed, as it's been replaced by adv_qm_rem.
-*/
-char	*qm_remover(char *qm_str)
-{
-	int		a;
-	int		len;
-	char	*ret;
-
-	a = 0;
-	ret = NULL;
-	len = ft_strlen(qm_str);
-	if (qm_str[a] != '\'' && qm_str[a] != '"')
-		return (ft_strdup(qm_str));
-	else
-	{
-		ret = ft_calloc(sizeof(char), len - 1);
-		while (a < len - 2)
-		{
-			ret[a] = qm_str[a + 1];
-			a++;
-		}
-	}
-	return (ret);
-}
 
 static int	aqr_count(char *qm_str)
 {

@@ -58,7 +58,7 @@ void	fd_assigner(t_red *red_node, int orig_fds[2])
 			fdi = 0;
 			dup2(orig_fds[0], 0);
 			if (ft_strchr(red_node -> redirs[a + 1], '\'') || ft_strchr(red_node -> redirs[a + 1], '"'))
-				ft_heredoc_qm(&fdi, no_qm);
+				ft_heredoc_qm(&fdi, red_node -> redirs[a + 1], orig_fds);
 			else
 				ft_heredoc(&fdi, red_node -> redirs[a + 1], orig_fds);
 			dup2(fdi, 0);
@@ -92,7 +92,6 @@ void	new_redirections(char **list, t_str **env_list)
 	items = put_params_in_struct(list, env_list, &red_list);
 	red_list2 = &red_list;
 	env_array = lst_str_to_array(env_list);
-//  assign_pipes(&red_list, items);
 	ctr = 0;
 	while (ctr++ != items)
 	{
@@ -107,9 +106,7 @@ void	new_redirections(char **list, t_str **env_list)
 		if (items == 1)
 			command_sorter_no_pipes(red_list, env_array, red_list -> pip_in, red_list -> pip_out);
 		else
-		{
 			command_sorter_wth_pipes(red_list, env_array);
-		}
 		if (red_list -> pip_in != orig_fds[0])
 			close(red_list -> pip_in);
 		if (red_list -> pip_out != orig_fds[1])
@@ -124,67 +121,6 @@ void	new_redirections(char **list, t_str **env_list)
 	while (ctr++ != items)
 	{
 		wait(&status);
-		dprintf(2, "\n(Something has been done :D)\n");
 		g_var.last_cmd_status = WEXITSTATUS(status);
 	}
-
-/*	while (ctr++ != items)
-	{
-		if ((*red_list2) -> pip_in != 0)
-			close((*red_list2) -> pip_in);
-		if ((*red_list2) -> pip_out != 1)
-			close((*red_list2) -> pip_out);
-		(*red_list2) = (*red_list2) -> next;
-	}*/
-
-
-/*	if (items == 1)
-	{
-		new_exec_command(red_list, env_array, 0);
-		dup2(orig_fds[0], 0);
-		dup2(orig_fds[1], 1);
-	}
-	else
-	{
-		while (ctr++ < items)
-		{
-			if (ctr != items)
-			{
-				pipe(pip);
-				red_list -> pip_out = pip[1];
-			}
-			frk = fork();
-			if (!frk)
-				new_exec_command(red_list, env_array, 1);
-			if (ctr != items)
-				close(pip[1]);
-			red_list = red_list -> next;
-			if (ctr != items)
-				red_list -> pip_in = pip[0];
-		}
-		ctr = 0;
-		while (ctr++ != items)
-		{
-			wait(&status);
-			g_var.last_cmd_status = WEXITSTATUS(status);
-		}
-	}*/
 }
-/*
-void	execs_wth_pipes(int orig_fds[2], char **env_array, int items, t_red *red_list)
-{
-	int	ctr;
-	int	pip[2];
-
-	ctr = 0;
-	while (ctr++ < items)
-	{
-		if (ctr != items)
-		{
-			pipe(pip);
-			red_list -> pip_out = pip[1];
-		}
-		new_exec_command(red_list, env_array, 1);
-		frk = fork();
-	}
-}*/

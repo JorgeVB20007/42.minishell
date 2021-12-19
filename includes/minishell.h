@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/12/18 18:50:34 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/12/19 23:55:56 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_var
 {
 	t_str	*env;
 	int		last_cmd_status;
+	int 	waitedheredoc;
 }t_var;
 
 t_var	g_var;
@@ -72,15 +73,21 @@ void	ft_pwd(t_str **env_list, char **argv);
 //*		builtins / unset.c
 void	ft_unset(t_str **env_list, char **argv);
 
-//*		old / modifsplit.c
-// int		ft_modstrcpy(char *orgn, char **end, int len);
-// char	**modifsplit(char *input);
+//		old / exec_command.c
+//// void	exec_command(char **list, char **envp);
 
-//*		old / old_var_expansor.c
-// char	*getvarvalue(char *str);
-// void	expand_var(char *orgn, char **end, int *a, int *b);
-// void	dollarfound_getlen(int *a, int *count, char *input);
-char	*recursive_expand(char *str, t_str **env_list);
+//		interpreter.c
+//// void	interpreter(char **list, t_str **env_list);
+
+//		old / modifsplit.c
+//// int		ft_modstrcpy(char *orgn, char **end, int len);
+//// char	**modifsplit(char *input);
+
+//		old / old_var_expansor.c
+//// char	*getvarvalue(char *str);
+//// void	expand_var(char *orgn, char **end, int *a, int *b);
+//// void	dollarfound_getlen(int *a, int *count, char *input);
+//// char	*recursive_expand(char *str, t_str **env_list);
 
 //*		utils / error_handler.c
 void	log_error(char *str_error, int status_error);
@@ -125,26 +132,25 @@ void	ft_array_str_print(char **array);
 //*		utils / qm_remover.c
 char	*adv_qm_rem(char *qm_str, int b_free);
 
-//*		exec_command.c
-void	exec_command(char **list, char **envp);
+//*		utils / signal_handler.c
+void	signal_handler_forks(int is_children);
+void	signal_handler_default(void);
+
+//*		command_sorter.c
+void	new_exec_command(t_red *red_node, char **env, int bool_addexit);
+void	command_sorter_no_pipes(t_red *red_node, char **env, int fdi, int fdo);
+void	command_sorter_wth_pipes(t_red *red_node, char **env);
 
 //*		heredoc.c
-void	ft_heredoc_qm(int *fdi, char *last_line);
+void	ft_heredoc_qm(int *fdi, char *last_line, int orig_fds[2]);
 void	ft_heredoc(int *fdi, char *last_line, int orig_fds[2]);
 
-//*		interpreter.c
-void	interpreter(char **list, t_str **env_list);
-
 //*		minishell1.c
+//?		(main)
 
 //*		ms_parser.c
 char	**get_tokens(char *input);
 int		has_token(const char *input);
-
-//*		new_exec_command.c
-void	new_exec_command(t_red *red_node, char **env, int bool_addexit);
-void	command_sorter_no_pipes(t_red *red_node, char **env, int fdi, int fdo);
-void	command_sorter_wth_pipes(t_red *red_node, char **env);
 
 //*		new_redirections.c
 void	new_redirections(char **list, t_str **env_list);
@@ -157,13 +163,6 @@ int		has_pipe_redir_open(char **array);
 int		put_params_in_struct(char **list, t_str **env_list, t_red **red_list);
 
 //*		var_expansor.c
-// !	Function recursive_expand() is duplicated.
-
-//?		Unknown
-int		has_last_redirection_open(const char *str);
-
-void	signal_handler_forks(int is_children);
-
-void	signal_handler_default(void);
+char	*recursive_expand(char *malloc_str, t_str **env_list);
 
 #endif

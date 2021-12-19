@@ -6,11 +6,17 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:15:35 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/28 22:48:43 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/12/19 23:52:32 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+!	 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!	| This whole file is outdated. |
+!	 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
 
 static int	still_command_check(char *list)
 {
