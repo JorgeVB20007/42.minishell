@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/12/24 12:59:31 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/12/24 16:32:22 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
-#include <termios.h>
+# include <termios.h>
 # include "libft.h"
 # include "errors.h"
 # include "constants.h"
@@ -49,7 +49,7 @@ typedef struct s_var
 {
 	t_str	*env;
 	int		last_cmd_status;
-	int 	waitedheredoc;
+	int		waitedheredoc;
 }t_var;
 
 t_var	g_var;

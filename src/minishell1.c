@@ -1,5 +1,9 @@
 #include "minishell.h"
 
+# define CARRIAGE_RETURN "\033[AMinishell> "
+# define MSG_EXIT_MINISHELL "exit\n"
+# define MS_PROMPT "Minishell> "
+
 /**
  * * Disables CTRL hotkey(+c) from printing ^C 
 */
@@ -25,10 +29,10 @@ static void	disable_ctrl_c_hotkey(void)
 
 /**
  * * Process every input line sended on STDIN_FILENO
- * @param list	list
- * @param str	new str to link
+ * @param ignored_env	boolean to emulate bash CTRL hotkey(+d)(exit) depending
+ *  on env was ignored at start of the program
 */
-static void	processline(void)
+static void	processline(int ignored_env)
 {
 	char	*str_got;
 	char	**param_list;
@@ -36,6 +40,8 @@ static void	processline(void)
 	str_got = readline(MS_PROMPT);
 	if (str_got == NULL)
 	{
+		if (ignored_env == FALSE)
+			printf(CARRIAGE_RETURN);
 		printf(MSG_EXIT_MINISHELL);
 		exit(0);
 	}
@@ -63,8 +69,9 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		signal_handler_default();
-		processline();
+		processline(env[0] == NULL);
 //		system("lsof -c minishell");
 	}
 	return (0);
 }
+  

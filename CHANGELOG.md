@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2021-12-24 - Edu
 ### Added
+- **minishell1.c** Added boolean **ignored_env** on **processline** to emulate bash CTRL hotkey(+d)(exit) depending on env was ignored at start of the program
 - **minishell1.c** Added **disable_ctrl_c_hotkey** to disable CTRL hotkey(+c) from printing ^C following 
 	+ https://unix.stackexchange.com/questions/558694/why-do-terminals-sometimes-echo-special-characters-like-c
 	+ https://stackoverflow.com/questions/68602211/forcing-a-terminal-not-to-print-ctrl-hotkeys-when-signals-are-caught
