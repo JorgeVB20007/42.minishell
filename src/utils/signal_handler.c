@@ -7,7 +7,7 @@
 static void	signal_handler_default_sigint(int signal)
 {
 	(void)signal;
-	write(1, MS_PROMPT_SIG_INT, ft_strlen(MS_PROMPT_SIG_INT));
+	write(STDOUT_FILENO, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();

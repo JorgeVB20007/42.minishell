@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   constants.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:36 by emadriga          #+#    #+#             */
-/*   Updated: 2021/12/19 15:47:14 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/12/24 12:49:59 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
 # define MS_PROMPT "Minishell> "
-# define MS_PROMPT_SIG_INT "\033[KMinishell>   \n"
 # define MSG_NEW_LINE "%s\n"
 # define MSG_EXIT_MINISHELL "\033[AMinishell> exit\n"
 # define LIT_OLDPWD "OLDPWD"
