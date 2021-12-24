@@ -6,11 +6,15 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/28 11:40:58 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/12/24 16:19:10 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#define LIT_LAST_CMD "_="
+#define LIT_SHLVL_LIKE "SHLVL="
+#define LIT_SHLVL_LIKE_ONE "SHLVL=1"
+#define LIT_EXEC_MINISHELL "./minishell"
 #define ENV_NOT_OPTIONS_OR_ARGUMENT_ALLOWED "Minishell's subject \
 'env with no options or arguments'\n"
 

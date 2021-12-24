@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Remove unnecessary code to handle hotkey(+c) behaviour on signal_handler and constants.h
 - **red_sttruct_filter.c** Save 127 exit status on 'Command not found', errors handled with **log_error** functions
+- Move unique constants from constants.h to their files.
 
 ## 2021-12-20 - Edu
 ### Fixed
