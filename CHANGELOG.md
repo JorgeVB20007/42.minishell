@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 	+ https://unix.stackexchange.com/questions/558694/why-do-terminals-sometimes-echo-special-characters-like-c
 	+ https://stackoverflow.com/questions/68602211/forcing-a-terminal-not-to-print-ctrl-hotkeys-when-signals-are-caught
 ### Changed
-- Remove unnecessary code to handle this behaviour on signal_handler and constants.h
+- Remove unnecessary code to handle hotkey(+c) behaviour on signal_handler and constants.h
+- **red_sttruct_filter.c** Save 127 exit status on 'Command not found', errors handled with **log_error** functions
 
 ## 2021-12-20 - Edu
 ### Fixed

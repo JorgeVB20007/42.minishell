@@ -1,5 +1,8 @@
 #include "minishell.h"
 
+#define COMMAND_NOT_FOUND "Error: command {0} not found.\n"
+#define PATH_NOT_FOUND "Error: env variable 'PATH' not found.\n"
+
 /*
 ?   (Continuación de la función de abajo)
 */
@@ -14,7 +17,7 @@ char	*new_get_command_path(char *command, t_str **env_list)
 	paths = ft_getenv(env_list, "PATH");
 	if (!paths[0])
 	{
-		write(2, "Error: env variable 'PATH' not found.\n", 38);
+		log_error(PATH_NOT_FOUND, 1);
 		return (NULL);
 	}
 	path_list = ft_split(paths, ':');
@@ -28,9 +31,7 @@ char	*new_get_command_path(char *command, t_str **env_list)
 		}
 		free(str_att);
 	}
-	ft_putstr_fd("Error: command ", 2);
-	ft_putstr_fd(command, 2);
-	ft_putstr_fd(" not found.\n", 2);
+	log_error_free(ft_strreplace(COMMAND_NOT_FOUND, "{0}", command), 127);
 	return (NULL);
 }
 
