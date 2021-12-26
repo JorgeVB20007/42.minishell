@@ -111,6 +111,7 @@ char	**get_tokens(char *input)
 
 	if (*input == '\0')
 		return (NULL);
+	max_pipes_exceeded(input);
 	token_list = NULL;
 	recursive_get_token_list(&token_list, &input);
 	result = lst_str_to_array(&token_list);

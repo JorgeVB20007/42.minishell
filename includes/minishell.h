@@ -166,4 +166,6 @@ int		put_params_in_struct(char **list, t_str **env_list, t_red **red_list);
 //*		var_expansor.c
 char	*recursive_expand(char *malloc_str, t_str **env_list);
 
+void	max_pipes_exceeded(const char *input);
+
 #endif

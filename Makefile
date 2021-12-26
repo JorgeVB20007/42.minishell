@@ -14,7 +14,7 @@
 NAME	= minishell
 
 # compiling flags
-FLAGS	= -Wall -Wextra -Werror $(SANITIZE)
+FLAGS	= -Wall -Wextra -Werror $(SANITIZE) -pedantic
 
 # sanitize
 # SANITIZE =
@@ -55,6 +55,7 @@ SRC_FILES	= 	minishell1.c				\
 				builtins/export.c			\
 				builtins/pwd.c				\
 				builtins/unset.c			\
+				elephant.c
 				# modifsplit.c
 				# interpreter.c
 				# exec_command.c

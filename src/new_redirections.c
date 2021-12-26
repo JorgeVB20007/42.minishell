@@ -72,7 +72,7 @@ void	fd_assigner(t_red *red_node, int orig_fds[2])
 ?   Aquí quería llamar a una función para rellenar la lista enlazada
 ?   para luego crear forks en un while y pasarle a cada fork su item de la
 ?   lista con su path, sus parámetros y todas sus redirecciones.
-*   Lo que es seguro es que cada item de la lista es un comando, y se 
+*   Lo que es seguro es que cada item de la lista es un comando, y se
 *   separan los unos de los otros al encontrarse con un | sin comillas.
 */
 void	new_redirections(char **list, t_str **env_list)
@@ -82,7 +82,7 @@ void	new_redirections(char **list, t_str **env_list)
 	int		ctr;
 	int		pip[2];
 	t_red	*red_list;
-	t_red	**red_list2;
+	// t_red	**red_list2;
 	int		status;
 	int		orig_fds[2];
 
@@ -90,7 +90,7 @@ void	new_redirections(char **list, t_str **env_list)
 	orig_fds[0] = dup(0);
 	orig_fds[1] = dup(1);
 	items = put_params_in_struct(list, env_list, &red_list);
-	red_list2 = &red_list;
+	// red_list2 = &red_list;
 	env_array = lst_str_to_array(env_list);
 	ctr = 0;
 	while (ctr++ != items)
