@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
+#    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/12/19 23:55:40 by jvacaris         ###   ########.fr        #
+#    Updated: 2021/12/26 14:31:15 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,8 @@ SRC_FILES	= 	minishell1.c				\
 				utils/ft_modstrcmp.c		\
 				utils/lst_red_handler.c		\
 				utils/error_handler.c		\
+				utils/error_handler2.c		\
+				utils/error_handler3.c		\
 				utils/ft_is_directory.c		\
 				utils/signal_handler.c		\
 				builtins/cd.c				\
@@ -55,7 +57,6 @@ SRC_FILES	= 	minishell1.c				\
 				builtins/export.c			\
 				builtins/pwd.c				\
 				builtins/unset.c			\
-				elephant.c
 				# modifsplit.c
 				# interpreter.c
 				# exec_command.c

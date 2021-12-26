@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2021-12-26 - Edu
 ### Added
-- **elephant.c** Added Easter Egg to control max pipes allowed
+- **error_handler2.c** & **error_handler3.c** Added Easter Egg to control max pipes allowed
 
 ### Fixed
 - **new_redirections.c** Remove unused variables

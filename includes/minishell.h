@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/12/24 16:32:22 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/12/26 18:09:16 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ void	ft_unset(t_str **env_list, char **argv);
 //*		utils / error_handler.c
 void	log_error(char *str_error, int status_error);
 void	log_error_free(char *malloc_str_error, int status_error);
+void	max_pipes_exceeded(const char *input);
+void	translate_number(char *number);
+void	ft_search_word( char *to_find);
 
 //*		utils / ft_is_it_directory.c
 int		ft_is_directory(char *path);
@@ -165,7 +168,5 @@ int		put_params_in_struct(char **list, t_str **env_list, t_red **red_list);
 
 //*		var_expansor.c
 char	*recursive_expand(char *malloc_str, t_str **env_list);
-
-void	max_pipes_exceeded(const char *input);
 
 #endif
