@@ -23,6 +23,7 @@ SIGINT & SIGQUIT...\rsorry for the inconveniences, now it's ok, enjoy...\r"
 #define ELEPHANT_SONG " went out to play...\r\
 \tupon a spiders web one day...\r\tthey had such enormous fun...\r\
 \tthat they called for another elephant to come...\r"
+#define EMOJIS " 🐘🎵🎉😤😛🤣"
 #define ERASE_LINE "\033[K"
 #define SLEEP_TIME 50000
 #define MASK_COLOR_FOREGROUND "\033[9{0}m"
@@ -114,14 +115,23 @@ static void	ramdon_colors(int ODD)
 		ft_putstr_fd(MASK_BLACK_FOREGROUND, STDOUT_FILENO);
 }
 
-static void	troll_printing(const char *input)
+static void	troll_printing(const char *input, int enabled_emojis)
 {
 	char	*str;
+	int		tabs;
 
 	str = (char *)input;
 	while (*str != '\0')
 	{
-		ft_putchar_fd(*str, STDOUT_FILENO);
+		tabs = 1;
+		if (*str == '\t')
+			tabs = rand() % 7;
+		if (enabled_emojis && *str == '\r')
+			ft_putchar_fd(EMOJIS[rand() % 8], STDOUT_FILENO);
+		while (tabs--)
+			ft_putchar_fd(*str, STDOUT_FILENO);
+		if (*str == '\t')
+			ft_putchar_fd(EMOJIS[rand() % 8], STDOUT_FILENO);
 		if (*str == '\r')
 		{
 			usleep(SLEEP_TIME * 3);
@@ -139,17 +149,17 @@ static void	easter_egg(int elephants)
 	i = 0;
 	signal(SIGINT, SIG_IGN);
 	ft_putstr_fd(HIDE_CURSOR, STDOUT_FILENO);
-	troll_printing(WELCOME_EASTER);
+	troll_printing(WELCOME_EASTER, FALSE);
 	translate_number(ft_itoa(elephants));
-	troll_printing(INTRO_SONG);
+	troll_printing(INTRO_SONG, FALSE);
 	while (++i < elephants)
 	{
-		troll_printing("\t");
+		troll_printing("\t", TRUE);
 		translate_number(ft_itoa(i));
-		troll_printing(ELEPHANT);
+		troll_printing(ELEPHANT, FALSE);
 		if (i != 1)
-			troll_printing("s");
-		troll_printing(ELEPHANT_SONG);
+			troll_printing("s", FALSE);
+		troll_printing(ELEPHANT_SONG, TRUE);
 		ramdon_colors(i % 2);
 	}
 	signal_handler_default();
@@ -181,7 +191,7 @@ void	ft_search_word( char *to_find)
 	{
 		match = ft_strchr(match, ':');
 		print = ft_substr(match, 2, ft_strchr(match, '\n') - match - 2);
-		troll_printing(print);
+		troll_printing(print, FALSE);
 		free(print);
 	}
 }
