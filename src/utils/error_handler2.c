@@ -17,12 +17,13 @@ were looking for, but...\ryou discover our \033[1mEaster Egg\033[0m. \
 \033[1mCongratulations!!!\033[0m...\rso, you asked for "
 
 #define INTRO_SONG " elephan... I mean pipes right...\r let's get into it, \
-in...\rFIVE   \rFOUR   \rTHREE   \rTWO   \rONE   \rBut first, let me ignore \
-SIGINT & SIGQUIT...\rsorry for the inconveniences, now it's ok, enjoy...\r"
+in...\rFIVE      \rFOUR      \rTHREE      \rTWO      \rONE      \rBut first, \
+let me ignore SIGINT & SIGQUIT...\rsorry for the inconveniences, now it's ok, \
+enjoy...\r"
 #define ELEPHANT " elephant"
-#define ELEPHANT_SONG " went out to play...\r\
-\tupon a spiders web one day...\r\tthey had such enormous fun...\r\
-\tthat they called for another elephant to come...\r"
+#define ELEPHANT_SONG " went out to play... \r\
+\t upon a spiders web one day... \r\t they had such enormous fun... \r\
+\t that they called for another elephant to come... \r"
 #define EMOJIS " 🐘🎵🎉😤😛🤣"
 #define ERASE_LINE "\033[K"
 #define SLEEP_TIME 50000
@@ -154,7 +155,7 @@ static void	easter_egg(int elephants)
 	troll_printing(INTRO_SONG, FALSE);
 	while (++i < elephants)
 	{
-		troll_printing("\t", TRUE);
+		troll_printing("\t ", TRUE);
 		translate_number(ft_itoa(i));
 		troll_printing(ELEPHANT, FALSE);
 		if (i != 1)

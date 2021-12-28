@@ -39,30 +39,29 @@ static void	ft_units( int *pos, char *number)
 {
 	char	ntochar[4];
 
-	if (number[*pos] != '0')
-	{
-		ntochar[0] = number[*pos] + '\0';
-		ntochar[1] = '\0';
-		ft_search_word(ntochar);
-	}
+	ntochar[0] = number[*pos] + '\0';
+	ntochar[1] = '\0';
+	ft_search_word(ntochar);
 }
 
 static void	ft_tens(int *pos, char *number)
 {
 	char	ntochar[4];
 
-	if (number[*pos] != '0')
+	ntochar[0] = number[*pos] + '\0';
+	ntochar[2] = '\0';
+	if (number[*pos] == '1')
 	{
-		ntochar[0] = number[*pos] + '\0';
-		if (number[*pos] == '1')
-		{
-			ntochar[1] = number[*pos + 1] + '\0';
-			(*pos)++;
-		}
-		else
-			ntochar[1] = '0';
-		ntochar[2] = '\0';
+		ntochar[1] = number[*pos + 1] + '\0';
+		(*pos)++;
 		ft_search_word(ntochar);
+	}
+	else
+	{
+		ntochar[1] = '0';
+		ft_search_word(ntochar);
+		if (number[*pos + 1] != '0')
+			ft_putstr_fd("-", STDOUT_FILENO);
 	}
 }
 
@@ -74,11 +73,7 @@ static void	ft_downhundreds(int *pos, char *number, int num_len)
 	if (digits % 3 == 1)
 		ft_units(pos, number);
 	else if (digits % 3 == 2)
-	{
 		ft_tens(pos, number);
-		if (!ft_strchr("01", number[*pos]) && number[*pos + 1] != '0')
-			ft_putstr_fd("-", STDOUT_FILENO);
-	}
 	else if (digits % 3 == 0 )
 	{
 		ft_units(pos, number);
