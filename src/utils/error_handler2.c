@@ -24,7 +24,7 @@ enjoy...\r"
 #define ELEPHANT_SONG " went out to play... \r\
 \t upon a spiders web one day... \r\t they had such enormous fun... \r\
 \t that they called for another elephant to come... \r"
-#define EMOJIS " 🐘🎵🎉😤😛🤣"
+#define EMOJIS " |🐘|🎵|🎉|😤|😛|🤣|🕸️"
 #define ERASE_LINE "\033[K"
 #define SLEEP_TIME 50000
 #define MASK_COLOR_FOREGROUND "\033[9{0}m"
@@ -116,7 +116,7 @@ static void	ramdon_colors(int ODD)
 		ft_putstr_fd(MASK_BLACK_FOREGROUND, STDOUT_FILENO);
 }
 
-static void	troll_printing(const char *input, int enabled_emojis)
+static void	troll_printing(const char *input, char **emojis)
 {
 	char	*str;
 	int		tabs;
@@ -127,12 +127,12 @@ static void	troll_printing(const char *input, int enabled_emojis)
 		tabs = 1;
 		if (*str == '\t')
 			tabs = rand() % 7;
-		if (enabled_emojis && *str == '\r')
-			ft_putchar_fd(EMOJIS[rand() % 8], STDOUT_FILENO);
+		if (emojis && *str == '\r')
+			ft_putstr_fd(emojis[rand() % 8], STDOUT_FILENO);
 		while (tabs--)
 			ft_putchar_fd(*str, STDOUT_FILENO);
-		if (*str == '\t')
-			ft_putchar_fd(EMOJIS[rand() % 8], STDOUT_FILENO);
+		if (emojis && *str == '\t')
+			ft_putstr_fd(emojis[rand() % 8], STDOUT_FILENO);
 		if (*str == '\r')
 		{
 			usleep(SLEEP_TIME * 3);
@@ -146,23 +146,26 @@ static void	troll_printing(const char *input, int enabled_emojis)
 static void	easter_egg(int elephants)
 {
 	int		i;
+	char	**emojis;
 
 	i = 0;
+	emojis = ft_split(EMOJIS , '|');
 	signal(SIGINT, SIG_IGN);
 	ft_putstr_fd(HIDE_CURSOR, STDOUT_FILENO);
-	troll_printing(WELCOME_EASTER, FALSE);
+	troll_printing(WELCOME_EASTER, NULL);
 	translate_number(ft_itoa(elephants));
-	troll_printing(INTRO_SONG, FALSE);
+	troll_printing(INTRO_SONG, NULL);
 	while (++i < elephants)
 	{
-		troll_printing("\t ", TRUE);
+		troll_printing("\t ", emojis);
 		translate_number(ft_itoa(i));
-		troll_printing(ELEPHANT, FALSE);
+		troll_printing(ELEPHANT, NULL);
 		if (i != 1)
-			troll_printing("s", FALSE);
-		troll_printing(ELEPHANT_SONG, TRUE);
+			troll_printing("s", NULL);
+		troll_printing(ELEPHANT_SONG, emojis);
 		ramdon_colors(i % 2);
 	}
+	megafree(&emojis);
 	signal_handler_default();
 }
 
