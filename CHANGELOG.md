@@ -5,15 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2021-12-31 - Edu
+###	Added
+- **utils/megafree.c** added **array_str_get_size** to gets size of array of strings
+### Changed
+- **utils/error_handler2.c** & **utils/error_handler3.c** Refactor to clean code
+- **utils/megafree.c** ft_array_str_print renamed as **array_str_print**
+
 ## 2021-12-27 - Edu
 ### Changed
-- **error_handler2.c** Animate Easter with ramdoness xD
+- **utils/error_handler2.c** Animate Easter with ramdoness xD
 ### Fixed
-- **error_handler3.c** Fix rush02 conversor problems
+- **utils/error_handler3.c** Fix rush02 conversor problems
 
 ## 2021-12-26 - Edu
 ### Added
-- **error_handler2.c** & **error_handler3.c** Added Easter Egg to control max pipes allowed
+- **utils/error_handler2.c** & **utils/error_handler3.c** Added Easter Egg to control max pipes allowed
 ### Fixed
 - **new_redirections.c** Remove unused variables
 

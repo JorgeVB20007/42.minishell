@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   megafree.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 22:23:47 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/20 23:29:16 by jvacaris         ###   ########.fr       */
+/*   Updated: 2021/12/31 12:44:26 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	megafree(char ***list)
  * * Print array of strings
  * @param array	array
 */
-void	ft_array_str_print(char **array)
+void	array_str_print(char **array)
 {
 	int	a;
 
@@ -42,4 +42,19 @@ void	ft_array_str_print(char **array)
 	if (array != NULL)
 		while (array[a])
 			printf("%s\n", array[a++]);
+}
+
+/**
+ * * Get size of array of strings
+ * @param array	array
+*/
+int	array_str_get_size(char **array)
+{
+	int	a;
+
+	a = 0;
+	if (array != NULL)
+		while (array[a])
+			a++;
+	return (a);
 }

@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 18:17:51 by emadriga          #+#    #+#             */
-/*   Updated: 2021/12/26 18:17:52 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/12/31 12:33:11 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,14 @@ static void	ft_downhundreds(int *pos, char *number, int num_len)
 	}
 }
 
-void	translate_number(char *number)
+void	translate_number(int nbr)
 {
-	int	index;
-	int	numlen;
+	int		index;
+	int		numlen;
+	char	*number;
 
 	index = -1;
+	number = ft_itoa(nbr);
 	if (number[index + 2] == '\0')
 		ft_search_word(&number[index]);
 	numlen = ft_strlen(number);

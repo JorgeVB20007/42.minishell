@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/12/26 18:09:16 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/12/31 12:50:19 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	ft_unset(t_str **env_list, char **argv);
 void	log_error(char *str_error, int status_error);
 void	log_error_free(char *malloc_str_error, int status_error);
 void	max_pipes_exceeded(const char *input);
-void	translate_number(char *number);
+void	translate_number(int nbr);
 void	ft_search_word( char *to_find);
 
 //*		utils / ft_is_it_directory.c
@@ -131,7 +131,8 @@ char	**lst_str_to_array(t_str **env_list);
 
 //*		utils / megafree.c
 void	megafree(char ***list);
-void	ft_array_str_print(char **array);
+void	array_str_print(char **array);
+int		array_str_get_size(char **array);
 
 //*		utils / qm_remover.c
 char	*adv_qm_rem(char *qm_str, int b_free);
