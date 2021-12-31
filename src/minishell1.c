@@ -42,6 +42,7 @@ static void	processline(int ignored_env)
 	{
 		if (ignored_env == FALSE)
 			printf(CARRIAGE_RETURN);
+		lst_str_free(&g_var.env);
 		printf(MSG_EXIT_MINISHELL);
 		exit(0);
 	}

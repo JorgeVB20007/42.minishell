@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/12/31 12:50:19 by emadriga         ###   ########.fr       */
+/*   Updated: 2021/12/31 17:14:15 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ void	ft_cd(t_str **env_list, char **argv);
 
 //*		builtins / echo.c
 void	ft_echo(char **list);
+
+//*		builtins / exit.c
+void	ft_exit(t_str **env_list, char **argv);
 
 //*		builtins / env.c
 void	init_ms_env(char **env_vector, t_str **env_list);

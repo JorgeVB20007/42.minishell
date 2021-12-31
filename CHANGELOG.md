@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2021-12-31 - Edu
 ###	Added
+- **builtins/exit.c** emulates bash exit
 - **utils/megafree.c** added **array_str_get_size** to gets size of array of strings
+
 ### Changed
 - **utils/error_handler2.c** & **utils/error_handler3.c** Refactor to clean code
 - **utils/megafree.c** ft_array_str_print renamed as **array_str_print**

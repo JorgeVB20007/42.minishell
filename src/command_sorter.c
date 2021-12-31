@@ -8,6 +8,8 @@ void	command_sorter_no_pipes(t_red *red_node, char **env, int fdi, int fdo)
 	frk = 0;
 	if (!strcmp(red_node -> params[0], "echo"))
 		ft_echo(red_node -> params);
+	else if (!strcmp(red_node -> params[0], "exit"))
+		ft_exit(&g_var.env, red_node -> params);
 	else if (!strcmp(red_node -> params[0], "export"))
 		ft_export(&g_var.env, red_node -> params);
 	else if (!strcmp(red_node -> params[0], "pwd"))
@@ -48,6 +50,8 @@ void	command_sorter_wth_pipes(t_red *red_node, char **env)
 	{
 		if (!strcmp(red_node -> params[0], "echo"))
 			ft_echo(red_node -> params);
+		else if (!strcmp(red_node -> params[0], "exit"))
+			ft_exit(&g_var.env, red_node -> params);
 		else if (!strcmp(red_node -> params[0], "export"))
 			ft_export(&g_var.env, red_node -> params);
 		else if (!strcmp(red_node -> params[0], "pwd"))

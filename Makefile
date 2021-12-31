@@ -6,7 +6,7 @@
 #    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/12/26 14:31:15 by emadriga         ###   ########.fr        #
+#    Updated: 2021/12/31 17:14:41 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ SRC_FILES	= 	minishell1.c				\
 				utils/signal_handler.c		\
 				builtins/cd.c				\
 				builtins/echo.c				\
+				builtins/exit.c				\
 				builtins/export.c			\
 				builtins/pwd.c				\
 				builtins/unset.c			\
