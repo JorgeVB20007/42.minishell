@@ -1,9 +1,8 @@
 #include "minishell.h"
 
-# define CARRIAGE_RETURN "\033[AMinishell> "
-# define MSG_EXIT_MINISHELL "exit\n"
-# define MS_PROMPT "Minishell> "
-
+#define CARRIAGE_RETURN "\033[AMinishell> "
+#define MSG_EXIT_MINISHELL "exit\n"
+#define MS_PROMPT "Minishell> "
 /**
  * * Disables CTRL hotkey(+c) from printing ^C 
 */
@@ -52,7 +51,7 @@ static void	processline(int ignored_env)
 		if (!qm_error_detector(str_got) && has_token(str_got))
 		{
 			param_list = get_tokens(str_got);
-			if (!has_pipe_redir_open(param_list))
+			if (param_list != NULL && !has_pipe_redir_open(param_list))
 				new_redirections(param_list, &g_var.env);
 		}
 		free(str_got);

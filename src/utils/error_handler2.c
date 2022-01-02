@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 18:17:46 by emadriga          #+#    #+#             */
-/*   Updated: 2021/12/31 13:33:30 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/02 12:54:33 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,15 +168,15 @@ static void	easter_egg(int elephants)
 	megafree(&emojis);
 }
 
-void	max_pipes_exceeded(const char *input)
+int	max_pipes_exceeded(char **tokens)
 {
+	int		i;
 	int		pipes;
-	char	*str;
 
+	i = 0;
 	pipes = 0;
-	str = (char *) input;
-	while (*str != '\0' && pipes < INT_MAX)
-		if (*str++ == '|')
+	while (tokens[i] != NULL && pipes < INT_MAX)
+		if (!strcmp(tokens[i++], "|"))
 			pipes++;
 	if (pipes >= MAX_PIPES)
 	{
@@ -184,7 +184,9 @@ void	max_pipes_exceeded(const char *input)
 		ft_putstr_fd(HIDE_CURSOR, STDOUT_FILENO);
 		easter_egg(pipes);
 		signal_handler_default();
+		return (1);
 	}
+	return (0);
 }
 
 void	ft_search_word( char *to_find)

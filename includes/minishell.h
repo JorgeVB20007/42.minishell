@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/12/31 17:14:15 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/02 12:50:53 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	ft_unset(t_str **env_list, char **argv);
 //*		utils / error_handler.c
 void	log_error(char *str_error, int status_error);
 void	log_error_free(char *malloc_str_error, int status_error);
-void	max_pipes_exceeded(const char *input);
+int		max_pipes_exceeded(char **tokens);
 void	translate_number(int nbr);
 void	ft_search_word( char *to_find);
 
