@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/12/31 17:14:15 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/02 17:41:01 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,18 +93,19 @@ void	ft_unset(t_str **env_list, char **argv);
 //// void	dollarfound_getlen(int *a, int *count, char *input);
 //// char	*recursive_expand(char *str, t_str **env_list);
 
+//		old / ft_modstrcmp.c
+//// int		modstrcmp(char *str1, char *str2);
+
 //*		utils / error_handler.c
 void	log_error(char *str_error, int status_error);
 void	log_error_free(char *malloc_str_error, int status_error);
-void	max_pipes_exceeded(const char *input);
+int		max_pipes_exceeded(char **tokens);
 void	translate_number(int nbr);
 void	ft_search_word( char *to_find);
 
 //*		utils / ft_is_it_directory.c
 int		ft_is_directory(char *path);
 
-//*		utils / ft_modstrcmp.c
-int		modstrcmp(char *str1, char *str2);
 
 //*		utils / ft_strslashjoin.c
 char	*ft_strslashjoin(char const *s1, char const *s2);
@@ -172,5 +173,6 @@ int		put_params_in_struct(char **list, t_str **env_list, t_red **red_list);
 
 //*		var_expansor.c
 char	*recursive_expand(char *malloc_str, t_str **env_list);
+char	*new_getpath(char *raw_cmd, t_str **env_list);
 
 #endif

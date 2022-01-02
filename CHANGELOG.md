@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## 2021-01-02 - Edu
+## Changed
+- Replaced **strcmp** & **modstrcmp** by **libft 's ft_strcmp** (ft_modstrcmp.c to old)
+
+###	Fixed
+- Fixing **max_pipes_exceeded** exits whithout leaks & also check actual number of pipes (after tokenize)
 
 ## 2021-12-31 - Edu
 ###	Added

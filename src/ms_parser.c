@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 10:32:31 by emadriga          #+#    #+#             */
-/*   Updated: 2021/12/19 15:46:52 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/02 12:53:17 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,15 @@ char	**get_tokens(char *input)
 
 	if (*input == '\0')
 		return (NULL);
-	max_pipes_exceeded(input);
 	token_list = NULL;
 	recursive_get_token_list(&token_list, &input);
 	result = lst_str_to_array(&token_list);
 	lst_str_free(&token_list);
+	if (max_pipes_exceeded(result))
+	{
+		megafree(&result);
+		return (NULL);
+	}
 	return (result);
 }
 
