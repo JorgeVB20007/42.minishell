@@ -6,14 +6,14 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 18:17:46 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/02 17:28:06 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/02 18:04:40 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #define MAX_PIPES 68
 #define WELCOME_EASTER "Oh sorry!...\r you may not find out the SEGFAULT you \
-were looking for, but...\ryou discover our \033[1mEaster Egg\033[0m. \
+were looking for, but...\ryou 've discovered our \033[1mEaster Egg\033[0m. \
 \033[1mCongratulations!!!\033[0m...\rso, you asked for "
 
 #define INTRO_SONG " elephan... I mean pipes right...\r let's get into it, \
