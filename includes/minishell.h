@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/02 17:41:01 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/02 17:52:40 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ void	ft_search_word( char *to_find);
 //*		utils / ft_is_it_directory.c
 int		ft_is_directory(char *path);
 
-
 //*		utils / ft_strslashjoin.c
 char	*ft_strslashjoin(char const *s1, char const *s2);
 
@@ -141,6 +140,14 @@ int		array_str_get_size(char **array);
 //*		utils / qm_remover.c
 char	*adv_qm_rem(char *qm_str, int b_free);
 
+//*		utils / token_handler.c
+char	**get_tokens(char *input);
+int		has_token(const char *input);
+
+//*		utils / token_handler2.c
+int		eval_tokens(const char *token, char **path);
+int		has_pipe_redir_open(char **array);
+
 //*		utils / signal_handler.c
 void	signal_handler_forks(int is_children);
 void	signal_handler_default(void);
@@ -157,22 +164,17 @@ void	ft_heredoc(int *fdi, char *last_line, int orig_fds[2]);
 //*		minishell1.c
 //?		(main)
 
-//*		ms_parser.c
-char	**get_tokens(char *input);
-int		has_token(const char *input);
-
 //*		new_redirections.c
 void	new_redirections(char **list, t_str **env_list);
 
 //*		qm_error_detector.c
 int		qm_error_detector(char *str);
-int		has_pipe_redir_open(char **array);
 
 //*		red_struct_filler.c
 int		put_params_in_struct(char **list, t_str **env_list, t_red **red_list);
+char	*new_getpath(char *raw_cmd, t_str **env_list);
 
 //*		var_expansor.c
 char	*recursive_expand(char *malloc_str, t_str **env_list);
-char	*new_getpath(char *raw_cmd, t_str **env_list);
 
 #endif

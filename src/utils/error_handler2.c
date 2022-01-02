@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 18:17:46 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/02 12:54:33 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/02 17:28:06 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,13 +170,11 @@ static void	easter_egg(int elephants)
 
 int	max_pipes_exceeded(char **tokens)
 {
-	int		i;
 	int		pipes;
 
-	i = 0;
 	pipes = 0;
-	while (tokens[i] != NULL && pipes < INT_MAX)
-		if (!strcmp(tokens[i++], "|"))
+	while (*tokens != NULL && pipes < INT_MAX)
+		if (!ft_strcmp(*tokens++, "|"))
 			pipes++;
 	if (pipes >= MAX_PIPES)
 	{

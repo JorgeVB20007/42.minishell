@@ -6,7 +6,7 @@
 #    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/12/31 17:14:41 by emadriga         ###   ########.fr        #
+#    Updated: 2022/01/02 17:38:51 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ INCLUDES_FILES =	errors.h		\
 
 # Source and object files
 SRC_FILES	= 	minishell1.c				\
-				ms_parser.c					\
 				var_expansor.c				\
 				qm_error_detector.c			\
 				heredoc.c					\
@@ -45,12 +44,13 @@ SRC_FILES	= 	minishell1.c				\
 				utils/megafree.c			\
 				utils/is_valid_var.c		\
 				utils/qm_remover.c			\
-				utils/ft_modstrcmp.c		\
 				utils/lst_red_handler.c		\
 				utils/error_handler.c		\
 				utils/error_handler2.c		\
 				utils/error_handler3.c		\
 				utils/ft_is_directory.c		\
+				utils/token_handler.c		\
+				utils/token_handler2.c		\
 				utils/signal_handler.c		\
 				builtins/cd.c				\
 				builtins/echo.c				\
@@ -58,6 +58,7 @@ SRC_FILES	= 	minishell1.c				\
 				builtins/export.c			\
 				builtins/pwd.c				\
 				builtins/unset.c			\
+				# utils/ft_modstrcmp.c
 				# modifsplit.c
 				# interpreter.c
 				# exec_command.c

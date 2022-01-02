@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:36 by emadriga          #+#    #+#             */
-/*   Updated: 2021/12/24 16:20:22 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/02 17:03:11 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CONSTANTS_H
 # define LIT_OLDPWD "OLDPWD"
 # define LIT_PWD_LIKE "PWD="
+# define NONE 0
 
 enum e_free_status
 {
@@ -23,8 +24,7 @@ enum e_free_status
 
 enum e_quotes_status
 {
-	NONE,
-	SINGLE,
+	SINGLE = 1,
 	DOUBLE
 };
 
@@ -34,4 +34,15 @@ enum e_bool
 	TRUE
 };
 
+enum e_token
+{
+	APPENDS_OUTPUT_REDIRECT,
+	BUILTIN,
+	COMMAND,
+	INPUT_REDIRECT,
+	HEREDOC,
+	OUPUT_REDIRECT,
+	PIPE,
+	TEXT
+};
 #endif
