@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Replaced **strcmp** & **modstrcmp** by **libft 's ft_strcmp** (ft_modstrcmp.c to old)
 - Rename **ms_parser.c** as **utils/token_handler.c**
 - Moved  **has_pipe_redir_open** function to **utils/token_handler2.c**
+- Grouped **qm_error_detector.c** & **qm_remover.c** into **utils/quote_mark_handler.c**
 ###	Fixed
 - Fixing **max_pipes_exceeded** exits whithout leaks & also check actual number of pipes (after tokenize)
 

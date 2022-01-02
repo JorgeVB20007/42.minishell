@@ -6,14 +6,13 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 16:56:38 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/02 17:50:20 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/02 18:19:35 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-#define OPEN_REDIR "minishell: syntax error near \
-unexpected token `{0}'\n"
+#define OPEN_REDIR "syntax error near unexpected token `{0}'\n"
 #define LIT_NEWLINE "newline"
 
 enum e_istoken

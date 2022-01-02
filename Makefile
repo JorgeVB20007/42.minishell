@@ -6,7 +6,7 @@
 #    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2022/01/02 17:38:51 by emadriga         ###   ########.fr        #
+#    Updated: 2022/01/02 18:18:30 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ INCLUDES_FILES =	errors.h		\
 # Source and object files
 SRC_FILES	= 	minishell1.c				\
 				var_expansor.c				\
-				qm_error_detector.c			\
 				heredoc.c					\
 				new_redirections.c			\
 				command_sorter.c			\
@@ -43,7 +42,7 @@ SRC_FILES	= 	minishell1.c				\
 				utils/ft_strslashjoin.c		\
 				utils/megafree.c			\
 				utils/is_valid_var.c		\
-				utils/qm_remover.c			\
+				utils/quote_mark_handler.c	\
 				utils/lst_red_handler.c		\
 				utils/error_handler.c		\
 				utils/error_handler2.c		\
@@ -59,6 +58,7 @@ SRC_FILES	= 	minishell1.c				\
 				builtins/pwd.c				\
 				builtins/unset.c			\
 				# utils/ft_modstrcmp.c
+				# qm_error_detector.c
 				# modifsplit.c
 				# interpreter.c
 				# exec_command.c
