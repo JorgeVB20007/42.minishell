@@ -51,6 +51,7 @@ SRC_FILES	= 	minishell1.c				\
 				utils/token_handler.c		\
 				utils/token_handler2.c		\
 				utils/signal_handler.c		\
+				utils/heredoc_handler.c		\
 				builtins/cd.c				\
 				builtins/echo.c				\
 				builtins/exit.c				\

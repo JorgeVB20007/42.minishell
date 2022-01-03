@@ -4,7 +4,7 @@
 #define MSG_EXIT_MINISHELL "exit\n"
 #define MS_PROMPT "Minishell> "
 /**
- * * Disables CTRL hotkey(+c) from printing ^C 
+ * * Disables CTRL hotkey(+c) from printing ^C
 */
 static void	disable_ctrl_c_hotkey(void)
 {
@@ -45,12 +45,15 @@ static void	processline(int ignored_env)
 		printf(MSG_EXIT_MINISHELL);
 		exit(0);
 	}
+	str_got = recursive_close_quotes(str_got);
+	printf("Received str -> %s\n", str_got);
 	if (*str_got != '\0')
 	{
 		add_history(str_got);
 		if (!qm_error_detector(str_got) && has_token(str_got))
 		{
 			param_list = get_tokens(str_got);
+			get_heredocs(param_list);
 			if (param_list != NULL && !has_pipe_redir_open(param_list))
 				new_redirections(param_list, &g_var.env);
 		}

@@ -177,4 +177,6 @@ char	*new_getpath(char *raw_cmd, t_str **env_list);
 //*		var_expansor.c
 char	*recursive_expand(char *malloc_str, t_str **env_list);
 
+char	*recursive_close_quotes(char *str_got_old);
+void	get_heredocs(char **input);
 #endif
