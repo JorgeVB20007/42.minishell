@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/05 20:10:37 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/05 21:29:12 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_pwd(t_str **env_list, char **argv);
 void	ft_unset(t_str **env_list, char **argv);
 
 //*		forks / close_quotes.c
-char	*close_quotes(char *str_got_old);
+char	*close_quotes_pipedfork(char *str_got_old);
 
 //*		forks / heredoc_handler.c
 t_str	*get_heredoc_list(char **input);
