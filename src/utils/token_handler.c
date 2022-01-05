@@ -104,7 +104,7 @@ static void	recursive_get_token_list(t_str **token_list, char **input)
  * @param input	input to tokenize
  * @return 		array of tokens
 */
-char	**get_tokens(char *input)
+char	**get_token_list(char *input)
 {
 	t_str	*token_list;
 	char	**result;
