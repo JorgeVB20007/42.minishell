@@ -3,6 +3,7 @@
 #define CARRIAGE_RETURN "\033[AMinishell> "
 #define MSG_EXIT_MINISHELL "exit\n"
 #define MS_PROMPT "Minishell> "
+
 /**
  * * Disables CTRL hotkey(+c) from printing ^C
 */
@@ -27,6 +28,20 @@ static void	disable_ctrl_c_hotkey(void)
 }
 
 /**
+ * * Exits from MS (EOF received on readline)
+ * @param ignored_env	boolean to emulate bash CTRL hotkey(+d)(exit) depending
+ *  on env was ignored at start of the program
+*/
+static void	ms_eof_exit(int ignored_env)
+{
+	if (ignored_env == FALSE)
+		printf(CARRIAGE_RETURN);
+	lst_str_free(&g_var.env);
+	printf(MSG_EXIT_MINISHELL);
+	exit(0);
+}
+
+/**
  * * Process every input line sended on STDIN_FILENO
  * @param ignored_env	boolean to emulate bash CTRL hotkey(+d)(exit) depending
  *  on env was ignored at start of the program
@@ -35,27 +50,24 @@ static void	processline(int ignored_env)
 {
 	char	*line_read;
 	char	**token_list;
+	t_str	*heredoc_list;
 
+	heredoc_list = NULL;
 	line_read = readline(MS_PROMPT);
 	if (line_read == NULL)
-	{
-		if (ignored_env == FALSE)
-			printf(CARRIAGE_RETURN);
-		lst_str_free(&g_var.env);
-		printf(MSG_EXIT_MINISHELL);
-		exit(0);
-	}
-	line_read = close_quotes(line_read);
-	printf("Received str -> %s\n", line_read);
+		ms_eof_exit(ignored_env);
+	line_read = close_quotes_pipedfork(line_read);
 	if (*line_read != '\0')
 	{
 		add_history(line_read);
 		if (!qm_error_detector(line_read) && has_token(line_read))
 		{
 			token_list = get_token_list(line_read);
-			get_heredoc_list(token_list);
+			heredoc_list = get_heredoc_list(token_list);
 			if (token_list != NULL && !has_pipe_redir_open(token_list))
 				new_redirections(token_list, &g_var.env);
+			lst_str_free(&heredoc_list);
+			megafree(&token_list);
 		}
 		free(line_read);
 	}

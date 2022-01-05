@@ -30,9 +30,10 @@ ToDo
 - [x] Sacar expandir variables de la entrada
 - [x] Test redirection functions
 - [ ] Use enumerables for status like philoforks ex(FREE, NOT_FREE, KO, OK) wacht out literas alredy in use like NEWLINE
-- [ ] Review exit_status on ft_exit -> test several arguments (1st Number)
 - [x] Handle heredoc before everything else
 - [x] Use forks and signals to handle heredocs and unclosed quotes
+- [ ] Review exit_status on ft_exit -> test several arguments (1st Number)
+- [ ] ft_exit return exit\n as exit
 
 Test parser.c aas basfbaskfhbsajhb ||| <<< >>> as|da>sa<s>>asf<<asdfd
 test ft_recursive_expand sasdfsad$USER fas'd$TE'RM fasdfsadfsdf
