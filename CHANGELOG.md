@@ -5,11 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 2021-01-03 - Edu
+## 2021-01-05 - Edu
 ## Added
-- **utils/heredoc_handler.c** Add pipedforks to handle signals on close_quotes
+- new folder **forks** to storage related files
+- **forks/heredoc_handler.c** Add pipedforks to handle signals
 - **libft/ft_strjoin_freedouble.c** ft_strjoin wich free both inputs
+- **includes/constants.c** add pipe_fd enumerable
+
 ## Changed
+- **heredoc_handler.c** split into **close_quotes.c** & **heredoc_handler.c**, both moved to **forks**
 - **minishell1.c** changed main processline readability
 
 ## 2021-01-03 - Edu
@@ -20,11 +24,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 2021-01-02 - Edu
 ## Added
 - **utils/token_handler2.c** Added **eval_token** function to returns if token is PIPE, REDIR, CMD...
+
 ## Changed
 - Replaced **strcmp** & **modstrcmp** by **libft 's ft_strcmp** (ft_modstrcmp.c to old)
 - Rename **ms_parser.c** as **utils/token_handler.c**
 - Moved  **has_pipe_redir_open** function to **utils/token_handler2.c**
 - Grouped **qm_error_detector.c** & **qm_remover.c** into **utils/quote_mark_handler.c**
+
 ###	Fixed
 - Fixing **max_pipes_exceeded** exits whithout leaks & also check actual number of pipes (after tokenize)
 
@@ -40,12 +46,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 2021-12-27 - Edu
 ### Changed
 - **utils/error_handler2.c** Animate Easter with ramdoness xD
+
 ### Fixed
 - **utils/error_handler3.c** Fix rush02 conversor problems
 
 ## 2021-12-26 - Edu
 ### Added
 - **utils/error_handler2.c** & **utils/error_handler3.c** Added Easter Egg to control max pipes allowed
+
 ### Fixed
 - **new_redirections.c** Remove unused variables
 
