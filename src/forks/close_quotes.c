@@ -6,11 +6,13 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 20:52:32 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/05 21:37:18 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/05 22:11:39 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#define UNEXPECTED_EOF "unexpected EOF while looking for matching `''\n\
+Minishell: syntax error: unexpected end of file\n"
 
 /**
  * * Eval if a given string has open quotes returning NONE if doesn't
@@ -80,6 +82,15 @@ static char	*close_quotes_pipedfork_child(char *str, int *pipe_fd)
 	exit(0);
 }
 
+static int	w_ifsignaled_ifexitstatus(int status)
+{
+	if (WIFSIGNALED(status))
+		g_var.last_cmd_status = 130;
+	else if (WIFEXITED(status) && WEXITSTATUS(status))
+		log_error(UNEXPECTED_EOF, 2);
+	return (WIFSIGNALED(status) || (WIFEXITED(status) && WEXITSTATUS(status)));
+}
+
 /**
  * * Piped fork to handle unclosed quotes  with signals without shuting MS
  * * child refresh input str with new STDIN_FILENO input
@@ -107,9 +118,7 @@ char	*close_quotes_pipedfork(char *str)
 	free(str);
 	waitpid(pid, &status, 0);
 	signal_handler_default();
-	if (WIFEXITED(status) && WEXITSTATUS(status))
-		log_error(UNEXPECTED_EOF, 2);
-	if (WIFSIGNALED(status) || (WIFEXITED(status) && WEXITSTATUS(status)))
+	if (w_ifsignaled_ifexitstatus(status))
 		return ("\0");
 	return (ft_strdup(buff));
 }

@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **forks/heredoc_handler.c** Add pipedforks to handle signals
 - **forks/close_quotes.c** Add pipedforks to handle signals
 - **libft/ft_strjoin_freedouble.c** ft_strjoin wich free both inputs
-- **includes/constants.c** add pipe_fd enumerable & UNEXPECTED_EOF error for heredoc_handler && close_quotes
+- **includes/constants.c** add pipe_fd enumerable & UNEXPECTED_EOF error for heredoc_handler & close_quotes
 
 ## Changed
 - **heredoc_handler.c** split into **close_quotes.c** & **heredoc_handler.c**, both moved to **forks**
