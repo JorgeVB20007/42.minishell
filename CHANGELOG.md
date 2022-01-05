@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 2021-01-03 - Edu
 ## Added
 - **utils/heredoc_handler.c** Add pipedforks to handle signals on close_quotes
+- **libft/ft_strjoin_freedouble.c** ft_strjoin wich free both inputs
 ## Changed
 - **minishell1.c** changed main processline readability
 

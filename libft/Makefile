@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
+#    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/25 19:15:33 by emadriga          #+#    #+#              #
-#    Updated: 2021/11/27 22:17:24 by jvacaris         ###   ########.fr        #
+#    Updated: 2022/01/05 19:48:53 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC	=	ft_atoi.c			ft_bzero.c			ft_calloc.c			ft_isalnum.c		\
 		ft_lstadd_back.c	ft_lstadd_front.c	ft_lstclear.c		ft_lstdelone.c		\
 		ft_lstiter.c		ft_lstlast.c		ft_lstnew.c			ft_lstsize.c		\
 		ft_lstmap.c			get_next_line.c		ft_strreplace.c		ft_strreplaceat.c	\
-		ft_strcmp.c
+		ft_strcmp.c			ft_strjoin_freedouble.c
 
 # Name of the Library
 NAME	= libft.a
@@ -45,16 +45,16 @@ $(NAME):	$(OBJS)
 			@ar rc $(NAME) $(OBJS)
 			@ranlib $(NAME)
 			@echo "\033[1;34m[INFO]\033[0m Library [$(NAME)] created!"
-		
-# clean rule			
+
+# clean rule
 clean:
-			@rm -f $(OBJS) 
+			@rm -f $(OBJS)
 			@echo "\033[1;34m[INFO]\033[0m Objects removed!"
 # fclean rule
 fclean:		clean
 			@rm -f $(NAME)
 			@echo "\033[1;34m[INFO]\033[0m Library removed!"
-			
+
 # re rule
 re:			fclean all
 
