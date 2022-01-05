@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## 2021-01-03 - Edu
+## changed
+- **minishell1.c** changed main processline readability
+
+## 2021-01-03 - Edu
 ## Added
 - **utils/heredoc_handler.c** Added with functions to handle all heredocs and unclosed quotes
  at start of processline

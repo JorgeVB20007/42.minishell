@@ -33,11 +33,11 @@ static void	disable_ctrl_c_hotkey(void)
 */
 static void	processline(int ignored_env)
 {
-	char	*str_got;
-	char	**param_list;
+	char	*line_read;
+	char	**token_list;
 
-	str_got = readline(MS_PROMPT);
-	if (str_got == NULL)
+	line_read = readline(MS_PROMPT);
+	if (line_read == NULL)
 	{
 		if (ignored_env == FALSE)
 			printf(CARRIAGE_RETURN);
@@ -45,19 +45,19 @@ static void	processline(int ignored_env)
 		printf(MSG_EXIT_MINISHELL);
 		exit(0);
 	}
-	str_got = recursive_close_quotes(str_got);
-	printf("Received str -> %s\n", str_got);
-	if (*str_got != '\0')
+	line_read = close_quotes(line_read);
+	printf("Received str -> %s\n", line_read);
+	if (*line_read != '\0')
 	{
-		add_history(str_got);
-		if (!qm_error_detector(str_got) && has_token(str_got))
+		add_history(line_read);
+		if (!qm_error_detector(line_read) && has_token(line_read))
 		{
-			param_list = get_tokens(str_got);
-			get_heredocs(param_list);
-			if (param_list != NULL && !has_pipe_redir_open(param_list))
-				new_redirections(param_list, &g_var.env);
+			token_list = get_token_list(line_read);
+			get_heredoc_list(token_list);
+			if (token_list != NULL && !has_pipe_redir_open(token_list))
+				new_redirections(token_list, &g_var.env);
 		}
-		free(str_got);
+		free(line_read);
 	}
 }
 
