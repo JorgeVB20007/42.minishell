@@ -17,10 +17,10 @@ static void	signal_handler_default_sigint(int signal)
  * * Handles signals at forks, different behaviour between father and children
  * @param is_children	bool process is children
 */
-void	signal_handler_forks(int is_children)
+void	signal_handler_forks(int is_child)
 {
 	signal(SIGQUIT, SIG_IGN);
-	if (is_children == TRUE)
+	if (is_child == TRUE)
 		signal(SIGINT, SIG_DFL);
 	else
 		signal(SIGINT, SIG_IGN);
