@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal_handler.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/05 19:58:37 by emadriga          #+#    #+#             */
+/*   Updated: 2022/01/05 19:58:40 by emadriga         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /**
@@ -15,7 +27,7 @@ static void	signal_handler_default_sigint(int signal)
 
 /**
  * * Handles signals at forks, different behaviour between father and children
- * @param is_children	bool process is children
+ * @param is_child	bool process is children
 */
 void	signal_handler_forks(int is_child)
 {
