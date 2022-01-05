@@ -6,11 +6,13 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 20:13:37 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/05 20:13:39 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/05 23:16:17 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#define WARNING_HEREDOC_EOF "Minishell: warning: here-document at line %d \
+delimited by end-of-file (wanted `%s')\n"
 
 /**
  * * Get matching key heredoc from STDIN_FILENO
@@ -24,9 +26,12 @@ static char	*get_heredoc(const char *key)
 	out = NULL;
 	while (1)
 	{
-		line_read = readline(">");
+		line_read = readline("> ");
 		while (line_read == NULL)
-			line_read = readline("");
+		{
+			printf(WARNING_HEREDOC_EOF, __LINE__, key);
+			line_read = readline("> ");
+		}
 		if (!ft_strcmp(key, line_read))
 			break ;
 		if (out != NULL)
