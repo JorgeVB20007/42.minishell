@@ -22,7 +22,7 @@ static char	*ft_strjoin_freedouble(char *s1, char *s2)
  * * Handle unclosed quotes waiting STDIN_FILENO to close them
  * @param str	current STDIN_FILENO input
 */
-char	*recursive_close_quotes(char *str)
+static char	*recursive_close_quotes(char *str)
 {
 	int		i;
 	int		quotes;
@@ -49,23 +49,53 @@ char	*recursive_close_quotes(char *str)
 	return (out);
 }
 
+char	*close_quotes(char *str)
+{
+	t_pipedfork	t;
+	char		buff[SHRT_MAX];
+
+	pipe(t.fd);
+	t.pid = fork();
+	signal_handler_forks(!t.pid);
+	if (!t.pid)
+	{
+		close(t.fd[0]);
+		str = recursive_close_quotes(ft_strdup(str));
+		write(t.fd[1], str, ft_strlen(str));
+		close(t.fd[1]);
+		exit(0);
+	}
+	else
+	{
+		close(t.fd[1]);
+		read(t.fd[0], buff, SHRT_MAX);
+	}
+	free(str);
+	waitpid(t.pid, &t.status, 0);
+	signal_handler_default();
+	if (WIFSIGNALED(t.status))
+		return ("\0");
+	return (ft_strdup(buff));
+}
+
 /**
  * * Get matching key heredoc from STDIN_FILENO
  * @param key	key to match with STDIN_FILENO
 */
-static char *get_heredoc(char *key)
+static char	*get_heredoc(char *key)
 {
-	char *line_read;
-	char *out;
+	char	*line_read;
+	char	*out;
 
 	out = NULL;
 	while (1)
 	{
-		line_read= readline(">");
+		line_read = readline(">");
 		if (!ft_strcmp(key, line_read))
-			break;
+			break ;
 		if (out != NULL)
-			out = ft_strjoin_freedouble(out, ft_strjoin_freedouble(ft_strdup("\n"), line_read));
+			out = ft_strjoin_freedouble(out, \
+			ft_strjoin_freedouble(ft_strdup("\n"), line_read));
 		else
 			out = line_read;
 	}
@@ -76,7 +106,8 @@ static char *get_heredoc(char *key)
 
 /**
  * * Get heredoc list from token list with open heredocs
- * @param token_list	token list to go through looking for open heredoc to retrieve
+ * @param token_list	token list to go through looking for open heredoc
+ * 						to retrieve
  * @return				List of heredocs
 */
 void	get_heredoc_list(char **token_list)
@@ -98,6 +129,5 @@ void	get_heredoc_list(char **token_list)
 	}
 	printf("\nHERDOCS\n");
 	lst_str_print(heredocs_list);
-	lst_str_free(heredocs_list);
+	lst_str_free(&heredocs_list);
 }
-

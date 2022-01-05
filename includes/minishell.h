@@ -52,6 +52,13 @@ typedef struct s_var
 	int		waitedheredoc;
 }t_var;
 
+typedef struct s_pipedfork
+{
+	pid_t	pid;
+	int		status;
+	int		fd[2];
+}t_pipedfork;
+
 t_var	g_var;
 
 //*		builtins / cd.c
@@ -141,7 +148,7 @@ int		array_str_get_size(char **array);
 char	*adv_qm_rem(char *qm_str, int b_free);
 
 //*		utils / token_handler.c
-char	**get_tokens(char *input);
+char	**get_token_list(char *input);
 int		has_token(const char *input);
 
 //*		utils / token_handler2.c
@@ -177,6 +184,6 @@ char	*new_getpath(char *raw_cmd, t_str **env_list);
 //*		var_expansor.c
 char	*recursive_expand(char *malloc_str, t_str **env_list);
 
-char	*recursive_close_quotes(char *str_got_old);
-void	get_heredocs(char **input);
+char	*close_quotes(char *str_got_old);
+void	get_heredoc_list(char **input);
 #endif
