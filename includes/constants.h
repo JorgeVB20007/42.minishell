@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:36 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/05 19:59:45 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/05 21:25:37 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define CONSTANTS_H
 # define LIT_OLDPWD "OLDPWD"
 # define LIT_PWD_LIKE "PWD="
+# define UNEXPECTED_EOF "unexpected EOF while looking for matching `''\n\
+Minishell: syntax error: unexpected end of file\n"
 # define NONE 0
 
 enum e_free_status
