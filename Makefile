@@ -6,7 +6,7 @@
 #    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2022/01/02 18:18:30 by emadriga         ###   ########.fr        #
+#    Updated: 2022/01/05 19:56:55 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ SRC_FILES	= 	minishell1.c				\
 				utils/token_handler.c		\
 				utils/token_handler2.c		\
 				utils/signal_handler.c		\
-				utils/heredoc_handler.c		\
+				forks/close_quotes.c		\
+				forks/heredoc_handler.c		\
 				builtins/cd.c				\
 				builtins/echo.c				\
 				builtins/exit.c				\
@@ -88,6 +89,7 @@ obj:
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)utils/
 	@mkdir -p $(OBJ_DIR)builtins/
+	@mkdir -p $(OBJ_DIR)forks/
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c $(INCLUDES)
 	@gcc $(FLAGS) -I $(LIBFT_DIR) -I $(INC_DIR) $(RLINE_INC) -o $@ -c $<
 $(LIBFT):

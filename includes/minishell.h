@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/02 17:52:40 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/05 20:10:37 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,12 @@ void	ft_pwd(t_str **env_list, char **argv);
 
 //*		builtins / unset.c
 void	ft_unset(t_str **env_list, char **argv);
+
+//*		forks / close_quotes.c
+char	*close_quotes(char *str_got_old);
+
+//*		forks / heredoc_handler.c
+t_str	*get_heredoc_list(char **input);
 
 //		old / exec_command.c
 //// void	exec_command(char **list, char **envp);
@@ -184,6 +190,4 @@ char	*new_getpath(char *raw_cmd, t_str **env_list);
 //*		var_expansor.c
 char	*recursive_expand(char *malloc_str, t_str **env_list);
 
-char	*close_quotes(char *str_got_old);
-void	get_heredoc_list(char **input);
 #endif
