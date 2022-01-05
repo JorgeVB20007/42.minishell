@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:36 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/02 17:03:11 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/05 19:59:45 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ enum e_bool
 {
 	FALSE,
 	TRUE
+};
+
+enum e_pipe_fd
+{
+	READ_END,
+	WRITE_END
 };
 
 enum e_token
