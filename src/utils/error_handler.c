@@ -25,3 +25,14 @@ void	log_error_free(char *malloc_str_error, int status_error)
 	log_error(malloc_str_error, status_error);
 	free(malloc_str_error);
 }
+
+void	execve_sleep(char **sleep_argv)
+{
+	pid_t	pid;
+	int		status;
+
+	pid = fork();
+	if (pid == 0)
+		execve(sleep_argv[0], &sleep_argv[1], NULL);
+	waitpid(pid, &status, 0);
+}

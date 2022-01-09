@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/05 21:29:12 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/09 12:17:59 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,10 @@ t_str	*get_heredoc_list(char **input);
 //*		utils / error_handler.c
 void	log_error(char *str_error, int status_error);
 void	log_error_free(char *malloc_str_error, int status_error);
+void	execve_sleep(char **usleep_argv);
 int		max_pipes_exceeded(char **tokens);
-void	translate_number(int nbr);
-void	ft_search_word( char *to_find);
+void	translate_number(int nbr, char **sleep_argv);
+void	ft_search_word(char *to_find, char **sleep_argv);
 
 //*		utils / ft_is_it_directory.c
 int		ft_is_directory(char *path);

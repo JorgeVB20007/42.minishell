@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 18:17:46 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/02 18:04:40 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/09 12:19:19 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ enjoy...\r"
 #define ELEPHANT_SONG " went out to play... \r\
 \tupon a spiders web one day... \r\tthey had such enormous fun... \r\
 \tthat they called for another elephant to come... \r"
+#define SLEEP_ARGS "/bin/sleep|sleep|0.006"
 #define EMOJIS " |🐘 |🎵 |🕷️ |🕸️ |🎉 |😤 |😛 |🤣 "
+#define EMOJIS_LEN 9
 #define ERASE_LINE "\033[K"
-#define SLEEP_TIME 50000
 #define MASK_COLOR_FOREGROUND "\033[9{0}m"
 #define MASK_COLOR_BACKGROUND "\033[10{0}m"
 #define MASK_BLACK_FOREGROUND "\033[30m"
@@ -116,10 +117,11 @@ static void	ramdon_colors(int ODD)
 		ft_putstr_fd(MASK_BLACK_FOREGROUND, STDOUT_FILENO);
 }
 
-static void	troll_printing(const char *input, char **emojis, int emojis_len)
+static void	troll_printing(const char *input, char **emojis, char **sleep_argv)
 {
 	char	*str;
 	int		tabs;
+	int		times;
 
 	str = (char *)input;
 	while (*str != '\0')
@@ -128,17 +130,17 @@ static void	troll_printing(const char *input, char **emojis, int emojis_len)
 		if (*str == '\t')
 			tabs = rand() % 7;
 		if (emojis && *str == '\r')
-			ft_putstr_fd(emojis[rand() % emojis_len], STDOUT_FILENO);
+			ft_putstr_fd(emojis[rand() % EMOJIS_LEN], STDOUT_FILENO);
 		while (tabs--)
 			ft_putchar_fd(*str, STDOUT_FILENO);
 		if (emojis && *str == '\t')
-			ft_putstr_fd(emojis[rand() % emojis_len], STDOUT_FILENO);
+			ft_putstr_fd(emojis[rand() % EMOJIS_LEN], STDOUT_FILENO);
+		times = 6;
+		while (*str == '\r' && times--)
+			execve_sleep(sleep_argv);
 		if (*str == '\r')
-		{
-			usleep(SLEEP_TIME * 3);
 			ft_putstr_fd(ERASE_LINE, STDOUT_FILENO);
-		}
-		usleep(SLEEP_TIME);
+		execve_sleep(sleep_argv);
 		str++;
 	}
 }
@@ -147,24 +149,25 @@ static void	easter_egg(int elephants)
 {
 	int		i;
 	char	**emojis;
-	int		emojis_len;
+	char	**sleep_argv;
 
 	i = 0;
 	emojis = ft_split(EMOJIS, '|');
-	emojis_len = array_str_get_size(emojis);
-	troll_printing(WELCOME_EASTER, NULL, 0);
-	translate_number(elephants);
-	troll_printing(INTRO_SONG, NULL, 0);
+	sleep_argv = ft_split(SLEEP_ARGS, '|');
+	troll_printing(WELCOME_EASTER, NULL, sleep_argv);
+	translate_number(elephants, sleep_argv);
+	troll_printing(INTRO_SONG, NULL, sleep_argv);
 	while (++i < elephants)
 	{
-		troll_printing("\t", emojis, emojis_len);
-		translate_number(i);
-		troll_printing(ELEPHANT, NULL, 0);
+		troll_printing("\t", emojis, sleep_argv);
+		translate_number(i, sleep_argv);
+		troll_printing(ELEPHANT, NULL, sleep_argv);
 		if (i > 1)
-			troll_printing("s", NULL, 0);
-		troll_printing(ELEPHANT_SONG, emojis, emojis_len);
+			troll_printing("s", NULL, sleep_argv);
+		troll_printing(ELEPHANT_SONG, emojis, sleep_argv);
 		ramdon_colors(i % 2);
 	}
+	megafree(&sleep_argv);
 	megafree(&emojis);
 }
 
@@ -187,7 +190,7 @@ int	max_pipes_exceeded(char **tokens)
 	return (0);
 }
 
-void	ft_search_word( char *to_find)
+void	ft_search_word(char *to_find, char **sleep_argv)
 {
 	char	*match;
 	char	*print;
@@ -197,7 +200,7 @@ void	ft_search_word( char *to_find)
 	{
 		match = ft_strchr(match, ':');
 		print = ft_substr(match, 2, ft_strchr(match, '\n') - match - 2);
-		troll_printing(print, NULL, 0);
+		troll_printing(print, NULL, sleep_argv);
 		free(print);
 	}
 }
