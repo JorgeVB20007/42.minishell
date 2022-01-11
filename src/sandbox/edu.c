@@ -39,11 +39,13 @@ void close_forkedpipes( int pipes, pid_t *pids, t_fd *fds)
 	int 	j;
 
 	//status = (int *)malloc(sizeof(int) * pipes);
+	// close(fds[pipes - 1].fd[READ_END]);
+	// close(fds[pipes - 1].fd[WRITE_END]);
 	i = -1;
 	while (++i < pipes)
 	{
 		j = -1;
-		while (++j < pipes - 1 && pids[i] != 0)
+		while (++j < pipes - 1 && pids[i] != 0 && i == 0)
 		{
 			close(fds[j].fd[READ_END]);
 			close(fds[j].fd[WRITE_END]);
@@ -66,33 +68,58 @@ void create_forkedpipes(int pipes)
 	i = -1;
 	while (++i < pipes - 1)
 		pipe(fds[i].fd);
+	// i = -1;
+	// while (++i < pipes)
+	// 	pids[i] = fork();
 	i = -1;
 	while (++i < pipes)
 	{
 		pids[i] = fork();
-		//signal_handler_forks(pids[i]);
-		if (i != pipes - 1 && pids[i] == 0)
-			dup2(fds[i].fd[1], STDOUT_FILENO);
-		if (i != 0 && pids[i] == 0)
-			dup2(fds[i - 1].fd[0], STDIN_FILENO);
-		j = -1;
-		while (++j < pipes - 1 && pids[i] == 0)
+		if (pids[i] == 0)
 		{
-			close(fds[j].fd[READ_END]);
-			close(fds[j].fd[WRITE_END]);
+		//signal_handler_forks(pids[i]);
+			if (i != pipes - 1)
+				dup2(fds[i].fd[1], STDOUT_FILENO);
+			if (i != 0)
+				dup2(fds[i - 1].fd[0], STDIN_FILENO);
+			j = -1;
+			while (++j < pipes - 1 && pids[i] == 0)
+			{
+				close(fds[j].fd[READ_END]);
+				close(fds[j].fd[WRITE_END]);
+			}
+			if (pids[0] == 0 && i == 0)
+				execlp("ls", "ls", "-la", NULL);
+			if (pids[1] == 0 && i == 1)
+				execlp("sort", "sort", NULL);
+			if (pids[2] == 0 && i == 1)
+				execlp("grep", "grep", "src", NULL);
+			if (pids[3] == 0)
+			 	execlp("wc", "wc", NULL);
 		}
 	}
-	if (pids[0] == 0)
-		execlp("ping", "ping", "-c", "5", "google.com", NULL);
-	if (pids[1] == 0)
-		execlp("grep", "grep", "rtt", NULL);
-	if (pids[2] == 0)
-		execlp("wc", "wc", NULL);
+	// i = -1;
+	// while (++i < pipes - 1 && pids[i] != 0)
+	// {
+	// 	close(fds[j].fd[READ_END]);
+	// 	close(fds[j].fd[WRITE_END]);
+	// }
+	// if (pids[0] == 0)
+	// 	execlp("ls", "ls", "-la", NULL);
+	// if (pids[1] == 0)
+	// 	execlp("grep", "grep", "src", NULL);
+		// execlp("wc", "wc", NULL);
+	// if (pids[0] == 0)
+	// 	execlp("ping", "ping", "-c", "5", "google.com", NULL);
+	// if (pids[1] == 0)
+	// 	execlp("grep", "grep", "rtt", NULL);
+	// if (pids[2] == 0)
+	// 	execlp("wc", "wc", NULL);
 	close_forkedpipes(pipes, pids, fds);
 
 }
 
 int main(void)
 {
-	create_forkedpipes(3);
+	create_forkedpipes(4);
 }
