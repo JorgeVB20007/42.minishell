@@ -1,27 +1,17 @@
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-# include <limits.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include <sys/param.h>
-# include <sys/wait.h>
-# include <sys/stat.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <errno.h>
-# include <termios.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <sys/param.h>
+#include <sys/wait.h>
+#include <sys/stat.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <errno.h>
+#include <termios.h>
 
-// int countpipes(char **tokens)
-// {
-
-// 	int		pipes;
-
-// 	pipes = 0;
-// 	while (*tokens != NULL && pipes < INT_MAX)
-// 		if (!ft_strcmp(*tokens++, "|"))
-// 			pipes++;
-// }
 enum e_pipe_fd
 {
 	READ_END,
@@ -32,15 +22,12 @@ typedef struct s_fd{
 	int	fd[2];
 }t_fd;
 
-void close_forkedpipes( int pipes, pid_t *pids, t_fd *fds)
+static void	close_forkedpipes( int pipes, pid_t *pids, t_fd *fds)
 {
 	int		status;
 	int		i;
-	int 	j;
+	int		j;
 
-	//status = (int *)malloc(sizeof(int) * pipes);
-	// close(fds[pipes - 1].fd[READ_END]);
-	// close(fds[pipes - 1].fd[WRITE_END]);
 	i = -1;
 	while (++i < pipes)
 	{
@@ -56,70 +43,55 @@ void close_forkedpipes( int pipes, pid_t *pids, t_fd *fds)
 	free(fds);
 }
 
-void create_forkedpipes(int pipes)
+static void	initson(int pipes, pid_t *pids, t_fd *fds, int i)
+{
+	int	j;
+
+	if (pids[i] == 0)
+	{
+		if (i != pipes - 1)
+			dup2(fds[i].fd[1], STDOUT_FILENO);
+		if (i != 0)
+			dup2(fds[i - 1].fd[0], STDIN_FILENO);
+		j = -1;
+		while (++j < pipes - 1 && pids[i] == 0)
+		{
+			close(fds[j].fd[READ_END]);
+			close(fds[j].fd[WRITE_END]);
+		}
+		if (pids[0] == 0 && i == 0)
+			execlp("ls", "ls", "-la", NULL);
+		if (pids[1] == 0 && i == 1)
+			execlp("sort", "sort", NULL);
+		if (pids[2] == 0 && i == 1)
+			execlp("grep", "grep", "src", NULL);
+		if (pids[3] == 0)
+			execlp("wc", "wc", NULL);
+	}
+}
+
+static void	create_forkedpipes(int pipes)
 {
 	pid_t	*pids;
 	t_fd	*fds;
 	int		i;
-	int		j;
 
 	pids = (pid_t *)malloc(sizeof(pid_t) * pipes);
 	fds = (t_fd *)malloc(sizeof(t_fd) * pipes - 1);
 	i = -1;
 	while (++i < pipes - 1)
 		pipe(fds[i].fd);
-	// i = -1;
-	// while (++i < pipes)
-	// 	pids[i] = fork();
 	i = -1;
 	while (++i < pipes)
 	{
 		pids[i] = fork();
-		if (pids[i] == 0)
-		{
-		//signal_handler_forks(pids[i]);
-			if (i != pipes - 1)
-				dup2(fds[i].fd[1], STDOUT_FILENO);
-			if (i != 0)
-				dup2(fds[i - 1].fd[0], STDIN_FILENO);
-			j = -1;
-			while (++j < pipes - 1 && pids[i] == 0)
-			{
-				close(fds[j].fd[READ_END]);
-				close(fds[j].fd[WRITE_END]);
-			}
-			if (pids[0] == 0 && i == 0)
-				execlp("ls", "ls", "-la", NULL);
-			if (pids[1] == 0 && i == 1)
-				execlp("sort", "sort", NULL);
-			if (pids[2] == 0 && i == 1)
-				execlp("grep", "grep", "src", NULL);
-			if (pids[3] == 0)
-			 	execlp("wc", "wc", NULL);
-		}
+		initson(pipes, pids, fds, i);
 	}
-	// i = -1;
-	// while (++i < pipes - 1 && pids[i] != 0)
-	// {
-	// 	close(fds[j].fd[READ_END]);
-	// 	close(fds[j].fd[WRITE_END]);
-	// }
-	// if (pids[0] == 0)
-	// 	execlp("ls", "ls", "-la", NULL);
-	// if (pids[1] == 0)
-	// 	execlp("grep", "grep", "src", NULL);
-		// execlp("wc", "wc", NULL);
-	// if (pids[0] == 0)
-	// 	execlp("ping", "ping", "-c", "5", "google.com", NULL);
-	// if (pids[1] == 0)
-	// 	execlp("grep", "grep", "rtt", NULL);
-	// if (pids[2] == 0)
-	// 	execlp("wc", "wc", NULL);
 	close_forkedpipes(pipes, pids, fds);
-
 }
 
-int main(void)
+//gcc -Wall -Wextra -Werror -g3 -fsanitize=address -pedantic src/sandbox/edu.c -o sandboxtest && ./sandboxtest && rm -rf  sandboxtest*
+int	main(void)
 {
 	create_forkedpipes(4);
 }
