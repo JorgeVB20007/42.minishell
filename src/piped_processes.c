@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:08:30 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/15 17:24:38 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/15 18:20:58 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 /**
  * * Return size of argv's process to malloc  
- * @param token		current token to read from
+ * @param tokens	current tokens list
 */
-static int	get_process_argv_len(t_str *token)
+static int	get_process_argv_len(char **tokens)
 {
 	int		i;
 	int		type_redir;
 
 	i = 0;
-	while (token != NULL && ft_strcmp(token->str, "|"))
+	while (*tokens != NULL && ft_strcmp(*tokens, "|"))
 	{
-		type_redir = eval_token_redir(token->str);
+		type_redir = eval_token_redir(*tokens);
 		i += (type_redir == NONE);
 		if (type_redir != NONE)
-			token = token->next;
-		token = token->next;
+			tokens++;
+		tokens++;
 	}
 	return (i);
 }
@@ -39,46 +39,42 @@ static int	get_process_argv_len(t_str *token)
  * @param process		current process to initialize
  * @param type_redir	redirection type
 */
-static void	add_redir_to_process(t_str *token, t_pp	*process, int type_redir)
+static void	add_redir_to_process(char *token, t_pp	*process, int type_redir)
 {
 	t_redir	*new;
 
-	token = token->next;
 	if (token != NULL)
 	{	
 		new = lst_redir_new();
 		new->type = type_redir;
-		new->go_to = ft_strdup(token->str);
+		new->go_to = ft_strdup(token);
 		lst_redir_add_back(&process->redir, new);
 	}
 }
 
 /**
  * * Init process with needed info to execute later
- * @param token		current token to read from
+ * @param tokens	current tokens list
  * @param process	current process to initialize
 */
-static void	init_piped_process(t_str *token, t_pp	*process)
+static void	init_piped_process(char **tokens, t_pp	*process)
 {
 	int		i;
 	int		type_redir;
 
-	process->argv = malloc(sizeof(char *) * (get_process_argv_len(token) + 1));
-	process->argv[0] = adv_qm_rem(token->str, FALSE);
+	process->argv = malloc(sizeof(char *) * (get_process_argv_len(tokens) + 1));
+	process->argv[0] = adv_qm_rem(*tokens++, FALSE);
 	if (process->is_cmd)
 		process->pathname = new_getpath(process->argv[0], &g_var.env);
 	i = 1;
-	token = token->next;
-	while (token != NULL && ft_strcmp(token->str, "|"))
+	while (*tokens != NULL && ft_strcmp(*tokens, "|"))
 	{
-		process->argv[i] = ft_strdup(token->str);
-		type_redir = eval_token_redir(token->str);
+		type_redir = eval_token_redir(*tokens);
 		if (type_redir != NONE)
-			add_redir_to_process(token, process, type_redir);
-		i += (type_redir == NONE);
-		if (type_redir != NONE)
-			token = token->next;
-		token = token->next;
+			add_redir_to_process(*(++tokens), process, type_redir);
+		else
+			process->argv[i++] = ft_strdup(*tokens);
+		tokens++;
 	}
 	process->argv[i] = NULL;
 }
@@ -89,18 +85,16 @@ static void	init_piped_process(t_str *token, t_pp	*process)
  * @param tokens	tokens list
  * @param processes	list of process to return 
 */
-void	get_piped_processes(t_str **tokens, t_pp **processes)
+void	get_piped_processes(char **tokens, t_pp **processes)
 {
 	t_pp	*process;
 	int		type_token;
-	t_str	*token;
 
-	token = *tokens;
-	while (token != NULL)
+	while (*tokens != NULL)
 	{
-		if (!ft_strcmp(token->str, "|"))
-			token = token->next;
-		type_token = eval_token(token->str);
+		if (!ft_strcmp(*tokens, "|"))
+			tokens++;
+		type_token = eval_token(*tokens);
 		if (type_token != BUILTIN && type_token != COMMAND)
 		{
 			lst_process_free(processes);
@@ -109,9 +103,9 @@ void	get_piped_processes(t_str **tokens, t_pp **processes)
 		process = NULL;
 		process = lst_process_new();
 		process->is_cmd = type_token == COMMAND;
-		init_piped_process(token, process);
+		init_piped_process(tokens, process);
 		lst_process_add_back(processes, process);
-		while (token != NULL && ft_strcmp(token->str, "|"))
-			token = token->next;
+		while (*tokens != NULL && ft_strcmp(*tokens, "|"))
+			tokens++;
 	}
 }
