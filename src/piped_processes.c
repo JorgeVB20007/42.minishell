@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:08:30 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/15 16:33:45 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/15 17:24:38 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,14 @@ void	get_piped_processes(t_str **tokens, t_pp **processes)
 		type_token = eval_token(token->str);
 		if (type_token != BUILTIN && type_token != COMMAND)
 		{
-			lst_piped_process_free(processes);
+			lst_process_free(processes);
 			return ;
 		}
 		process = NULL;
-		process = lst_piped_process_new();
+		process = lst_process_new();
 		process->is_cmd = type_token == COMMAND;
 		init_piped_process(token, process);
-		lst_piped_process_add_back(processes, process);
+		lst_process_add_back(processes, process);
 		while (token != NULL && ft_strcmp(token->str, "|"))
 			token = token->next;
 	}
