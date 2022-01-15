@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 20:13:37 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/05 23:16:17 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/15 18:53:45 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*get_heredoc(const char *key)
 	char	*line_read;
 	char	*out;
 
-	out = NULL;
+	out = ft_strdup("");
 	while (1)
 	{
 		line_read = readline("> ");
@@ -34,11 +34,11 @@ static char	*get_heredoc(const char *key)
 		}
 		if (!ft_strcmp(key, line_read))
 			break ;
-		if (out != NULL)
+		if (!ft_strcmp(out, ""))
+			out = ft_strjoin_freedouble(out, line_read);
+		else
 			out = ft_strjoin_freedouble(out, \
 			ft_strjoin_freedouble(ft_strdup("\n"), line_read));
-		else
-			out = line_read;
 	}
 	if (line_read != NULL)
 		free(line_read);

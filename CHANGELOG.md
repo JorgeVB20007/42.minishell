@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **utils/lst_redir_handler.c**  Include basic functions to handle redir list (new, add_front, add_back, free_list & print)
 ### Changed
 - **eval_token** just return token type, not path
-
+### Fixed
+- **forks/heredoc_handler.c** Fix segfault on empty heredocs
 
 ## 2021-01-09 - Edu
 ## Changed
