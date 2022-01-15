@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/09 12:17:59 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/15 17:13:59 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,20 @@ typedef struct s_pipedfork
 	int		status;
 	int		fd[2];
 }t_pipedfork;
+
+typedef struct s_redir{
+	int				type;
+	char			*go_to;
+	struct s_redir	*next;
+}t_redir;
+
+typedef struct s_piped_process{
+	int						is_cmd;
+	char					*pathname;
+	char					**argv;
+	t_redir					*redir;
+	struct s_piped_process	*next;
+}t_pp;
 
 t_var	g_var;
 
@@ -127,6 +141,20 @@ char	*ft_strslashjoin(char const *s1, char const *s2);
 int		is_valid_var(char prv_char, char curr_char, char nxt_char, char qm);
 int		is_valid_var_hd(char *str, int idx);
 
+//*		utils / lst_process_handler.c
+void	lst_process_add_front(t_pp **list, t_pp *new);
+void	lst_process_add_back(t_pp **list, t_pp *new);
+t_pp	*lst_process_new(void);
+void	lst_process_free(t_pp **list);
+void	lst_process_print(t_pp *list);
+
+//*		utils / lst_redir_handler.c
+void	lst_redir_add_front(t_redir **list, t_redir *new);
+void	lst_redir_add_back(t_redir **list, t_redir *new);
+t_redir	*lst_redir_new(void);
+void	lst_redir_free(t_redir **list);
+void	lst_redir_print(t_redir *list);
+
 //*		utils / lst_red_handler.c
 void	lst_red_add_front(t_red **list, t_red *new);
 void	lst_red_add_back(t_red **list, t_red *new);
@@ -159,7 +187,8 @@ char	**get_token_list(char *input);
 int		has_token(const char *input);
 
 //*		utils / token_handler2.c
-int		eval_tokens(const char *token, char **path);
+int		eval_token(const char *token);
+int		eval_token_redir(const char *token);
 int		has_pipe_redir_open(char **array);
 
 //*		utils / signal_handler.c
@@ -190,5 +219,5 @@ char	*new_getpath(char *raw_cmd, t_str **env_list);
 
 //*		var_expansor.c
 char	*recursive_expand(char *malloc_str, t_str **env_list);
-
+void	get_piped_processes(t_str **tokens, t_pp **processes);
 #endif

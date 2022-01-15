@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 16:56:38 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/02 18:19:35 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/15 14:20:35 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,34 @@ int	has_pipe_redir_open(char **array)
 }
 
 /**
- * * Returns token identifier
+ * * Returns token non redir type
  * @param token	token to identify
- * @param path returned when token is command
 */
-int	eval_token(const char *token, char **path)
+static int	eval_token_non_redir(char *token)
 {
-	char	*s;
+	char	*path;
 
+	path = NULL;
+	if (!ft_strcmp(token, "cd") || !ft_strcmp(token, "echo") || \
+	!ft_strcmp(token, "env") || !ft_strcmp(token, "exit") || \
+	!ft_strcmp(token, "export") || !ft_strcmp(token, "pwd") || \
+	!ft_strcmp(token, "unset"))
+		return (BUILTIN);
+	path = new_getpath(token, &g_var.env);
+	if (path != NULL)
+	{
+		free(path);
+		return (COMMAND);
+	}
+	return (TEXT);
+}
+
+/**
+ * * Returns token redir type
+ * @param token	token to identify
+*/
+int	eval_token_redir(const char *token)
+{
 	if (!ft_strcmp(token, "|"))
 		return (PIPE);
 	else if (!ft_strcmp(token, "<"))
@@ -89,17 +109,23 @@ int	eval_token(const char *token, char **path)
 		return (OUPUT_REDIRECT);
 	else if (!ft_strcmp(token, ">>"))
 		return (APPENDS_OUTPUT_REDIRECT);
-	s = adv_qm_rem((char *)token, FALSE);
-	if (!ft_strcmp(s, "cd") || !ft_strcmp(s, "echo") || !ft_strcmp(s, "env") || \
-	!ft_strcmp(s, "exit") || !ft_strcmp(s, "export") || !ft_strcmp(s, "pwd") || \
-	!ft_strcmp(s, "unset"))
-	{
-		free(s);
-		return (BUILTIN);
-	}
-	*path = new_getpath(s, &g_var.env);
-	free(s);
-	if (path != NULL)
-		return (COMMAND);
-	return (TEXT);
+	return (NONE);
+}
+
+/**
+ * * Returns token type
+ * @param token	token to identify
+*/
+int	eval_token(const char *token)
+{
+	int		out;
+	char	*aux;
+
+	out = eval_token_redir(token);
+	if (out != NONE)
+		return (out);
+	aux = adv_qm_rem((char *)token, FALSE);
+	out = eval_token_non_redir(aux);
+	free(aux);
+	return (out);
 }

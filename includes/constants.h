@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:36 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/05 21:49:10 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/15 10:14:56 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ enum e_pipe_fd
 
 enum e_token
 {
-	APPENDS_OUTPUT_REDIRECT,
+	APPENDS_OUTPUT_REDIRECT = 1,
 	BUILTIN,
 	COMMAND,
 	INPUT_REDIRECT,
