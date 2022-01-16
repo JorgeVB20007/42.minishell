@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 20:13:37 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/15 18:53:45 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/16 06:55:13 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,11 @@ t_str	*get_heredoc_list(char **token_list)
 				lst_str_free(&heredoc_list);
 				g_var.last_cmd_status = 130;
 				break ;
+			}
+			if (!ft_strcmp(heredoc, ""))
+			{
+				free(heredoc);
+				heredoc = NULL;
 			}
 			lst_str_add_back(&heredoc_list, heredoc);
 		}
