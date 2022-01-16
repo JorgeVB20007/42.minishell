@@ -5,10 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 2021-01-09 - Edu
+## 2021-01-16 - Edu
 
 ### Added
-- **piped_processes.c** prepare info needed for all process 
+- **Makefile** add compiler flag
+
+## 2021-01-15 - Edu
+
+### Added
+- **piped_processes.c** prepare info needed for all process
 - **utils/lst_process_handler.c**  Include basic functions to handle process list (new, add_front, add_back, free_list & print)
 - **utils/lst_redir_handler.c**  Include basic functions to handle redir list (new, add_front, add_back, free_list & print)
 ### Changed
@@ -18,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2021-01-09 - Edu
 ## Changed
-- **utils/error_handler.c** replace usleep with bash sleep through execve 
+- **utils/error_handler.c** replace usleep with bash sleep through execve
 
 ## 2021-01-05 - Edu
 ## Added
