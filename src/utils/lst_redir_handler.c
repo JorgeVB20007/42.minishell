@@ -87,11 +87,8 @@ void	lst_redir_free(t_redir **list)
 */
 void	lst_redir_print(t_redir *list)
 {
-	int	i;
-
 	while (list != NULL)
 	{
-		i = 0;
 		dprintf(2, "\nRedirection type %d\tgo to %s\n argv ", \
 		list->type, list->go_to);
 		list = list->next;
