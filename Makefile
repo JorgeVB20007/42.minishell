@@ -6,12 +6,15 @@
 #    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2022/01/15 17:10:50 by emadriga         ###   ########.fr        #
+#    Updated: 2022/01/16 06:26:51 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Program's name
 NAME	= minishell
+
+# compiler
+GCC		= clang
 
 # compiling flags
 FLAGS	= -Wall -Wextra -Werror $(SANITIZE) -pedantic
@@ -94,14 +97,14 @@ obj:
 	@mkdir -p $(OBJ_DIR)builtins/
 	@mkdir -p $(OBJ_DIR)forks/
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c $(INCLUDES)
-	@gcc $(FLAGS) -I $(LIBFT_DIR) -I $(INC_DIR) $(RLINE_INC) -o $@ -c $<
+	@$(GCC) $(FLAGS) -I $(LIBFT_DIR) -I $(INC_DIR) $(RLINE_INC) -o $@ -c $<
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
 
 # Compiling
 $(NAME): $(OBJ)
 	@echo "\033[0;33mCompiling... Wait a sec.\033[0;31m"
-	@gcc $(OBJ) $(FLAGS) $(LNK) $(RLINE_L) -lm -o $(NAME)
+	@$(GCC) $(OBJ) $(FLAGS) $(LNK) $(RLINE_L) -lm -o $(NAME)
 	@echo "\033[0;32m$(NAME) generated!\033[0;37m"
 
 mynorm:
