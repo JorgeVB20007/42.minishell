@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - **Makefile** add compiler flag
+- **piped_processes.c** added heredoc management to **get_piped_processes**
+
 ### Fixed
 - **forks/heredoc_handler.c** Fix segfault on empty heredocs
 - **str_struct_filter.c** Fix leak on **new_get_command_path**
@@ -20,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **piped_processes.c** prepare info needed for all process
 - **utils/lst_process_handler.c**  Include basic functions to handle process list (new, add_front, add_back, free_list & print)
 - **utils/lst_redir_handler.c**  Include basic functions to handle redir list (new, add_front, add_back, free_list & print)
+
 ### Changed
 - **eval_token** just return token type, not path
 

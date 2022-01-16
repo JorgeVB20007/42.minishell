@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 20:13:37 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/16 06:55:13 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/16 13:30:16 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	get_heredoc_pipedfork_child(const char *key, int *pipe_fd)
  * * father waits for child response or sigint
  * @param key	key to match with STDIN_FILENO
 */
-static char	*get_heredoc_pipedfork(const char *key)
+char	*get_heredoc_pipedfork(const char *key)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
@@ -89,7 +89,7 @@ static char	*get_heredoc_pipedfork(const char *key)
 	waitpid(pid, &status, 0);
 	signal_handler_default();
 	if (WIFSIGNALED(status))
-		return ((char *)key);
+		return (ft_strdup(key));
 	return (ft_strdup(buff));
 }
 
@@ -97,35 +97,32 @@ static char	*get_heredoc_pipedfork(const char *key)
  * * Get heredoc list from token list with open heredocs
  * @param token_list	token list to go through looking for open heredoc
  * 						to retrieve
- * @return				List of heredocs
+ * @param heredoc_list	List of heredocs to return
 */
-t_str	*get_heredoc_list(char **token_list)
+void	get_heredoc_list(char **token_list, t_str **heredoc_list)
 {
 	int		i;
 	char	*heredoc;
-	t_str	*heredoc_list;
 
 	i = 0;
-	heredoc_list = NULL;
 	while (token_list[i] != NULL)
 	{
 		if (!ft_strcmp(token_list[i], "<<"))
 		{
 			heredoc = get_heredoc_pipedfork(token_list[i + 1]);
-			if (!ft_strcmp(token_list[i + 1], heredoc))
-			{
-				lst_str_free(&heredoc_list);
-				g_var.last_cmd_status = 130;
-				break ;
-			}
 			if (!ft_strcmp(heredoc, ""))
 			{
 				free(heredoc);
 				heredoc = NULL;
 			}
-			lst_str_add_back(&heredoc_list, heredoc);
+			lst_str_add_back(heredoc_list, heredoc);
+			if (heredoc != NULL && !ft_strcmp(token_list[i + 1], heredoc))
+			{
+				lst_str_free(heredoc_list);
+				g_var.last_cmd_status = 130;
+				break ;
+			}
 		}
 		i++;
 	}
-	return (heredoc_list);
 }
