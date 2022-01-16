@@ -90,7 +90,7 @@ static void	create_forkedpipes(int pipes)
 	close_forkedpipes(pipes, pids, fds);
 }
 
-//gcc -Wall -Wextra -Werror -g3 -fsanitize=address -pedantic src/sandbox/edu.c -o sandboxtest && ./sandboxtest && rm -rf  sandboxtest*
+//clang -Wall -Wextra -Werror -g3 -fsanitize=address -pedantic src/sandbox/edu.c -o sandboxtest && ./sandboxtest && rm -rf  sandboxtest*
 int	main(void)
 {
 	create_forkedpipes(4);
