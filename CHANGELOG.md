@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Makefile** add compiler flag
 ### Fixed
 - **forks/heredoc_handler.c** Fix segfault on empty heredocs
+- **str_struct_filter.c** Fix leak on **new_get_command_path**
 
 ## 2021-01-15 - Edu
 
