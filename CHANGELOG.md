@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - **forks/heredoc_handler.c** Fix segfault on empty heredocs
 - **str_struct_filter.c** Fix leak on **new_get_command_path**
+- **utils/lst_..._handler.c** nulling elements at free
 
 ## 2021-01-15 - Edu
 

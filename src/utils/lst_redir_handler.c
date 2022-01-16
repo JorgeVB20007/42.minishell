@@ -80,6 +80,7 @@ void	lst_redir_free(t_redir **list)
 		aux = next;
 	}
 	*list = NULL;
+	list = NULL;
 }
 
 /**

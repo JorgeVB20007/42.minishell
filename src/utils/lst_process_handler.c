@@ -86,6 +86,7 @@ void	lst_process_free(t_pp **list)
 		aux = next;
 	}
 	*list = NULL;
+	list = NULL;
 }
 
 /**
@@ -95,7 +96,7 @@ void	lst_process_print(t_pp *list)
 {
 	int	i;
 
-	dprintf(2, "\nPrinting\n");
+	dprintf(2, "\nPrinting processes\n");
 	while (list != NULL)
 	{
 		i = 0;

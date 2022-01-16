@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_red_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 11:27:35 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/21 21:12:12 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/16 13:32:53 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	lst_red_free(t_red **list)
 		aux = next;
 	}
 	*list = NULL;
+	list = NULL;
 }
 
 /**
