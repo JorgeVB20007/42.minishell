@@ -100,8 +100,8 @@ void	lst_process_print(t_pp *list)
 	while (list != NULL)
 	{
 		i = 0;
-		dprintf(2, "\nis_cmd %d\tpathname %s\n argv ", \
-		list->is_cmd, list->pathname);
+		dprintf(2, "\nis_cmd %d\tis_builtin %d\tpathname %s\n argv ", \
+		list->is_cmd, list->is_builtin, list->pathname);
 		while (list->argv[i])
 		{
 			dprintf(2, "\t param[%d] %s\t", i, list->argv[i]);
