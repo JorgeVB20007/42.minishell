@@ -50,9 +50,9 @@ static void	processline(int ignored_env)
 {
 	char	*line_read;
 	char	**token_list;
-	t_str	*heredoc_list;
+//	t_str	*heredoc_list;
 
-	heredoc_list = NULL;
+//	heredoc_list = NULL;
 	line_read = readline(MS_PROMPT);
 	if (line_read == NULL)
 		ms_eof_exit(ignored_env);
@@ -63,10 +63,10 @@ static void	processline(int ignored_env)
 		if (!qm_error_detector(line_read) && has_token(line_read))
 		{
 			token_list = get_token_list(line_read);
-			get_heredoc_list(token_list, &heredoc_list);
+//			get_heredoc_list(token_list, &heredoc_list);
 			if (token_list != NULL && !has_pipe_redir_open(token_list))
 				new_redirections(token_list, &g_var.env);
-			lst_str_free(&heredoc_list);
+//			lst_str_free(&heredoc_list);
 			megafree(&token_list);
 		}
 	}

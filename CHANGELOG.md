@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 2021-01-21 - Edu
+## 2022-01-21 - Jorge
+### Fixed
+- The combination *cat | cat | (...) | cat | ls* now works as intended :D
+
+### Note
+- The heredoc used in this version is the previous one (Jorge's).
+	- Jorge's heredoc fails to show variables inside quotation marks ( "$test" --> "" ) when the ending keyword is not between QMs.
+
+## 2022-01-21 - Edu
 
 ### Added
 - **var_expansor** Added **ft_expand** to simplify expand without mallocing 1st
@@ -24,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **str_struct_filter.c** Fix leak on **new_get_command_path**
 - **utils/lst_..._handler.c** nulling elements at free
 
-## 2021-01-15 - Edu
+## 2022-01-15 - Edu
 
 ### Added
 - **piped_processes.c** prepare info needed for all process
@@ -34,11 +42,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - **eval_token** just return token type, not path
 
-## 2021-01-09 - Edu
+## 2022-01-09 - Edu
 ## Changed
 - **utils/error_handler.c** replace usleep with bash sleep through execve
 
-## 2021-01-05 - Edu
+## 2022-01-05 - Edu
 ## Added
 - new folder **forks** to storage related files
 - **forks/heredoc_handler.c** Add pipedforks to handle signals
@@ -50,12 +58,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **heredoc_handler.c** split into **close_quotes.c** & **heredoc_handler.c**, both moved to **forks**
 - **minishell1.c** changed main processline readability
 
-## 2021-01-03 - Edu
+## 2022-01-03 - Edu
 ## Added
 - **utils/heredoc_handler.c** Added with functions to handle all heredocs and unclosed quotes
  at start of processline
 
-## 2021-01-02 - Edu
+## 2022-01-02 - Edu
 ## Added
 - **utils/token_handler2.c** Added **eval_token** function to returns if token is PIPE, REDIR, CMD...
 
