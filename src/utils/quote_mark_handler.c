@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   qm_remover.c                                       :+:      :+:    :+:   */
+/*   quote_mark_handler.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:14 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/02 18:16:33 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/21 23:25:55 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,12 @@ char	*adv_qm_rem(char *qm_str, int b_free)
 	less_chars = aqr_count(qm_str);
 	result = NULL;
 	if (!less_chars)
-		return (ft_strdup(qm_str));
-	result = ft_calloc((sizeof(char)), ft_strlen(qm_str) - less_chars + 1);
-	aqr_filler(qm_str, &result);
+		result = ft_strdup(qm_str);
+	else
+	{
+		result = ft_calloc((sizeof(char)), ft_strlen(qm_str) - less_chars + 1);
+		aqr_filler(qm_str, &result);
+	}
 	if (b_free)
 		free(qm_str);
 	return (result);
