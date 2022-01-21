@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:09:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/28 17:57:25 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/21 23:30:24 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,14 @@ char	*recursive_expand(char *malloc_str, t_str **env_list)
 		return (recursive_expand(malloc_str, env_list));
 	}
 	return (malloc_str);
+}
+
+/**
+ * * Given str expand env variables ($ followed by characters) to their values
+ * @param str	str to expand it content
+ * @return		str expanded
+*/
+char	*ft_expand(const char *str)
+{
+	return (recursive_expand(ft_strdup(str), &g_var.env));
 }
