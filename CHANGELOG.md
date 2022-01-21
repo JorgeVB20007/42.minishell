@@ -5,8 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 2021-01-16 - Edu
+## 2021-01-21 - Edu
 
+### Added
+- **var_expansor** Added **ft_expand** to simplify expand without mallocing 1st
+- **piped_processes** Added adv_qm_rem and ft_expand to prepare proceeses info
+### Fixed
+- **piped_processes** 1st process element hasn't to be cmd or builtin
+- **utils/quote_mark_handler.c** Fix **adv_qm_rem** leaks for every FREE case
+
+## 2021-01-16 - Edu
 ### Added
 - **Makefile** add compiler flag
 - **piped_processes.c** added heredoc management to **get_piped_processes**
