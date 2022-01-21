@@ -40,7 +40,7 @@ void	command_sorter_no_pipes(t_red *red_node, char **env, int fdi, int fdo)
 	}
 }
 
-void	command_sorter_wth_pipes(t_red *red_node, char **env)
+void	command_sorter_wth_pipes(t_red *red_node, char **env, int fdi)
 {
 	int	frk;
 
@@ -48,6 +48,7 @@ void	command_sorter_wth_pipes(t_red *red_node, char **env)
 	signal_handler_forks(!frk);
 	if (!frk)
 	{
+		close(fdi);
 		if (!ft_strcmp(red_node -> params[0], "echo"))
 			ft_echo(red_node -> params);
 		else if (!ft_strcmp(red_node -> params[0], "exit"))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/16 13:43:46 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/21 22:46:32 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ void	signal_handler_default(void);
 //*		command_sorter.c
 void	new_exec_command(t_red *red_node, char **env, int bool_addexit);
 void	command_sorter_no_pipes(t_red *red_node, char **env, int fdi, int fdo);
-void	command_sorter_wth_pipes(t_red *red_node, char **env);
+void	command_sorter_wth_pipes(t_red *red_node, char **env, int fdi);
 
 //*		heredoc.c
 void	ft_heredoc_qm(int *fdi, char *last_line, int orig_fds[2]);

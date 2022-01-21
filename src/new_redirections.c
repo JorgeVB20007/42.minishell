@@ -104,7 +104,7 @@ static void	apply2pipes(int pip[2], t_red *red_list, int items, char **env_array
 		if (items == 1)
 			command_sorter_no_pipes(red_list, env_array, red_list -> pip_in, red_list -> pip_out);
 		else
-			command_sorter_wth_pipes(red_list, env_array);
+			command_sorter_wth_pipes(red_list, env_array, pip[0]);
 		if (red_list -> pip_in != orig_fds[0])
 			close(red_list -> pip_in);
 		if (red_list -> pip_out != orig_fds[1])
