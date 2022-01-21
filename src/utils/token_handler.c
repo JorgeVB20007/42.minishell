@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_parser.c                                        :+:      :+:    :+:   */
+/*   token_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 10:32:31 by emadriga          #+#    #+#             */
-/*   Updated: 2021/12/19 15:46:52 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/02 17:19:29 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static void	recursive_get_token_list(t_str **token_list, char **input)
  * @param input	input to tokenize
  * @return 		array of tokens
 */
-char	**get_tokens(char *input)
+char	**get_token_list(char *input)
 {
 	t_str	*token_list;
 	char	**result;
@@ -115,6 +115,12 @@ char	**get_tokens(char *input)
 	recursive_get_token_list(&token_list, &input);
 	result = lst_str_to_array(&token_list);
 	lst_str_free(&token_list);
+	if (max_pipes_exceeded(result))
+	{
+		g_var.last_cmd_status = 1;
+		megafree(&result);
+		return (NULL);
+	}
 	return (result);
 }
 

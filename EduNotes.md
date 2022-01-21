@@ -23,15 +23,23 @@ tomartin jalvarad tips
 ToDo
 - [x] Export should return list orderder
 - [x] Export dont allow start with every char like number or symbols
-- [ ] Unificar entradas para Builtins
+- [x] Unificar entradas para Builtins
 - [ ] Gestionar correctamente ERNO
-- [ ] Gestionar señales en procesos hijos (open heredocs)
-- [ ] Hacer Env global a todas las funciones
-- [ ] Sacar expandir variables de la entrada
+- [x] Gestionar señales en procesos hijos (open heredocs)
+- [x] Hacer Env global a todas las funciones
+- [x] Sacar expandir variables de la entrada
 - [x] Test redirection functions
 - [ ] Use enumerables for status like philoforks ex(FREE, NOT_FREE, KO, OK) wacht out literas alredy in use like NEWLINE
+- [x] Handle heredoc before everything else
+- [x] Use forks and signals to handle heredocs and unclosed quotes
+- [ ] Review exit_status on ft_exit -> test several arguments (1st Number)
+- [ ] ft_exit return exit\n as exit
 
 Test parser.c aas basfbaskfhbsajhb ||| <<< >>> as|da>sa<s>>asf<<asdfd
 test ft_recursive_expand sasdfsad$USER fas'd$TE'RM fasdfsadfsdf
 
-WIFSIGNALED() to set status error by signals 
+WIFSIGNALED() to set status error by signals
+	https://brennan.io/2015/01/16/write-a-shell-in-c/
+	https://www.geeksforgeeks.org/making-linux-shell-c/
+
+

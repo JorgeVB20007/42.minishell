@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_red_handler.c                                  :+:      :+:    :+:   */
+/*   lst_redir_handler.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/20 11:27:35 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/16 13:32:53 by emadriga         ###   ########.fr       */
+/*   Created: 2022/01/15 11:27:35 by emadriga          #+#    #+#             */
+/*   Updated: 2022/01/15 13:37:19 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * @param list	list
  * @param new	new node to link
 */
-void	lst_red_add_front(t_red **list, t_red *new)
+void	lst_redir_add_front(t_redir **list, t_redir *new)
 {
 	new->next = *list;
 	*list = new;
@@ -28,9 +28,9 @@ void	lst_red_add_front(t_red **list, t_red *new)
  * @param list	list
  * @param new	new node to link
 */
-void	lst_red_add_back(t_red **list, t_red *new)
+void	lst_redir_add_back(t_redir **list, t_redir *new)
 {
-	t_red	*aux;
+	t_redir	*aux;
 
 	new->next = NULL;
 	if (*list == NULL)
@@ -47,15 +47,16 @@ void	lst_red_add_back(t_red **list, t_red *new)
 /**
  * * Returns malloced node
 */
-t_red	*lst_red_new(void)
+t_redir	*lst_redir_new(void)
 {
-	t_red	*output;
+	t_redir	*output;
 
-	output = malloc(sizeof(t_red));
+	output = malloc(sizeof(t_redir));
 	if (!output)
 		return (NULL);
+	output->type = NONE;
+	output->go_to = NULL;
 	output->next = NULL;
-//	dprintf(2, "> %p <\n", output);
 	return (output);
 }
 
@@ -63,19 +64,18 @@ t_red	*lst_red_new(void)
  * * Free list
  * @param list	list
 */
-void	lst_red_free(t_red **list)
+void	lst_redir_free(t_redir **list)
 {
-	t_red	*next;
-	t_red	*aux;
+	t_redir	*next;
+	t_redir	*aux;
 
 	next = *list;
 	aux = *list;
 	while (next != NULL)
 	{
 		next = next->next;
-		free(aux->path);
-		megafree(&aux->params);
-		megafree(&aux->redirs);
+		if (aux->go_to != NULL)
+			free(aux->go_to);
 		free(aux);
 		aux = next;
 	}
@@ -86,28 +86,12 @@ void	lst_red_free(t_red **list)
 /**
  * * Returns malloced node
 */
-void	lst_red_print(t_red *list)
+void	lst_redir_print(t_redir *list)
 {
-	int	i;
-
-	dprintf(2, "\nPrinting\n");
 	while (list != NULL)
 	{
-		i = 0;
-		dprintf(2, "\npid_in %d\tpip_out %d\tpath %s\n Params ", \
-		list->pip_in, list->pip_out, list->path);
-		while (list->params[i])
-		{
-			dprintf(2, "\t param[%d] %s\t", i, list->params[i]);
-			i++;
-		}
-		i = 0;
-		dprintf(2, "\n redirs");
-		while (list->redirs[i])
-		{
-			dprintf(2, "\t redirs[%d] %s\t", i, list->redirs[i]);
-			i++;
-		}
+		dprintf(2, "\nRedirection type %d\tgo to %s\n argv ", \
+		list->type, list->go_to);
 		list = list->next;
 	}
 }

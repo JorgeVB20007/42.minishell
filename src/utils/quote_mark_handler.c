@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   qm_remover.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:14 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/12/19 22:21:37 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/02 18:16:33 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#define UNCLOSED_QUOTES "unclosed quotation marks\n"
 
 /*
 ? Function created for the project "minishell"
@@ -90,4 +91,36 @@ char	*adv_qm_rem(char *qm_str, int b_free)
 	if (b_free)
 		free(qm_str);
 	return (result);
+}
+
+/**
+* * This function detects if there's quotation marks unclosed through the input
+* * given. Quotation marks inside other types of quotation marks are excluded.
+* * If all goes well, the value 0 is returned.
+* @return 		ERNNO code is returnerd
+*/
+int	qm_error_detector(char *str)
+{
+	int		a;
+	char	qm;
+
+	a = 0;
+	qm = 0;
+	while (str[a])
+	{
+		if ((str[a] == '\'' || str[a] == '"') && (!a || str[a - 1] != '\\'))
+		{
+			if (!qm)
+				qm = str[a];
+			else if (qm == str[a])
+				qm = 0;
+		}
+		a++;
+	}
+	if (qm)
+	{
+		log_error(UNCLOSED_QUOTES, 1);
+		return (1);
+	}
+	return (0);
 }

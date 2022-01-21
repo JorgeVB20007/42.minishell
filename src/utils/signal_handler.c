@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal_handler.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/05 19:58:37 by emadriga          #+#    #+#             */
+/*   Updated: 2022/01/05 19:58:40 by emadriga         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /**
@@ -7,7 +19,7 @@
 static void	signal_handler_default_sigint(int signal)
 {
 	(void)signal;
-	write(1, MS_PROMPT_SIG_INT, ft_strlen(MS_PROMPT_SIG_INT));
+	write(STDOUT_FILENO, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
@@ -15,12 +27,12 @@ static void	signal_handler_default_sigint(int signal)
 
 /**
  * * Handles signals at forks, different behaviour between father and children
- * @param is_children	bool process is children
+ * @param is_child	bool process is children
 */
-void	signal_handler_forks(int is_children)
+void	signal_handler_forks(int is_child)
 {
 	signal(SIGQUIT, SIG_IGN);
-	if (is_children == TRUE)
+	if (is_child == TRUE)
 		signal(SIGINT, SIG_DFL);
 	else
 		signal(SIGINT, SIG_IGN);

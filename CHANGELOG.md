@@ -5,6 +5,99 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2021-01-16 - Edu
+
+### Added
+- **Makefile** add compiler flag
+- **piped_processes.c** added heredoc management to **get_piped_processes**
+
+### Fixed
+- **forks/heredoc_handler.c** Fix segfault on empty heredocs
+- **str_struct_filter.c** Fix leak on **new_get_command_path**
+- **utils/lst_..._handler.c** nulling elements at free
+
+## 2021-01-15 - Edu
+
+### Added
+- **piped_processes.c** prepare info needed for all process
+- **utils/lst_process_handler.c**  Include basic functions to handle process list (new, add_front, add_back, free_list & print)
+- **utils/lst_redir_handler.c**  Include basic functions to handle redir list (new, add_front, add_back, free_list & print)
+
+### Changed
+- **eval_token** just return token type, not path
+
+## 2021-01-09 - Edu
+## Changed
+- **utils/error_handler.c** replace usleep with bash sleep through execve
+
+## 2021-01-05 - Edu
+## Added
+- new folder **forks** to storage related files
+- **forks/heredoc_handler.c** Add pipedforks to handle signals
+- **forks/close_quotes.c** Add pipedforks to handle signals
+- **libft/ft_strjoin_freedouble.c** ft_strjoin wich free both inputs
+- **includes/constants.c** add pipe_fd enumerable & UNEXPECTED_EOF error for heredoc_handler & close_quotes
+
+## Changed
+- **heredoc_handler.c** split into **close_quotes.c** & **heredoc_handler.c**, both moved to **forks**
+- **minishell1.c** changed main processline readability
+
+## 2021-01-03 - Edu
+## Added
+- **utils/heredoc_handler.c** Added with functions to handle all heredocs and unclosed quotes
+ at start of processline
+
+## 2021-01-02 - Edu
+## Added
+- **utils/token_handler2.c** Added **eval_token** function to returns if token is PIPE, REDIR, CMD...
+
+## Changed
+- Replaced **strcmp** & **modstrcmp** by **libft 's ft_strcmp** (ft_modstrcmp.c to old)
+- Rename **ms_parser.c** as **utils/token_handler.c**
+- Moved  **has_pipe_redir_open** function to **utils/token_handler2.c**
+- Grouped **qm_error_detector.c** & **qm_remover.c** into **utils/quote_mark_handler.c**
+
+###	Fixed
+- Fixing **max_pipes_exceeded** exits whithout leaks & also check actual number of pipes (after tokenize)
+
+## 2021-12-31 - Edu
+###	Added
+- **builtins/exit.c** emulates bash exit
+- **utils/megafree.c** added **array_str_get_size** to gets size of array of strings
+
+### Changed
+- **utils/error_handler2.c** & **utils/error_handler3.c** Refactor to clean code
+- **utils/megafree.c** ft_array_str_print renamed as **array_str_print**
+
+## 2021-12-27 - Edu
+### Changed
+- **utils/error_handler2.c** Animate Easter with ramdoness xD
+
+### Fixed
+- **utils/error_handler3.c** Fix rush02 conversor problems
+
+## 2021-12-26 - Edu
+### Added
+- **utils/error_handler2.c** & **utils/error_handler3.c** Added Easter Egg to control max pipes allowed
+
+### Fixed
+- **new_redirections.c** Remove unused variables
+
+## 2021-12-24 - Edu
+### Added
+- **minishell1.c** Added boolean **ignored_env** on **processline** to emulate bash CTRL hotkey(+d)(exit) depending on env was ignored at start of the program
+- **minishell1.c** Added **disable_ctrl_c_hotkey** to disable CTRL hotkey(+c) from printing ^C following
+	+ https://unix.stackexchange.com/questions/558694/why-do-terminals-sometimes-echo-special-characters-like-c
+	+ https://stackoverflow.com/questions/68602211/forcing-a-terminal-not-to-print-ctrl-hotkeys-when-signals-are-caught
+### Changed
+- Remove unnecessary code to handle hotkey(+c) behaviour on signal_handler and constants.h
+- **red_sttruct_filter.c** Save 127 exit status on 'Command not found', errors handled with **log_error** functions
+- Move unique constants from constants.h to their files.
+
+## 2021-12-20 - Edu
+### Fixed
+- **var_expansor.c** Fix expansions at start of string
+
 ## 2021-12-19 - Jorge
 ### Changed
 - **new_exec_command** renamed to **command_sorter.c**
@@ -20,7 +113,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2021-12-18 - Jorge
 ### Added
-- **utils/signal_handler.c** where the signal handles 
+- **utils/signal_handler.c** where the signal handles
 
 ## 2021-12-11 - Edu
 

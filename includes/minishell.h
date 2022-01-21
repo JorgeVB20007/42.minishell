@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/12/19 23:55:56 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/16 13:43:46 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
+# include <termios.h>
 # include "libft.h"
 # include "errors.h"
 # include "constants.h"
@@ -48,8 +49,29 @@ typedef struct s_var
 {
 	t_str	*env;
 	int		last_cmd_status;
-	int 	waitedheredoc;
+	int		waitedheredoc;
 }t_var;
+
+typedef struct s_pipedfork
+{
+	pid_t	pid;
+	int		status;
+	int		fd[2];
+}t_pipedfork;
+
+typedef struct s_redir{
+	int				type;
+	char			*go_to;
+	struct s_redir	*next;
+}t_redir;
+
+typedef struct s_piped_process{
+	int						is_cmd;
+	char					*pathname;
+	char					**argv;
+	t_redir					*redir;
+	struct s_piped_process	*next;
+}t_pp;
 
 t_var	g_var;
 
@@ -58,6 +80,9 @@ void	ft_cd(t_str **env_list, char **argv);
 
 //*		builtins / echo.c
 void	ft_echo(char **list);
+
+//*		builtins / exit.c
+void	ft_exit(t_str **env_list, char **argv);
 
 //*		builtins / env.c
 void	init_ms_env(char **env_vector, t_str **env_list);
@@ -72,6 +97,13 @@ void	ft_pwd(t_str **env_list, char **argv);
 
 //*		builtins / unset.c
 void	ft_unset(t_str **env_list, char **argv);
+
+//*		forks / close_quotes.c
+char	*close_quotes_pipedfork(char *str_got_old);
+
+//*		forks / heredoc_handler.c
+void	get_heredoc_list(char **input, t_str **heredoc_list);
+char	*get_heredoc_pipedfork(const char *key);
 
 //		old / exec_command.c
 //// void	exec_command(char **list, char **envp);
@@ -89,15 +121,19 @@ void	ft_unset(t_str **env_list, char **argv);
 //// void	dollarfound_getlen(int *a, int *count, char *input);
 //// char	*recursive_expand(char *str, t_str **env_list);
 
+//		old / ft_modstrcmp.c
+//// int		modstrcmp(char *str1, char *str2);
+
 //*		utils / error_handler.c
 void	log_error(char *str_error, int status_error);
 void	log_error_free(char *malloc_str_error, int status_error);
+void	execve_sleep(char **usleep_argv);
+int		max_pipes_exceeded(char **tokens);
+void	translate_number(int nbr, char **sleep_argv);
+void	ft_search_word(char *to_find, char **sleep_argv);
 
 //*		utils / ft_is_it_directory.c
 int		ft_is_directory(char *path);
-
-//*		utils / ft_modstrcmp.c
-int		modstrcmp(char *str1, char *str2);
 
 //*		utils / ft_strslashjoin.c
 char	*ft_strslashjoin(char const *s1, char const *s2);
@@ -105,6 +141,20 @@ char	*ft_strslashjoin(char const *s1, char const *s2);
 //*		utils / is_valid_var.c
 int		is_valid_var(char prv_char, char curr_char, char nxt_char, char qm);
 int		is_valid_var_hd(char *str, int idx);
+
+//*		utils / lst_process_handler.c
+void	lst_process_add_front(t_pp **list, t_pp *new);
+void	lst_process_add_back(t_pp **list, t_pp *new);
+t_pp	*lst_process_new(void);
+void	lst_process_free(t_pp **list);
+void	lst_process_print(t_pp *list);
+
+//*		utils / lst_redir_handler.c
+void	lst_redir_add_front(t_redir **list, t_redir *new);
+void	lst_redir_add_back(t_redir **list, t_redir *new);
+t_redir	*lst_redir_new(void);
+void	lst_redir_free(t_redir **list);
+void	lst_redir_print(t_redir *list);
 
 //*		utils / lst_red_handler.c
 void	lst_red_add_front(t_red **list, t_red *new);
@@ -127,10 +177,20 @@ char	**lst_str_to_array(t_str **env_list);
 
 //*		utils / megafree.c
 void	megafree(char ***list);
-void	ft_array_str_print(char **array);
+void	array_str_print(char **array);
+int		array_str_get_size(char **array);
 
 //*		utils / qm_remover.c
 char	*adv_qm_rem(char *qm_str, int b_free);
+
+//*		utils / token_handler.c
+char	**get_token_list(char *input);
+int		has_token(const char *input);
+
+//*		utils / token_handler2.c
+int		eval_token(const char *token);
+int		eval_token_redir(const char *token);
+int		has_pipe_redir_open(char **array);
 
 //*		utils / signal_handler.c
 void	signal_handler_forks(int is_children);
@@ -148,21 +208,19 @@ void	ft_heredoc(int *fdi, char *last_line, int orig_fds[2]);
 //*		minishell1.c
 //?		(main)
 
-//*		ms_parser.c
-char	**get_tokens(char *input);
-int		has_token(const char *input);
-
 //*		new_redirections.c
 void	new_redirections(char **list, t_str **env_list);
 
 //*		qm_error_detector.c
 int		qm_error_detector(char *str);
-int		has_pipe_redir_open(char **array);
 
 //*		red_struct_filler.c
 int		put_params_in_struct(char **list, t_str **env_list, t_red **red_list);
+char	*new_getpath(char *raw_cmd, t_str **env_list);
 
 //*		var_expansor.c
 char	*recursive_expand(char *malloc_str, t_str **env_list);
 
+//*		piped_processes.c
+void	get_piped_processes(char **tokens, t_pp **processes);
 #endif

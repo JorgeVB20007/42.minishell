@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/21 19:10:32 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/16 13:24:44 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	lst_str_free(t_str **list)
 		aux = next;
 	}
 	*list = NULL;
+	list = NULL;
 }
 
 /**
@@ -92,7 +93,8 @@ void	lst_str_print(t_str *list)
 {
 	while (list != NULL)
 	{
-		printf("%s\n", list->str);
+		if (list->str != NULL)
+			printf("%s\n", list->str);
 		list = list->next;
 	}
 }

@@ -6,17 +6,19 @@ void	command_sorter_no_pipes(t_red *red_node, char **env, int fdi, int fdo)
 	int	status;
 
 	frk = 0;
-	if (!strcmp(red_node -> params[0], "echo"))
+	if (!ft_strcmp(red_node -> params[0], "echo"))
 		ft_echo(red_node -> params);
-	else if (!strcmp(red_node -> params[0], "export"))
+	else if (!ft_strcmp(red_node -> params[0], "exit"))
+		ft_exit(&g_var.env, red_node -> params);
+	else if (!ft_strcmp(red_node -> params[0], "export"))
 		ft_export(&g_var.env, red_node -> params);
-	else if (!strcmp(red_node -> params[0], "pwd"))
+	else if (!ft_strcmp(red_node -> params[0], "pwd"))
 		ft_pwd(&g_var.env, red_node -> params);
-	else if (!strcmp(red_node -> params[0], "unset"))
+	else if (!ft_strcmp(red_node -> params[0], "unset"))
 		ft_unset(&g_var.env, red_node -> params);
-	else if (!strcmp(red_node -> params[0], "env"))
+	else if (!ft_strcmp(red_node -> params[0], "env"))
 		ft_env(&g_var.env, red_node -> params);
-	else if (!strcmp(red_node -> params[0], "cd"))
+	else if (!ft_strcmp(red_node -> params[0], "cd"))
 		ft_cd(&g_var.env, red_node -> params);
 	else
 	{
@@ -46,17 +48,19 @@ void	command_sorter_wth_pipes(t_red *red_node, char **env)
 	signal_handler_forks(!frk);
 	if (!frk)
 	{
-		if (!strcmp(red_node -> params[0], "echo"))
+		if (!ft_strcmp(red_node -> params[0], "echo"))
 			ft_echo(red_node -> params);
-		else if (!strcmp(red_node -> params[0], "export"))
+		else if (!ft_strcmp(red_node -> params[0], "exit"))
+			ft_exit(&g_var.env, red_node -> params);
+		else if (!ft_strcmp(red_node -> params[0], "export"))
 			ft_export(&g_var.env, red_node -> params);
-		else if (!strcmp(red_node -> params[0], "pwd"))
+		else if (!ft_strcmp(red_node -> params[0], "pwd"))
 			ft_pwd(&g_var.env, red_node -> params);
-		else if (!strcmp(red_node -> params[0], "unset"))
+		else if (!ft_strcmp(red_node -> params[0], "unset"))
 			ft_unset(&g_var.env, red_node -> params);
-		else if (!strcmp(red_node -> params[0], "env"))
+		else if (!ft_strcmp(red_node -> params[0], "env"))
 			ft_env(&g_var.env, red_node -> params);
-		else if (!strcmp(red_node -> params[0], "cd"))
+		else if (!ft_strcmp(red_node -> params[0], "cd"))
 			ft_cd(&g_var.env, red_node -> params);
 		else
 			exit(execve(red_node -> path, red_node -> params, env));

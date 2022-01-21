@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 01:11:34 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/12/19 21:05:38 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/02 17:35:24 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_heredoc_qm(int *fdi, char *last_line, int orig_fds[2])
 		{
 			idx = -1;
 			str_got = readline("> ");
-			if (!modstrcmp(str_got, last_line) || str_got == NULL)
+			if (str_got == NULL || !ft_strcmp(str_got, last_line))
 				break ;
 			while (str_got[++idx])
 			{
@@ -76,7 +76,7 @@ void	ft_heredoc(int *fdi, char *last_line, int orig_fds[2])
 		{
 			idx = -1;
 			str_got = readline("> ");
-			if (!modstrcmp(str_got, last_line) || str_got == NULL)
+			if (str_got == NULL || !ft_strcmp(str_got, last_line))
 				break ;
 			while (str_got[++idx])
 			{

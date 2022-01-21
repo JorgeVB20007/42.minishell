@@ -39,7 +39,7 @@ static size_t	get_start_expand(const char *str)
 }
 
 /**
- * * Replace exit status of the last executed command on given str from start 
+ * * Replace exit status of the last executed command on given str from start
  * @param str			str to expand it content
  * @param start_expand	index of start to replace
  * @return				str expanded
@@ -101,7 +101,7 @@ char	*recursive_expand(char *malloc_str, t_str **env_list)
 	char	*aux;
 
 	start_expand = get_start_expand(malloc_str);
-	if (start_expand != 0)
+	if (start_expand != 0 || malloc_str[0] == '$')
 	{
 		len_expand = 1;
 		aux = &malloc_str[start_expand];

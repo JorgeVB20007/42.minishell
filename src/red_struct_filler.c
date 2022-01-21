@@ -1,5 +1,8 @@
 #include "minishell.h"
 
+#define COMMAND_NOT_FOUND "Error: command {0} not found.\n"
+#define PATH_NOT_FOUND "Error: env variable 'PATH' not found.\n"
+
 /*
 ?   (Continuación de la función de abajo)
 */
@@ -14,7 +17,7 @@ char	*new_get_command_path(char *command, t_str **env_list)
 	paths = ft_getenv(env_list, "PATH");
 	if (!paths[0])
 	{
-		write(2, "Error: env variable 'PATH' not found.\n", 38);
+		log_error(PATH_NOT_FOUND, 1);
 		return (NULL);
 	}
 	path_list = ft_split(paths, ':');
@@ -22,16 +25,14 @@ char	*new_get_command_path(char *command, t_str **env_list)
 	{
 		str_att = ft_strslashjoin(path_list[idx++], command);
 		if (!access(str_att, X_OK))
-		{
-			megafree(&path_list);
-			return (str_att);
-		}
+			break ;
 		free(str_att);
+		str_att = NULL;
 	}
-	ft_putstr_fd("Error: command ", 2);
-	ft_putstr_fd(command, 2);
-	ft_putstr_fd(" not found.\n", 2);
-	return (NULL);
+	megafree(&path_list);
+	if (str_att == NULL)
+		log_error_free(ft_strreplace(COMMAND_NOT_FOUND, "{0}", command), 127);
+	return (str_att);
 }
 
 /*
@@ -58,7 +59,7 @@ char	*new_getpath(char *raw_cmd, t_str **env_list)
 }
 
 /*
-?   Misma función que la de abajo, pero te saca los parámetros 
+?   Misma función que la de abajo, pero te saca los parámetros
 ?   quitando las redireccioones en lugar de lo contrario.
 
 *   Ej:
@@ -118,9 +119,9 @@ char	**getparams(char **list)
 }
 
 /*
-?   Este recibe los parámetros spliteados, y devuelve todas las 
+?   Este recibe los parámetros spliteados, y devuelve todas las
 ?	redirecciones en formato:
-*   '<' '>' '<<' '>>' 
+*   '<' '>' '<<' '>>'
 ?   y el archivo en el siguiente puntero.
 
 *   Ej:
@@ -130,7 +131,7 @@ char	**getparams(char **list)
 	"goodbye"
 
 
-?   NOTA: Hay que pasarle un puntero al primer parámetro del que se 
+?   NOTA: Hay que pasarle un puntero al primer parámetro del que se
 ?	quieran sacar las redirecciones.
 	cat -n  <  a.txt  |  grep Error  |  wc -la  >  b.txt  |  cat -e  << end
 !   ^~~~~~ (1) ~~~~~	 ^~~ (2) ~~	 ^~~~~~ (3) ~~~~~	 ^~~~~ (4) ~~~~

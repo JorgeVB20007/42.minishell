@@ -3,18 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
+#    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/12/19 23:55:40 by jvacaris         ###   ########.fr        #
+#    Updated: 2022/01/16 06:26:51 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Program's name
 NAME	= minishell
 
+# compiler
+GCC		= clang
+
 # compiling flags
-FLAGS	= -Wall -Wextra -Werror $(SANITIZE)
+FLAGS	= -Wall -Wextra -Werror $(SANITIZE) -pedantic
 
 # sanitize
 # SANITIZE =
@@ -30,31 +33,40 @@ INCLUDES_FILES =	errors.h		\
 					minishell.h
 
 # Source and object files
-SRC_FILES	= 	minishell1.c				\
-				ms_parser.c					\
-				var_expansor.c				\
-				qm_error_detector.c			\
-				heredoc.c					\
-				new_redirections.c			\
-				command_sorter.c			\
-				red_struct_filler.c			\
-				builtins/env.c				\
-				utils/lst_str_handler.c		\
-				utils/lst_str_handler2.c	\
-				utils/ft_strslashjoin.c		\
-				utils/megafree.c			\
-				utils/is_valid_var.c		\
-				utils/qm_remover.c			\
-				utils/ft_modstrcmp.c		\
-				utils/lst_red_handler.c		\
-				utils/error_handler.c		\
-				utils/ft_is_directory.c		\
-				utils/signal_handler.c		\
-				builtins/cd.c				\
-				builtins/echo.c				\
-				builtins/export.c			\
-				builtins/pwd.c				\
-				builtins/unset.c			\
+SRC_FILES	= 	minishell1.c					\
+				var_expansor.c					\
+				heredoc.c						\
+				new_redirections.c				\
+				command_sorter.c				\
+				red_struct_filler.c				\
+				piped_processes.c				\
+				builtins/env.c					\
+				utils/lst_str_handler.c			\
+				utils/lst_str_handler2.c		\
+				utils/ft_strslashjoin.c			\
+				utils/megafree.c				\
+				utils/is_valid_var.c			\
+				utils/quote_mark_handler.c		\
+				utils/lst_red_handler.c			\
+				utils/lst_redir_handler.c		\
+				utils/lst_process_handler.c		\
+				utils/error_handler.c			\
+				utils/error_handler2.c			\
+				utils/error_handler3.c			\
+				utils/ft_is_directory.c			\
+				utils/token_handler.c			\
+				utils/token_handler2.c			\
+				utils/signal_handler.c			\
+				forks/close_quotes.c			\
+				forks/heredoc_handler.c			\
+				builtins/cd.c					\
+				builtins/echo.c					\
+				builtins/exit.c					\
+				builtins/export.c				\
+				builtins/pwd.c					\
+				builtins/unset.c				\
+				# utils/ft_modstrcmp.c
+				# qm_error_detector.c
 				# modifsplit.c
 				# interpreter.c
 				# exec_command.c
@@ -83,15 +95,16 @@ obj:
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)utils/
 	@mkdir -p $(OBJ_DIR)builtins/
+	@mkdir -p $(OBJ_DIR)forks/
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c $(INCLUDES)
-	@gcc $(FLAGS) -I $(LIBFT_DIR) -I $(INC_DIR) $(RLINE_INC) -o $@ -c $<
+	@$(GCC) $(FLAGS) -I $(LIBFT_DIR) -I $(INC_DIR) $(RLINE_INC) -o $@ -c $<
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
 
 # Compiling
 $(NAME): $(OBJ)
 	@echo "\033[0;33mCompiling... Wait a sec.\033[0;31m"
-	@gcc $(OBJ) $(FLAGS) $(LNK) $(RLINE_L) -lm -o $(NAME)
+	@$(GCC) $(OBJ) $(FLAGS) $(LNK) $(RLINE_L) -lm -o $(NAME)
 	@echo "\033[0;32m$(NAME) generated!\033[0;37m"
 
 mynorm:
