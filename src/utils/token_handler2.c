@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 16:56:38 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/15 14:20:35 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/21 22:43:35 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	has_pipe_redir_open(char **array)
  * * Returns token non redir type
  * @param token	token to identify
 */
-static int	eval_token_non_redir(char *token)
+int	eval_token_non_redir(const char *token)
 {
 	char	*path;
 
@@ -84,7 +84,7 @@ static int	eval_token_non_redir(char *token)
 	!ft_strcmp(token, "export") || !ft_strcmp(token, "pwd") || \
 	!ft_strcmp(token, "unset"))
 		return (BUILTIN);
-	path = new_getpath(token, &g_var.env);
+	path = new_getpath((char *)token, &g_var.env);
 	if (path != NULL)
 	{
 		free(path);

@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/16 13:43:46 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/21 22:41:07 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_redir{
 
 typedef struct s_piped_process{
 	int						is_cmd;
+	int						is_builtin;
 	char					*pathname;
 	char					**argv;
 	t_redir					*redir;
@@ -190,6 +191,7 @@ int		has_token(const char *input);
 //*		utils / token_handler2.c
 int		eval_token(const char *token);
 int		eval_token_redir(const char *token);
+int		eval_token_non_redir(const char *token);
 int		has_pipe_redir_open(char **array);
 
 //*		utils / signal_handler.c
@@ -219,6 +221,7 @@ int		put_params_in_struct(char **list, t_str **env_list, t_red **red_list);
 char	*new_getpath(char *raw_cmd, t_str **env_list);
 
 //*		var_expansor.c
+char	*ft_expand(const char *str);
 char	*recursive_expand(char *malloc_str, t_str **env_list);
 
 //*		piped_processes.c
