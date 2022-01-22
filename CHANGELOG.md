@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2022-01-23 - Edu
+### Changed
+- **backslash** handled as open input on heredocs
+
 ## 2022-01-22 - Edu
 ### Added
 - **utils/error-handler** Added **count_pipes**
@@ -26,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **piped_processes** 1st process element hasn't to be cmd or builtin
 - **utils/quote_mark_handler.c** Fix **adv_qm_rem** leaks for every FREE case
 
-## 2021-01-16 - Edu
+## 2022-01-16 - Edu
 ### Added
 - **Makefile** add compiler flag
 - **piped_processes.c** added heredoc management to **get_piped_processes**

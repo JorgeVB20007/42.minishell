@@ -6,13 +6,36 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 20:13:37 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/16 13:30:16 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 00:33:22 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #define WARNING_HEREDOC_EOF "Minishell: warning: here-document at line %d \
 delimited by end-of-file (wanted `%s')\n"
+
+static char *get_readline_heredoc(const char *key)
+{
+	char	*line_read;
+	char	*out;
+
+	line_read = readline("> ");
+	out = ft_strdup("");
+	while (1)
+	{
+		while (line_read == NULL)
+		{
+			printf(WARNING_HEREDOC_EOF, __LINE__, key);
+			line_read = readline("> ");
+		}
+		out = ft_strjoin_freedouble(out, line_read);
+		if (*out != '\0' && out[ft_strlen(out) - 1] == '\\')
+			line_read = readline("> ");
+		else
+			break ;
+	}
+	return (out);
+}
 
 /**
  * * Get matching key heredoc from STDIN_FILENO
@@ -26,12 +49,7 @@ static char	*get_heredoc(const char *key)
 	out = ft_strdup("");
 	while (1)
 	{
-		line_read = readline("> ");
-		while (line_read == NULL)
-		{
-			printf(WARNING_HEREDOC_EOF, __LINE__, key);
-			line_read = readline("> ");
-		}
+		line_read = get_readline_heredoc(key);
 		if (!ft_strcmp(key, line_read))
 			break ;
 		if (!ft_strcmp(out, ""))
@@ -42,6 +60,7 @@ static char	*get_heredoc(const char *key)
 	}
 	if (line_read != NULL)
 		free(line_read);
+	printf("\n\nopenquotes3->%s\n\n", out);
 	return (out);
 }
 

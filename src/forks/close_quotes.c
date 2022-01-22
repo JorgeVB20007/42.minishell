@@ -6,13 +6,14 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 20:52:32 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/05 22:11:39 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 00:37:55 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #define UNEXPECTED_EOF "unexpected EOF while looking for matching `''\n\
 Minishell: syntax error: unexpected end of file\n"
+#define BACKSLASH 3
 
 /**
  * * Eval if a given string has open quotes returning NONE if doesn't
@@ -24,6 +25,8 @@ static int	has_open_quotes(char *str)
 	int	open_quotes;
 
 	open_quotes = NONE;
+	if (*str == '\0')
+		return (open_quotes);
 	while (*str != '\0')
 	{
 		if (open_quotes == NONE && *str == '\'')
@@ -36,6 +39,8 @@ static int	has_open_quotes(char *str)
 			open_quotes = NONE;
 		str++;
 	}
+	if (open_quotes == NONE && str[-1] == '\\')
+		return (BACKSLASH);
 	return (open_quotes);
 }
 
@@ -59,7 +64,10 @@ static char	*recursive_close_quotes(char *str)
 			free(str);
 			exit (1);
 		}
-		out = recursive_close_quotes(ft_strjoin_freedouble(str, \
+		if (open_quotes == BACKSLASH)
+			out = recursive_close_quotes(ft_strjoin_freedouble(str, line_read));
+		else
+			out = recursive_close_quotes(ft_strjoin_freedouble(str, \
 				ft_strjoin_freedouble(ft_strdup("\n"), line_read)));
 	}
 	return (out);
@@ -92,7 +100,7 @@ static int	w_ifsignaled_ifexitstatus(int status)
 }
 
 /**
- * * Piped fork to handle unclosed quotes  with signals without shuting MS
+ * * Piped fork to handle unclosed quotes with signals without shuting MS
  * * child refresh input str with new STDIN_FILENO input
  * * father waits for child response or sigint
  * @param key	key to match with STDIN_FILENO

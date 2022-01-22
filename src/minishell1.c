@@ -50,9 +50,11 @@ static void	processline(int ignored_env)
 {
 	char	*line_read;
 	char	**token_list;
+	t_pp	*processes;
 //	t_str	*heredoc_list;
 
 //	heredoc_list = NULL;
+	processes = NULL;
 	line_read = readline(MS_PROMPT);
 	if (line_read == NULL)
 		ms_eof_exit(ignored_env);
@@ -65,8 +67,15 @@ static void	processline(int ignored_env)
 			token_list = get_token_list(line_read);
 //			get_heredoc_list(token_list, &heredoc_list);
 			if (token_list != NULL && !has_pipe_redir_open(token_list))
-				new_redirections(token_list, &g_var.env);
+			{
+				get_piped_processes(token_list, &processes);
+				lst_process_print(processes);
+				if (!g_var.last_cmd_status)
+					create_forkedpipes(&processes, count_pipes(token_list) + 1);
+			}
+				//new_redirections(token_list, &g_var.env);
 //			lst_str_free(&heredoc_list);
+			lst_process_free(&processes);
 			megafree(&token_list);
 		}
 	}
