@@ -32,7 +32,7 @@ static void	close_forkedpipes( int pipes, pid_t *pids, t_fd *fds)
 	while (++i < pipes)
 	{
 		j = -1;
-		while (++j < pipes - 1 && pids[i] != 0 && i == 0)
+		while (++j < pipes - 1)
 		{
 			close(fds[j].fd[READ_END]);
 			close(fds[j].fd[WRITE_END]);
