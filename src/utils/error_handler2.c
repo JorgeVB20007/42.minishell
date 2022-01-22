@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 18:17:46 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/09 12:19:19 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/22 12:15:48 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ enjoy...\r"
 "
 
 enum e_colors{
-	BACK,
+	BLACK,
 	RED,
 	GREEN,
 	YELLOW,
@@ -107,13 +107,13 @@ static void	ramdon_colors(int ODD)
 	free(color);
 	ft_putstr_fd(mask, STDOUT_FILENO);
 	free(mask);
-	if (ramdon == BACK && ODD)
+	if (ramdon == BLACK && ODD)
 		ft_putstr_fd(MASK_WHITE_BACKGROUND, STDOUT_FILENO);
 	else if (ramdon == WHITE && ODD)
 		ft_putstr_fd(MASK_BLACK_BACKGROUND, STDOUT_FILENO);
-	if (!ODD && ramdon == BACK)
+	if (!ODD && ramdon == BLACK)
 		ft_putstr_fd(MASK_WHITE_FOREGROUND, STDOUT_FILENO);
-	else if (!ODD && ramdon != BACK)
+	else if (!ODD && ramdon != BLACK)
 		ft_putstr_fd(MASK_BLACK_FOREGROUND, STDOUT_FILENO);
 }
 
