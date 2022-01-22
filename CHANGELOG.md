@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2022-01-21 - Edu
+### Added
+- **utils/error-handler** Added **count_pipes**
+- **forks/run_processes** Added **create_forkedpipes** to run processes
+
 ## 2022-01-21 - Jorge
 ### Fixed
 - The combination *cat | cat | (...) | cat | ls* now works as intended :D
@@ -14,7 +19,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 	- Jorge's heredoc fails to show variables inside quotation marks ( "$test" --> "" ) when the ending keyword is not between QMs.
 
 ## 2022-01-21 - Edu
-
 ### Added
 - **var_expansor** Added **ft_expand** to simplify expand without mallocing 1st
 - **piped_processes** Added adv_qm_rem and ft_expand to prepare proceeses info

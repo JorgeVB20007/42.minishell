@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/21 23:51:44 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/22 16:38:39 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ char	*get_heredoc_pipedfork(const char *key);
 //// int		modstrcmp(char *str1, char *str2);
 
 //*		utils / error_handler.c
+int		count_pipes(char **tokens);
 void	log_error(char *str_error, int status_error);
 void	log_error_free(char *malloc_str_error, int status_error);
 void	execve_sleep(char **usleep_argv);
@@ -226,4 +227,7 @@ char	*recursive_expand(char *malloc_str, t_str **env_list);
 
 //*		piped_processes.c
 void	get_piped_processes(char **tokens, t_pp **processes);
+
+//*		run_processes.c
+void	create_forkedpipes(t_pp **processes, int pipes);
 #endif
