@@ -34,6 +34,11 @@ ToDo
 - [x] Use forks and signals to handle heredocs and unclosed quotes
 - [ ] Review exit_status on ft_exit -> test several arguments (1st Number)
 - [ ] ft_exit return exit\n as exit
+- [ ] control is directory on searching cmd
+- [ ] rand into execve_random
+- [ ] control if bash (sleep & rands) exits
+- [ ] control \ on heredocs
+- [ ] eval heredocs with hello $hi "$hi" '$hi'  & he""llo $hi "$hi" '$hi'
 
 Test parser.c aas basfbaskfhbsajhb ||| <<< >>> as|da>sa<s>>asf<<asdfd
 test ft_recursive_expand sasdfsad$USER fas'd$TE'RM fasdfsadfsdf
