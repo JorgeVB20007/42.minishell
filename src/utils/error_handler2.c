@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 18:17:46 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/22 12:15:48 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/22 12:34:44 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,10 +175,7 @@ int	max_pipes_exceeded(char **tokens)
 {
 	int		pipes;
 
-	pipes = 0;
-	while (*tokens != NULL && pipes < INT_MAX)
-		if (!ft_strcmp(*tokens++, "|"))
-			pipes++;
+	pipes = count_pipes(tokens);
 	if (pipes >= MAX_PIPES)
 	{
 		signal(SIGINT, SIG_IGN);

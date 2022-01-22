@@ -36,3 +36,18 @@ void	execve_sleep(char **sleep_argv)
 		execve(sleep_argv[0], &sleep_argv[1], NULL);
 	waitpid(pid, &status, 0);
 }
+
+/**
+ * * Count amount of pipes present in tokens
+ * @param tokens	tokens list
+*/
+int	count_pipes(char **tokens)
+{
+	int		pipes;
+
+	pipes = 0;
+	while (*tokens != NULL && pipes < INT_MAX)
+		if (!ft_strcmp(*tokens++, "|"))
+			pipes++;
+	return (pipes);
+}
