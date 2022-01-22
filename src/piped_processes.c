@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:08:30 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/21 23:41:17 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/22 11:46:19 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static int	get_process_argv_len(char **tokens)
  * @param process		current process to initialize
  * @param type_redir	redirection type
 */
-static void	add_redir_to_process(const char *token, t_pp *process, int type_redir)
+static void	add_redir_to_process(const char *token, t_pp *process, \
+int type_redir)
 {
 	t_redir	*new;
 
@@ -48,7 +49,7 @@ static void	add_redir_to_process(const char *token, t_pp *process, int type_redi
 		new = lst_redir_new();
 		new->type = type_redir;
 		if (type_redir != HEREDOC)
-			new->go_to =  adv_qm_rem(ft_expand(token), FREE);
+			new->go_to = adv_qm_rem(ft_expand(token), FREE);
 		else
 		{
 			new->go_to = get_heredoc_pipedfork(token);
@@ -70,7 +71,8 @@ static void	add_redir_to_process(const char *token, t_pp *process, int type_redi
  * @param process	current process to initialize
  * @param id_argv	current argv id to save
 */
-static void add_exec_info_to_process(char *token, t_pp *process, int id_argv)
+static void	add_exec_info_to_process(const char *token, t_pp *process, \
+int id_argv)
 {
 	char	*str;
 	int		type_token;
