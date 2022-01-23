@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   piped_processes.c                                  :+:      :+:    :+:   */
+/*   get_processes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:08:30 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/22 11:46:19 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 20:53:33 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	get_process_argv_len(char **tokens)
  * @param process		current process to initialize
  * @param type_redir	redirection type
 */
-static void	add_redir_to_process(const char *token, t_pp *process, \
+static void	add_redir_to_process(const char *token, t_p *process, \
 int type_redir)
 {
 	t_redir	*new;
@@ -60,6 +60,7 @@ int type_redir)
 				free(new->go_to);
 				new->go_to = NULL;
 			}
+			new->go_to = expanse_heredoc();
 		}
 		lst_redir_add_back(&process->redir, new);
 	}
@@ -71,7 +72,7 @@ int type_redir)
  * @param process	current process to initialize
  * @param id_argv	current argv id to save
 */
-static void	add_exec_info_to_process(const char *token, t_pp *process, \
+static void	add_exec_info_to_process(const char *token, t_p *process, \
 int id_argv)
 {
 	char	*str;
@@ -94,7 +95,7 @@ int id_argv)
  * @param tokens	current tokens list
  * @param process	current process to initialize
 */
-static void	init_piped_process(char **tokens, t_pp	*process)
+static void	init_process(char **tokens, t_p	*process)
 {
 	int		i;
 	int		type_redir;
@@ -121,9 +122,9 @@ static void	init_piped_process(char **tokens, t_pp	*process)
  * @param tokens	tokens list
  * @param processes	list of process to return
 */
-void	get_piped_processes(char **tokens, t_pp **processes)
+void	get_processes(char **tokens, t_p **processes)
 {
-	t_pp	*process;
+	t_p	*process;
 
 	g_var.last_cmd_status = NONE;
 	while (*tokens != NULL && !g_var.last_cmd_status)
@@ -132,7 +133,7 @@ void	get_piped_processes(char **tokens, t_pp **processes)
 			tokens++;
 		process = NULL;
 		process = lst_process_new();
-		init_piped_process(tokens, process);
+		init_process(tokens, process);
 		lst_process_add_back(processes, process);
 		while (*tokens != NULL && ft_strcmp(*tokens, "|"))
 			tokens++;

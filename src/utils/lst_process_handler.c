@@ -17,7 +17,7 @@
  * @param list	list
  * @param new	new node to link
 */
-void	lst_process_add_front(t_pp **list, t_pp *new)
+void	lst_process_add_front(t_p **list, t_p *new)
 {
 	new->next = *list;
 	*list = new;
@@ -28,9 +28,9 @@ void	lst_process_add_front(t_pp **list, t_pp *new)
  * @param list	list
  * @param new	new node to link
 */
-void	lst_process_add_back(t_pp **list, t_pp *new)
+void	lst_process_add_back(t_p **list, t_p *new)
 {
-	t_pp	*aux;
+	t_p	*aux;
 
 	new->next = NULL;
 	if (*list == NULL)
@@ -47,11 +47,11 @@ void	lst_process_add_back(t_pp **list, t_pp *new)
 /**
  * * Returns malloced node
 */
-t_pp	*lst_process_new(void)
+t_p	*lst_process_new(void)
 {
-	t_pp	*output;
+	t_p	*output;
 
-	output = malloc(sizeof(t_pp));
+	output = malloc(sizeof(t_p));
 	if (!output)
 		return (NULL);
 	output->is_cmd = FALSE;
@@ -66,10 +66,10 @@ t_pp	*lst_process_new(void)
  * * Free list
  * @param list	list
 */
-void	lst_process_free(t_pp **list)
+void	lst_process_free(t_p **list)
 {
-	t_pp	*next;
-	t_pp	*aux;
+	t_p	*next;
+	t_p	*aux;
 
 	next = *list;
 	aux = *list;
@@ -92,7 +92,7 @@ void	lst_process_free(t_pp **list)
 /**
  * * Returns malloced node
 */
-void	lst_process_print(t_pp *list)
+void	lst_process_print(t_p *list)
 {
 	int	i;
 

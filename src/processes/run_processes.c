@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:39:42 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/23 08:08:16 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 20:51:56 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	initson(int p_count, pid_t *pids, t_fd *fds, int i)
 	}
 }
 
-static void	execveson(pid_t *pids, int i, t_pp *process)
+static void	execveson(pid_t *pids, int i, t_p *process)
 {
 	if (pids[i] == 0)
 	{
@@ -70,11 +70,11 @@ static void	execveson(pid_t *pids, int i, t_pp *process)
 	}
 }
 
-static void	run_multi_process(t_pp **processes, int p_count)
+static void	run_multi_process(t_p **processes, int p_count)
 {
 	int		i;
 	pid_t	*pids;
-	t_pp	*process;
+	t_p	*process;
 	t_fd	*fds;
 
 	process = *processes;
@@ -94,7 +94,7 @@ static void	run_multi_process(t_pp **processes, int p_count)
 	close_forkedpipes(p_count, pids, fds);
 }
 
-void	run_processes(t_pp **processes, int p_count)
+void	run_processes(t_p **processes, int p_count)
 {
 	if (p_count != 0 && *processes != NULL)
 	{

@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2022-01-23 - Edu
 ### Changed
+- rename piped_process as process & t_pp as t_p
 - create_forkedpipes renamed as **run_processes**
 - single builtin process handled without forks
 - **backslash** handled as open input on heredocs

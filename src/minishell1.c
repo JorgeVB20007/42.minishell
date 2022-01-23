@@ -50,7 +50,7 @@ static void	processline(int ignored_env)
 {
 	char	*line_read;
 	char	**token_list;
-	t_pp	*processes;
+	t_p	*processes;
 //	t_str	*heredoc_list;
 
 //	heredoc_list = NULL;
@@ -68,7 +68,7 @@ static void	processline(int ignored_env)
 //			get_heredoc_list(token_list, &heredoc_list);
 			if (token_list != NULL && !has_pipe_redir_open(token_list))
 			{
-				get_piped_processes(token_list, &processes);
+				get_processes(token_list, &processes);
 				lst_process_print(processes);
 				if (!g_var.last_cmd_status)
 					run_processes(&processes, count_pipes(token_list) + 1);

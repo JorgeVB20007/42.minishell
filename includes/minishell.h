@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/23 08:14:28 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 20:53:11 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@ typedef struct s_redir{
 	struct s_redir	*next;
 }t_redir;
 
-typedef struct s_piped_process{
+typedef struct s_process{
 	int						is_cmd;
 	int						is_builtin;
 	char					*pathname;
 	char					**argv;
 	t_redir					*redir;
-	struct s_piped_process	*next;
-}t_pp;
+	struct s_process	*next;
+}t_p;
 
 t_var	g_var;
 
@@ -148,11 +148,11 @@ int		is_valid_var(char prv_char, char curr_char, char nxt_char, char qm);
 int		is_valid_var_hd(char *str, int idx);
 
 //*		utils / lst_process_handler.c
-void	lst_process_add_front(t_pp **list, t_pp *new);
-void	lst_process_add_back(t_pp **list, t_pp *new);
-t_pp	*lst_process_new(void);
-void	lst_process_free(t_pp **list);
-void	lst_process_print(t_pp *list);
+void	lst_process_add_front(t_p **list, t_p *new);
+void	lst_process_add_back(t_p **list, t_p *new);
+t_p	*lst_process_new(void);
+void	lst_process_free(t_p **list);
+void	lst_process_print(t_p *list);
 
 //*		utils / lst_redir_handler.c
 void	lst_redir_add_front(t_redir **list, t_redir *new);
@@ -229,8 +229,8 @@ char	*ft_expand(const char *str);
 char	*recursive_expand(char *malloc_str, t_str **env_list);
 
 //*		piped_processes.c
-void	get_piped_processes(char **tokens, t_pp **processes);
+void	get_processes(char **tokens, t_p **processes);
 
 //*		run_processes.c
-void	run_processes(t_pp **processes, int pipes);
+void	run_processes(t_p **processes, int pipes);
 #endif
