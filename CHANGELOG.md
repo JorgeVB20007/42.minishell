@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 2022-01-23 - Edu
 ### Changed
 - **backslash** handled as open input on heredocs
+- removed **env_list** from inputlist on **builtins**
 
 ## 2022-01-22 - Edu
 ### Added

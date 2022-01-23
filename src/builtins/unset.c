@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 12:09:09 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/20 20:58:04 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 08:23:42 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@
  * @param env_list	enviroment list
  * @param argv	vector of arguments containing records to remove
 */
-void	ft_unset(t_str **env_list, char **argv)
+void	ft_unset(char **argv)
 {
-	int	i;
+	int		i;
+	t_str	**env_list;
 
 	i = 1;
+	env_list = &g_var.env;
 	while (argv[i] != NULL)
 	{
 		lst_str_delete(env_list, argv[i], ft_strlen(argv[i]));

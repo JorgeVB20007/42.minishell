@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 16:50:27 by emadriga          #+#    #+#             */
-/*   Updated: 2021/12/24 16:50:28 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 08:19:33 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,21 @@ static int	ft_cant_chdir(const char *path)
 /**
  * * This should recreate the bash funtion "cd".
  * * Shall change the working directory of the current shell execution
- * @param env_list	enviroment list
  * @param argv	vector of arguments containing records to add
 */
-void	ft_cd(t_str **env_list, char **argv)
+void	ft_cd(char **argv)
 {
+	t_str	**env_list;
 	t_str	*aux;
 	int		cant_chdir;
 
 	cant_chdir = 1;
+	env_list = &g_var.env;
 	if (argv[1] != NULL)
 		cant_chdir = ft_cant_chdir(argv[1]);
 	else
 	{
-		aux = lst_str_get_str(env_list, LIT_HOME_LIKE);
+		aux = lst_str_get_str(&g_var.env, LIT_HOME_LIKE);
 		if (aux == NULL)
 			log_error(HOME_NOT_SET, 1);
 		else

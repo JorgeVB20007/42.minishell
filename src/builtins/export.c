@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 20:42:55 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/28 11:48:35 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 08:22:32 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,16 @@ static void	ft_export_add(t_str **env_list, char *str)
  * * This should recreate the bash funtion "export".
  * * Returns ENV alphabetically-sorted
  * * Add records (through argumment vector) to enviroment variables list
- * @param env_list	enviroment list
  * @param argv	vector of arguments containing records to add
 */
-void	ft_export(t_str **env_list, char **argv)
+void	ft_export(char **argv)
 {
 	int		i;
 	char	*argv_without_qm;
+	t_str	**env_list;
 
 	i = 1;
+	env_list = &g_var.env;
 	argv_without_qm = NULL;
 	if (argv[i] == NULL)
 		ft_print_env_without_last_cmd(env_list);
