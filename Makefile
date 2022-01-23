@@ -6,7 +6,7 @@
 #    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2022/01/23 08:07:53 by emadriga         ###   ########.fr        #
+#    Updated: 2022/01/23 21:02:18 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ SRC_FILES	= 	minishell1.c					\
 				new_redirections.c				\
 				command_sorter.c				\
 				red_struct_filler.c				\
-				piped_processes.c				\
 				builtins/env.c					\
 				utils/lst_str_handler.c			\
 				utils/lst_str_handler2.c		\
@@ -59,7 +58,8 @@ SRC_FILES	= 	minishell1.c					\
 				utils/signal_handler.c			\
 				forks/close_quotes.c			\
 				forks/heredoc_handler.c			\
-				forks/run_processes.c			\
+				processes/run_processes.c		\
+				processes/get_processes.c		\
 				builtins/builtins.c				\
 				builtins/cd.c					\
 				builtins/echo.c					\
@@ -98,6 +98,7 @@ obj:
 	@mkdir -p $(OBJ_DIR)utils/
 	@mkdir -p $(OBJ_DIR)builtins/
 	@mkdir -p $(OBJ_DIR)forks/
+	@mkdir -p $(OBJ_DIR)processes/
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c $(INCLUDES)
 	@$(GCC) $(FLAGS) -I $(LIBFT_DIR) -I $(INC_DIR) $(RLINE_INC) -o $@ -c $<
 $(LIBFT):

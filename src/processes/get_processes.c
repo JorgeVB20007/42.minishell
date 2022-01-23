@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:08:30 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/23 20:53:33 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 21:02:55 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int type_redir)
 				free(new->go_to);
 				new->go_to = NULL;
 			}
-			new->go_to = expanse_heredoc();
 		}
 		lst_redir_add_back(&process->redir, new);
 	}
