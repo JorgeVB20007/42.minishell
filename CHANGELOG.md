@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2022-01-23 - Edu
 ### Added
+- **libft/ft_free.c** frees a pointer & set as NULL
 - **processes/run_processes** Add envp to run_processes
 ### Changed
 - rename piped_process as process & t_pp as t_p

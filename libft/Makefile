@@ -6,7 +6,7 @@
 #    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/25 19:15:33 by emadriga          #+#    #+#              #
-#    Updated: 2022/01/05 19:48:53 by emadriga         ###   ########.fr        #
+#    Updated: 2022/01/23 23:24:41 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC	=	ft_atoi.c			ft_bzero.c			ft_calloc.c			ft_isalnum.c		\
 		ft_lstadd_back.c	ft_lstadd_front.c	ft_lstclear.c		ft_lstdelone.c		\
 		ft_lstiter.c		ft_lstlast.c		ft_lstnew.c			ft_lstsize.c		\
 		ft_lstmap.c			get_next_line.c		ft_strreplace.c		ft_strreplaceat.c	\
-		ft_strcmp.c			ft_strjoin_freedouble.c
+		ft_strcmp.c			ft_free.c			ft_strjoin_freedouble.c
 
 # Name of the Library
 NAME	= libft.a
