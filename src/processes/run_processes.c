@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:39:42 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/23 22:12:43 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 22:54:30 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,12 @@ static void	execveson(pid_t *pids, int i, t_p *process, char **envp)
 	}
 }
 
-static void	run_multi_process(t_p **processes, int p_count, char **envp)
+static void	run_multi_process(t_p *process, int p_count, char **envp)
 {
 	int		i;
 	pid_t	*pids;
-	t_p	*process;
 	t_fd	*fds;
 
-	process = *processes;
 	pids = (pid_t *)malloc(sizeof(pid_t) * p_count);
 	fds = (t_fd *)malloc(sizeof(t_fd) * p_count - 1);
 	i = -1;
@@ -106,7 +104,7 @@ void	run_processes(t_p **processes, int p_count)
 		else
 		{
 			envp = lst_str_to_array(&g_var.env);
-			run_multi_process(processes, p_count, envp);
+			run_multi_process(*processes, p_count, envp);
 			megafree(&envp);
 		}
 	}
