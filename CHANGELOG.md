@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2022-01-23 - Edu
 ### Changed
+- create_forkedpipes renamed as **run_processes**
+- single builtin process handled without forks
 - **backslash** handled as open input on heredocs
 - removed **env_list** from inputlist on **builtins**
 

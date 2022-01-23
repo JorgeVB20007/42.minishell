@@ -71,7 +71,7 @@ static void	processline(int ignored_env)
 				get_piped_processes(token_list, &processes);
 				lst_process_print(processes);
 				if (!g_var.last_cmd_status)
-					create_forkedpipes(&processes, count_pipes(token_list) + 1);
+					run_processes(&processes, count_pipes(token_list) + 1);
 			}
 				//new_redirections(token_list, &g_var.env);
 //			lst_str_free(&heredoc_list);

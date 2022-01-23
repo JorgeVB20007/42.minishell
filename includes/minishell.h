@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/22 16:38:39 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 08:14:28 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,28 +76,31 @@ typedef struct s_piped_process{
 
 t_var	g_var;
 
+//*		builtins / builtins.c
+void	ft_builtins(char **argv);
+
 //*		builtins / cd.c
-void	ft_cd(t_str **env_list, char **argv);
+void	ft_cd(char **argv);
 
 //*		builtins / echo.c
 void	ft_echo(char **list);
 
 //*		builtins / exit.c
-void	ft_exit(t_str **env_list, char **argv);
+void	ft_exit(char **argv);
 
 //*		builtins / env.c
 void	init_ms_env(char **env_vector, t_str **env_list);
-void	ft_env(t_str **env_list, char **argv);
+void	ft_env(char **argv);
 char	*ft_getenv(t_str **env_list, const char *str);
 
 //*		builtins / export.c
-void	ft_export(t_str **env_list, char **argv);
+void	ft_export(char **argv);
 
 //*		builtins / pwd.c
-void	ft_pwd(t_str **env_list, char **argv);
+void	ft_pwd(char **argv);
 
 //*		builtins / unset.c
-void	ft_unset(t_str **env_list, char **argv);
+void	ft_unset(char **argv);
 
 //*		forks / close_quotes.c
 char	*close_quotes_pipedfork(char *str_got_old);
@@ -229,5 +232,5 @@ char	*recursive_expand(char *malloc_str, t_str **env_list);
 void	get_piped_processes(char **tokens, t_pp **processes);
 
 //*		run_processes.c
-void	create_forkedpipes(t_pp **processes, int pipes);
+void	run_processes(t_pp **processes, int pipes);
 #endif

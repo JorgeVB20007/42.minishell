@@ -6,7 +6,7 @@
 #    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2022/01/22 16:42:58 by emadriga         ###   ########.fr        #
+#    Updated: 2022/01/23 08:07:53 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRC_FILES	= 	minishell1.c					\
 				forks/close_quotes.c			\
 				forks/heredoc_handler.c			\
 				forks/run_processes.c			\
+				builtins/builtins.c				\
 				builtins/cd.c					\
 				builtins/echo.c					\
 				builtins/exit.c					\
