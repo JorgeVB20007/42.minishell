@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 01:11:34 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/02 17:35:24 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 21:45:16 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	ft_heredoc(int *fdi, char *last_line, int orig_fds[2])
 			{
 				if (is_valid_var_hd(str_got, idx))
 				{
-					ft_putstr_fd(ft_getenv(&g_var.env, &str_got[++idx]), pip[1]);
+					ft_putstr_fd(ft_getenv(&str_got[++idx]), pip[1]);
 					while (ft_isalnum(str_got[idx + 1]) || str_got[idx + 1] == '_')
 						idx++;
 				}

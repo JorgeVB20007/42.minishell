@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - create_forkedpipes renamed as **run_processes**
 - single builtin process handled without forks
 - **backslash** handled as open input on heredocs
-- removed **env_list** from inputlist on **builtins**
+- removed **env_list** from inputlist on **builtins** and **ft_getenv**
 
 ## 2022-01-22 - Edu
 ### Added

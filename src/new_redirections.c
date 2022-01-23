@@ -121,7 +121,7 @@ static void	apply2pipes(int pip[2], t_red *red_list, int items, char **env_array
 ?   Aquí quería llamar a una función para rellenar la lista enlazada
 ?   para luego crear forks en un while y pasarle a cada fork su item de la
 ?   lista con su path, sus parámetros y todas sus redirecciones.
-*   Lo que es seguro es que cada item de la lista es un comando, y se 
+*   Lo que es seguro es que cada item de la lista es un comando, y se
 *   separan los unos de los otros al encontrarse con un | sin comillas.
 */
 void	new_redirections(char **list, t_str **env_list)
@@ -133,7 +133,7 @@ void	new_redirections(char **list, t_str **env_list)
 	int		status;
 
 	red_list = NULL;
-	items = put_params_in_struct(list, env_list, &red_list);
+	items = put_params_in_struct(list, &red_list);
 	env_array = lst_str_to_array(env_list);
 	apply2pipes(pip, red_list, items, env_array);
 	while (items--)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   var_expansor.c                                     :+:      :+:    :+:   */
+/*   old_var_expansor.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:09:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/11/27 16:17:27 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/23 21:46:21 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ static char	*expand_at_free(char *malloc_str, t_str **env_list, \
 	char	*out;
 
 	oldset = ft_substr(malloc_str, start_expand, len_expand);
-	newset = ft_getenv(env_list, &oldset[1]);
+	newset = ft_getenv(&oldset[1]);
 	if (!newset)
 		out = ft_strreplaceat(malloc_str, oldset, "", start_expand);
 	else

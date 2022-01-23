@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 19:28:26 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/23 08:20:40 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 21:55:17 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,16 +137,15 @@ void	ft_env(char **argv)
  * * This should recreate the stdlib.h funtion "getenv".
  * * Searches the environment list to find the environment variable name, \
  * * and returns a pointer to the corresponding value string
- * @param env_list	enviroment list
  * @param str		new str to look for
 */
-char	*ft_getenv(t_str **env_list, const char *str)
+char	*ft_getenv(const char *str)
 {
 	t_str	*aux;
 	char	*str_like;
 
 	str_like = ft_strjoin(str, "=");
-	aux = lst_str_get_str(env_list, str_like);
+	aux = lst_str_get_str(&g_var.env, str_like);
 	free(str_like);
 	if (aux == NULL)
 		return ("");

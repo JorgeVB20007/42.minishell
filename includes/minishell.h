@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/23 20:53:11 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 22:01:00 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	ft_exit(char **argv);
 //*		builtins / env.c
 void	init_ms_env(char **env_vector, t_str **env_list);
 void	ft_env(char **argv);
-char	*ft_getenv(t_str **env_list, const char *str);
+char	*ft_getenv(const char *str);
 
 //*		builtins / export.c
 void	ft_export(char **argv);
@@ -178,7 +178,7 @@ void	lst_str_delete(t_str **list, char *str, size_t len);
 void	lst_str_add_front(t_str **list, char *str);
 void	lst_str_add_back(t_str **list, char *str);
 t_str	*lst_str_get_str(t_str **list, const char *str);
-char	**lst_str_to_array(t_str **env_list);
+char	**lst_str_to_array(t_str **list);
 
 //*		utils / megafree.c
 void	megafree(char ***list);
@@ -221,12 +221,12 @@ void	new_redirections(char **list, t_str **env_list);
 int		qm_error_detector(char *str);
 
 //*		red_struct_filler.c
-int		put_params_in_struct(char **list, t_str **env_list, t_red **red_list);
-char	*new_getpath(char *raw_cmd, t_str **env_list);
+int		put_params_in_struct(char **list, t_red **red_list);
+char	*new_getpath(char *raw_cmd);
 
 //*		var_expansor.c
 char	*ft_expand(const char *str);
-char	*recursive_expand(char *malloc_str, t_str **env_list);
+char	*recursive_expand(char *malloc_str);
 
 //*		piped_processes.c
 void	get_processes(char **tokens, t_p **processes);

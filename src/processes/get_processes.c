@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:08:30 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/23 21:02:55 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 22:01:16 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int id_argv)
 		process->is_cmd = type_token == COMMAND;
 		process->is_builtin = type_token == BUILTIN;
 		if (process->is_cmd)
-			process->pathname = new_getpath(str, &g_var.env);
+			process->pathname = new_getpath(str);
 	}
 	process->argv[id_argv] = str;
 }
