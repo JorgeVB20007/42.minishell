@@ -34,7 +34,10 @@ ToDo
 - [x] Use forks and signals to handle heredocs and unclosed quotes
 - [ ] Review exit_status on ft_exit -> test several arguments (1st Number)
 - [ ] ft_exit return exit\n as exit
-
+- [ ] expanse tilde (https://unix.stackexchange.com/questions/423962/what-is-a-tilde-when-used-as-a-prefix-to-a-path/423984?noredirect=1#comment763846_423984
+ 					https://www.gnu.org/software/bash/manual/html_node/Tilde-Expansion.html#:~:text=If%20a%20word%20begins%20with,are%20considered%20a%20tilde%2Dprefix%20.&text=If%20this%20login%20name%20is,of%20the%20HOME%20shell%20variable)
+- [ ] create execve random
+- [ ] create fallback for execve sleep & random
 Test parser.c aas basfbaskfhbsajhb ||| <<< >>> as|da>sa<s>>asf<<asdfd
 test ft_recursive_expand sasdfsad$USER fas'd$TE'RM fasdfsadfsdf
 
