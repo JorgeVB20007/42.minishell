@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:39:42 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/23 20:51:56 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 22:12:43 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ static void	initson(int p_count, pid_t *pids, t_fd *fds, int i)
 	}
 }
 
-static void	execveson(pid_t *pids, int i, t_p *process)
+static void	execveson(pid_t *pids, int i, t_p *process, char **envp)
 {
 	if (pids[i] == 0)
 	{
 		if (process->is_cmd == TRUE)
-			execve(process->pathname, process->argv, NULL);
+			execve(process->pathname, process->argv, envp);
 		else if (process->is_builtin == TRUE)
 		{
 			ft_builtins(process->argv);
@@ -70,7 +70,7 @@ static void	execveson(pid_t *pids, int i, t_p *process)
 	}
 }
 
-static void	run_multi_process(t_p **processes, int p_count)
+static void	run_multi_process(t_p **processes, int p_count, char **envp)
 {
 	int		i;
 	pid_t	*pids;
@@ -88,7 +88,7 @@ static void	run_multi_process(t_p **processes, int p_count)
 	{
 		pids[i] = fork();
 		initson(p_count, pids, fds, i);
-		execveson(pids, i, process);
+		execveson(pids, i, process, envp);
 		process = process->next;
 	}
 	close_forkedpipes(p_count, pids, fds);
@@ -96,11 +96,18 @@ static void	run_multi_process(t_p **processes, int p_count)
 
 void	run_processes(t_p **processes, int p_count)
 {
+	char	**envp;
+
+	envp = NULL;
 	if (p_count != 0 && *processes != NULL)
 	{
 		if (p_count == 1 && processes[0]->is_builtin == TRUE)
 			ft_builtins(processes[0]->argv);
 		else
-			run_multi_process(processes, p_count);
+		{
+			envp = lst_str_to_array(&g_var.env);
+			run_multi_process(processes, p_count, envp);
+			megafree(&envp);
+		}
 	}
 }
