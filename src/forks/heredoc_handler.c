@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 20:13:37 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/23 00:33:22 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 23:33:58 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static char	*get_heredoc(const char *key)
 	}
 	if (line_read != NULL)
 		free(line_read);
-	printf("\n\nopenquotes3->%s\n\n", out);
 	return (out);
 }
 

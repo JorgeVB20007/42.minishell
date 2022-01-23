@@ -6,7 +6,7 @@
 #    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2022/01/23 21:02:18 by emadriga         ###   ########.fr        #
+#    Updated: 2022/01/23 21:19:06 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ INCLUDES_FILES =	errors.h		\
 
 # Source and object files
 SRC_FILES	= 	minishell1.c					\
-				var_expansor.c					\
+				expansions/var_expansor.c		\
 				heredoc.c						\
 				new_redirections.c				\
 				command_sorter.c				\
@@ -99,6 +99,7 @@ obj:
 	@mkdir -p $(OBJ_DIR)builtins/
 	@mkdir -p $(OBJ_DIR)forks/
 	@mkdir -p $(OBJ_DIR)processes/
+	@mkdir -p $(OBJ_DIR)expansions/
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c $(INCLUDES)
 	@$(GCC) $(FLAGS) -I $(LIBFT_DIR) -I $(INC_DIR) $(RLINE_INC) -o $@ -c $<
 $(LIBFT):

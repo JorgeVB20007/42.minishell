@@ -9,12 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - **libft/ft_free.c** frees a pointer & set as NULL
 - **processes/run_processes** Add envp to run_processes
+- **expansion/var_expansor** Added mode to expanse heredoc
+- **processes/get_processes** Now expands heredoc (not working on get_processes at forks/heredoc_handler)
+
 ### Changed
 - rename piped_process as process & t_pp as t_p
 - create_forkedpipes renamed as **run_processes**
 - single builtin process handled without forks
 - **backslash** handled as open input on heredocs
-- removed **env_list** from inputlist on **builtins** and **ft_getenv**
+- removed **env_list** from inputlist on **builtins**, **ft_getenv** & **var_expansor**
 
 ## 2022-01-22 - Edu
 ### Added

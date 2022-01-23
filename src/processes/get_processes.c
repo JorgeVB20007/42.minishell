@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:08:30 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/23 22:01:16 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 23:35:19 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ static void	add_redir_to_process(const char *token, t_p *process, \
 int type_redir)
 {
 	t_redir	*new;
+	char	*no_quotes_token;
 
+	no_quotes_token = NULL;
 	if (token != NULL)
 	{
 		new = lst_redir_new();
@@ -52,14 +54,15 @@ int type_redir)
 			new->go_to = adv_qm_rem(ft_expand(token), FREE);
 		else
 		{
-			new->go_to = get_heredoc_pipedfork(token);
-			if (!ft_strcmp(new->go_to, token))
+			no_quotes_token = adv_qm_rem((char *)token, NOT_FREE);
+			new->go_to = get_heredoc_pipedfork(no_quotes_token);
+			if (!ft_strcmp(new->go_to, no_quotes_token))
 				g_var.last_cmd_status = 130;
 			if (!ft_strcmp(new->go_to, ""))
-			{
-				free(new->go_to);
-				new->go_to = NULL;
-			}
+				ft_free((void **)&new->go_to);
+			else if (!ft_strchr(token, '\'') && !ft_strchr(token, '\"'))
+				new->go_to = recursive_expand(new->go_to, TRUE);
+			free(no_quotes_token);
 		}
 		lst_redir_add_back(&process->redir, new);
 	}

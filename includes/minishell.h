@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/23 22:01:00 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 22:44:09 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,7 @@ char	*new_getpath(char *raw_cmd);
 
 //*		var_expansor.c
 char	*ft_expand(const char *str);
-char	*recursive_expand(char *malloc_str);
+char	*recursive_expand(char *malloc_str, int is_heredoc);
 
 //*		piped_processes.c
 void	get_processes(char **tokens, t_p **processes);

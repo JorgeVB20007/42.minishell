@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:26:58 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/12/19 23:37:09 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/23 22:38:54 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	ft_echo_writing(char **list, int idx, char **assist)
 	while (list[idx])
 	{
 		free(*assist);
-		*assist = adv_qm_rem(recursive_expand(list[idx++], &g_var.env), 0);
+		*assist = adv_qm_rem(recursive_expand(list[idx++], FALSE), 0);
 		ft_putstr_fd(*assist, 1);
 		if (list[idx])
 			write(1, " ", 1);
@@ -56,7 +56,7 @@ void	ft_echo(char **list)
 	}
 	while (1)
 	{
-		assist = /*adv_qm_rem(*/recursive_expand(ft_strdup(list[idx]), &g_var.env)/*, 0)*/;
+		assist = /*adv_qm_rem(*/recursive_expand(ft_strdup(list[idx]),FALSE)/*, 0)*/;
 //		dprintf(2, "\n(%s | %s)\n", assist, list[idx]);
 		if (!check_for_flag(assist))
 			break;
