@@ -6,12 +6,12 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 20:52:32 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/23 00:37:55 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/24 20:24:59 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#define UNEXPECTED_EOF "unexpected EOF while looking for matching `''\n\
+#define UNEXPECTED_EOF "unexpected EOF while looking for matching `{0}'\n\
 Minishell: syntax error: unexpected end of file\n"
 #define BACKSLASH 3
 
@@ -62,7 +62,7 @@ static char	*recursive_close_quotes(char *str)
 		if (line_read == NULL)
 		{
 			free(str);
-			exit (1);
+			exit (open_quotes);
 		}
 		if (open_quotes == BACKSLASH)
 			out = recursive_close_quotes(ft_strjoin_freedouble(str, line_read));
@@ -95,7 +95,12 @@ static int	w_ifsignaled_ifexitstatus(int status)
 	if (WIFSIGNALED(status))
 		g_var.last_cmd_status = 130;
 	else if (WIFEXITED(status) && WEXITSTATUS(status))
-		log_error(UNEXPECTED_EOF, 2);
+	{
+		if (WEXITSTATUS(status) == SINGLE)
+			log_error_free(ft_strreplace(UNEXPECTED_EOF, "{0}", "\'"), 2);
+		else if (WEXITSTATUS(status) == DOUBLE)
+			log_error_free(ft_strreplace(UNEXPECTED_EOF, "{0}", "\""), 2);
+	}
 	return (WIFSIGNALED(status) || (WIFEXITED(status) && WEXITSTATUS(status)));
 }
 
