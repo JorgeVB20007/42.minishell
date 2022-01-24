@@ -17,7 +17,7 @@
  * @param list	list
  * @param new	new node to link
 */
-void	lst_redir_add_front(t_redir **list, t_redir *new)
+void	lst_redir_add_front(t_redirection **list, t_redirection *new)
 {
 	new->next = *list;
 	*list = new;
@@ -28,9 +28,9 @@ void	lst_redir_add_front(t_redir **list, t_redir *new)
  * @param list	list
  * @param new	new node to link
 */
-void	lst_redir_add_back(t_redir **list, t_redir *new)
+void	lst_redir_add_back(t_redirection **list, t_redirection *new)
 {
-	t_redir	*aux;
+	t_redirection	*aux;
 
 	new->next = NULL;
 	if (*list == NULL)
@@ -47,11 +47,11 @@ void	lst_redir_add_back(t_redir **list, t_redir *new)
 /**
  * * Returns malloced node
 */
-t_redir	*lst_redir_new(void)
+t_redirection	*lst_redir_new(void)
 {
-	t_redir	*output;
+	t_redirection	*output;
 
-	output = malloc(sizeof(t_redir));
+	output = malloc(sizeof(t_redirection));
 	if (!output)
 		return (NULL);
 	output->type = NONE;
@@ -64,10 +64,10 @@ t_redir	*lst_redir_new(void)
  * * Free list
  * @param list	list
 */
-void	lst_redir_free(t_redir **list)
+void	lst_redir_free(t_redirection **list)
 {
-	t_redir	*next;
-	t_redir	*aux;
+	t_redirection	*next;
+	t_redirection	*aux;
 
 	next = *list;
 	aux = *list;
@@ -86,7 +86,7 @@ void	lst_redir_free(t_redir **list)
 /**
  * * Returns malloced node
 */
-void	lst_redir_print(t_redir *list)
+void	lst_redir_print(t_redirection *list)
 {
 	while (list != NULL)
 	{

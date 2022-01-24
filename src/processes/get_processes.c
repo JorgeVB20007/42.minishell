@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:08:30 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/23 23:35:19 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/24 22:37:52 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,29 @@ static int	get_process_argv_len(char **tokens)
 static void	add_redir_to_process(const char *token, t_p *process, \
 int type_redir)
 {
-	t_redir	*new;
-	char	*no_quotes_token;
+	t_redirection	*r;
+	char			*no_quotes_token;
 
 	no_quotes_token = NULL;
 	if (token != NULL)
 	{
-		new = lst_redir_new();
-		new->type = type_redir;
+		r = lst_redir_new();
+		r->type = type_redir;
 		if (type_redir != HEREDOC)
-			new->go_to = adv_qm_rem(ft_expand(token), FREE);
+			r->go_to = adv_qm_rem(ft_expand(token), FREE);
 		else
 		{
 			no_quotes_token = adv_qm_rem((char *)token, NOT_FREE);
-			new->go_to = get_heredoc_pipedfork(no_quotes_token);
-			if (!ft_strcmp(new->go_to, no_quotes_token))
+			r->go_to = get_heredoc_pipedfork(no_quotes_token);
+			if (!ft_strcmp(r->go_to, no_quotes_token))
 				g_var.last_cmd_status = 130;
-			if (!ft_strcmp(new->go_to, ""))
-				ft_free((void **)&new->go_to);
+			if (!ft_strcmp(r->go_to, ""))
+				ft_free((void **)&r->go_to);
 			else if (!ft_strchr(token, '\'') && !ft_strchr(token, '\"'))
-				new->go_to = recursive_expand(new->go_to, TRUE);
+				r->go_to = recursive_expand(r->go_to, TRUE);
 			free(no_quotes_token);
 		}
-		lst_redir_add_back(&process->redir, new);
+		lst_redir_add_back(&process->redir, r);
 	}
 }
 

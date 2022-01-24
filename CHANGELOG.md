@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 2022-01-24 - Edu
 ### Changed
 - **forks/close_quotes.c** Dinamyc CTRL+D error single double quotes open
+- rename t_redir as t_redirection
 
 ## 2022-01-23 - Edu
 ### Added
