@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:39:42 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/24 22:19:42 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/24 23:30:26 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ static void	close_forkedpipes(int pipes, pid_t *pids, t_fd *fds)
 		}
 		waitpid(pids[i], &status, 0);
 	}
+	if (WIFEXITED(status))
+		g_var.last_cmd_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		g_var.last_cmd_status = WTERMSIG(status);
 	free(pids);
 	free(fds);
 }
@@ -40,11 +44,7 @@ static void	close_forkedpipes(int pipes, pid_t *pids, t_fd *fds)
 static void	initson(t_p *process, int p_count, t_fd *fds, int i)
 {
 	int		j;
-	// t_fd	redir;
-	(void)process;
-	// redir.fd[READ_END] = NULL;
-	// redir.fd[WRITE_END] = NULL;
-	// process_redirections(&redir);
+
 	if (i != p_count - 1)
 		dup2(fds[i].fd[1], STDOUT_FILENO);
 	if (i != 0)
@@ -56,7 +56,6 @@ static void	initson(t_p *process, int p_count, t_fd *fds, int i)
 		close(fds[j].fd[READ_END]);
 		close(fds[j].fd[WRITE_END]);
 	}
-
 }
 
 static void	execveson(t_p *process, char **envp)
@@ -85,6 +84,7 @@ static void	run_multi_process(t_p *process, int p_count, char **envp)
 	while (++i < p_count)
 	{
 		pids[i] = fork();
+		signal_handler_forks(pids[i]);
 		if (pids[i] == 0)
 		{
 			initson(process, p_count, fds, i);
@@ -93,6 +93,7 @@ static void	run_multi_process(t_p *process, int p_count, char **envp)
 		process = process->next;
 	}
 	close_forkedpipes(p_count, pids, fds);
+	signal_handler_default();
 }
 
 void	run_processes(t_p **processes, int p_count)

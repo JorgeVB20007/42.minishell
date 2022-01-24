@@ -13,9 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - function **is_it_path** in *is_it_path.c* returns 1 if the given text corresponds to a path and 0 if it's something else, such a command.
+
 ## 2022-01-24 - Edu
 ### Added
 - **processes/process_redirections** Add redirections to process before executing
+- **processes/run_processes** Added signal_handlers
 
 ### Changed
 - **forks/close_quotes.c** Dinamyc CTRL+D error single double quotes open
