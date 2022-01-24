@@ -6,7 +6,7 @@
 #    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2022/01/23 21:19:06 by emadriga         ###   ########.fr        #
+#    Updated: 2022/01/24 22:23:54 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,40 +33,41 @@ INCLUDES_FILES =	errors.h		\
 					minishell.h
 
 # Source and object files
-SRC_FILES	= 	minishell1.c					\
-				expansions/var_expansor.c		\
-				heredoc.c						\
-				new_redirections.c				\
-				command_sorter.c				\
-				red_struct_filler.c				\
-				builtins/env.c					\
-				utils/lst_str_handler.c			\
-				utils/lst_str_handler2.c		\
-				utils/ft_strslashjoin.c			\
-				utils/megafree.c				\
-				utils/is_valid_var.c			\
-				utils/quote_mark_handler.c		\
-				utils/lst_red_handler.c			\
-				utils/lst_redir_handler.c		\
-				utils/lst_process_handler.c		\
-				utils/error_handler.c			\
-				utils/error_handler2.c			\
-				utils/error_handler3.c			\
-				utils/ft_is_directory.c			\
-				utils/token_handler.c			\
-				utils/token_handler2.c			\
-				utils/signal_handler.c			\
-				forks/close_quotes.c			\
-				forks/heredoc_handler.c			\
-				processes/run_processes.c		\
-				processes/get_processes.c		\
-				builtins/builtins.c				\
-				builtins/cd.c					\
-				builtins/echo.c					\
-				builtins/exit.c					\
-				builtins/export.c				\
-				builtins/pwd.c					\
-				builtins/unset.c				\
+SRC_FILES	= 	minishell1.c						\
+				expansions/var_expansor.c			\
+				heredoc.c							\
+				new_redirections.c					\
+				command_sorter.c					\
+				red_struct_filler.c					\
+				builtins/env.c						\
+				utils/lst_str_handler.c				\
+				utils/lst_str_handler2.c			\
+				utils/ft_strslashjoin.c				\
+				utils/megafree.c					\
+				utils/is_valid_var.c				\
+				utils/quote_mark_handler.c			\
+				utils/lst_red_handler.c				\
+				utils/lst_redir_handler.c			\
+				utils/lst_process_handler.c			\
+				utils/error_handler.c				\
+				utils/error_handler2.c				\
+				utils/error_handler3.c				\
+				utils/ft_is_directory.c				\
+				utils/token_handler.c				\
+				utils/token_handler2.c				\
+				utils/signal_handler.c				\
+				forks/close_quotes.c				\
+				forks/heredoc_handler.c				\
+				processes/run_processes.c			\
+				processes/get_processes.c			\
+				processes/process_redirections.c	\
+				builtins/builtins.c					\
+				builtins/cd.c						\
+				builtins/echo.c						\
+				builtins/exit.c						\
+				builtins/export.c					\
+				builtins/pwd.c						\
+				builtins/unset.c					\
 				# utils/ft_modstrcmp.c
 				# qm_error_detector.c
 				# modifsplit.c

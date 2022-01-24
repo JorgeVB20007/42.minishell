@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:39:42 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/23 22:54:30 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/24 22:19:42 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,36 +37,36 @@ static void	close_forkedpipes(int pipes, pid_t *pids, t_fd *fds)
 	free(fds);
 }
 
-static void	initson(int p_count, pid_t *pids, t_fd *fds, int i)
+static void	initson(t_p *process, int p_count, t_fd *fds, int i)
 {
-	int	j;
-
-	if (pids[i] == 0)
+	int		j;
+	// t_fd	redir;
+	(void)process;
+	// redir.fd[READ_END] = NULL;
+	// redir.fd[WRITE_END] = NULL;
+	// process_redirections(&redir);
+	if (i != p_count - 1)
+		dup2(fds[i].fd[1], STDOUT_FILENO);
+	if (i != 0)
+		dup2(fds[i - 1].fd[0], STDIN_FILENO);
+	process_redirections(process->redir);
+	j = -1;
+	while (++j < p_count - 1)
 	{
-		if (i != p_count - 1)
-			dup2(fds[i].fd[1], STDOUT_FILENO);
-		if (i != 0)
-			dup2(fds[i - 1].fd[0], STDIN_FILENO);
-		j = -1;
-		while (++j < p_count - 1 && pids[i] == 0)
-		{
-			close(fds[j].fd[READ_END]);
-			close(fds[j].fd[WRITE_END]);
-		}
+		close(fds[j].fd[READ_END]);
+		close(fds[j].fd[WRITE_END]);
 	}
+
 }
 
-static void	execveson(pid_t *pids, int i, t_p *process, char **envp)
+static void	execveson(t_p *process, char **envp)
 {
-	if (pids[i] == 0)
+	if (process->is_cmd == TRUE)
+		execve(process->pathname, process->argv, envp);
+	else if (process->is_builtin == TRUE)
 	{
-		if (process->is_cmd == TRUE)
-			execve(process->pathname, process->argv, envp);
-		else if (process->is_builtin == TRUE)
-		{
-			ft_builtins(process->argv);
-			exit(g_var.last_cmd_status);
-		}
+		ft_builtins(process->argv);
+		exit(g_var.last_cmd_status);
 	}
 }
 
@@ -85,8 +85,11 @@ static void	run_multi_process(t_p *process, int p_count, char **envp)
 	while (++i < p_count)
 	{
 		pids[i] = fork();
-		initson(p_count, pids, fds, i);
-		execveson(pids, i, process, envp);
+		if (pids[i] == 0)
+		{
+			initson(process, p_count, fds, i);
+			execveson(process, envp);
+		}
 		process = process->next;
 	}
 	close_forkedpipes(p_count, pids, fds);

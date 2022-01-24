@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/23 22:44:09 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/24 22:26:22 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,25 +52,18 @@ typedef struct s_var
 	int		waitedheredoc;
 }t_var;
 
-typedef struct s_pipedfork
-{
-	pid_t	pid;
-	int		status;
-	int		fd[2];
-}t_pipedfork;
-
-typedef struct s_redir{
-	int				type;
-	char			*go_to;
-	struct s_redir	*next;
-}t_redir;
+typedef struct s_redirection{
+	int						type;
+	char					*go_to;
+	struct s_redirection	*next;
+}t_redirection;
 
 typedef struct s_process{
 	int						is_cmd;
 	int						is_builtin;
 	char					*pathname;
 	char					**argv;
-	t_redir					*redir;
+	t_redirection			*redir;
 	struct s_process	*next;
 }t_p;
 
@@ -155,11 +148,11 @@ void	lst_process_free(t_p **list);
 void	lst_process_print(t_p *list);
 
 //*		utils / lst_redir_handler.c
-void	lst_redir_add_front(t_redir **list, t_redir *new);
-void	lst_redir_add_back(t_redir **list, t_redir *new);
-t_redir	*lst_redir_new(void);
-void	lst_redir_free(t_redir **list);
-void	lst_redir_print(t_redir *list);
+void	lst_redir_add_front(t_redirection **list, t_redirection *new);
+void	lst_redir_add_back(t_redirection **list, t_redirection *new);
+t_redirection	*lst_redir_new(void);
+void	lst_redir_free(t_redirection **list);
+void	lst_redir_print(t_redirection *list);
 
 //*		utils / lst_red_handler.c
 void	lst_red_add_front(t_red **list, t_red *new);
@@ -228,9 +221,12 @@ char	*new_getpath(char *raw_cmd);
 char	*ft_expand(const char *str);
 char	*recursive_expand(char *malloc_str, int is_heredoc);
 
-//*		piped_processes.c
+//*		get_processes.c
 void	get_processes(char **tokens, t_p **processes);
 
 //*		run_processes.c
 void	run_processes(t_p **processes, int pipes);
+
+//*		process_redirections.c
+void	process_redirections(t_redirection *r);
 #endif
