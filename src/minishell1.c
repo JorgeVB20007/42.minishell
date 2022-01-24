@@ -69,7 +69,7 @@ static void	processline(int ignored_env)
 			if (token_list != NULL && !has_pipe_redir_open(token_list))
 			{
 				get_processes(token_list, &processes);
-				lst_process_print(processes);
+//				lst_process_print(processes);
 				if (!g_var.last_cmd_status)
 					run_processes(&processes, count_pipes(token_list) + 1);
 			}
@@ -78,8 +78,8 @@ static void	processline(int ignored_env)
 			lst_process_free(&processes);
 			megafree(&token_list);
 		}
+		free(line_read);
 	}
-	free(line_read);
 }
 
 int	main(int argc, char **argv, char **env)
