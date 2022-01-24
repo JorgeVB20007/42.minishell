@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/23 22:44:09 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/24 18:04:32 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,9 +150,12 @@ int		is_valid_var_hd(char *str, int idx);
 //*		utils / lst_process_handler.c
 void	lst_process_add_front(t_p **list, t_p *new);
 void	lst_process_add_back(t_p **list, t_p *new);
-t_p	*lst_process_new(void);
+t_p		*lst_process_new(void);
 void	lst_process_free(t_p **list);
 void	lst_process_print(t_p *list);
+
+//*		utils / is_it_path.c
+int		is_it_path(char *str);
 
 //*		utils / lst_redir_handler.c
 void	lst_redir_add_front(t_redir **list, t_redir *new);

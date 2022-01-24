@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2022-01-24 - Jorge
+
+### Fixed
+- Fixed bug where env variables were interpreted twice when usig **echo** (builtin).
+- Minishell can now differentiate between commands and paths, and acts accordingly.
+
+### Added
+- function **is_it_path** in *is_it_path.c* returns 1 if the given text corresponds to a path and 0 if it's something else, such a command.
 ## 2022-01-24 - Edu
 ### Changed
 - **forks/close_quotes.c** Dinamyc CTRL+D error single double quotes open

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
+#    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2022/01/23 21:19:06 by emadriga         ###   ########.fr        #
+#    Updated: 2022/01/24 18:05:37 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRC_FILES	= 	minishell1.c					\
 				utils/lst_str_handler.c			\
 				utils/lst_str_handler2.c		\
 				utils/ft_strslashjoin.c			\
+				utils/is_it_path.c				\
 				utils/megafree.c				\
 				utils/is_valid_var.c			\
 				utils/quote_mark_handler.c		\

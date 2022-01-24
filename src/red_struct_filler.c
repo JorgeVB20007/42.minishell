@@ -42,14 +42,9 @@ char	*new_get_command_path(char *command)
 */
 char	*new_getpath(char *raw_cmd)
 {
-	int a;
-
-	a = 0;
-	while (raw_cmd[a] && raw_cmd[a] == '.')
-		a++;
-	if (raw_cmd[a] == '/')							//TODO		This isn't detecting the first '/' properly :(
+	if (is_it_path(raw_cmd))
 	{
-		if (!access(new_get_command_path(raw_cmd), X_OK))
+		if (!access(raw_cmd, X_OK))
 			return (ft_strdup(raw_cmd));
 		else
 			perror("Error:");

@@ -27,10 +27,7 @@ void	command_sorter_no_pipes(t_red *red_node, char **env, int fdi, int fdo)
 			write(1, "hi", 0);
 		signal_handler_forks(!frk);
 		if (!frk)
-		{
 			execve(red_node -> path, red_node -> params, env);
-			exit(0);
-		}
 		wait(&status);
 		g_var.last_cmd_status = WEXITSTATUS(status);
 		if (fdi != 0)
