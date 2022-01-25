@@ -70,7 +70,7 @@ static void	processline(int ignored_env)
 			{
 				get_processes(token_list, &processes);
 //				lst_process_print(processes);
-				if (!g_var.last_cmd_status)
+				if (!g_var.current_status)
 					run_processes(&processes, count_pipes(token_list) + 1);
 			}
 				//new_redirections(token_list, &g_var.env);
@@ -87,13 +87,15 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	g_var.env = NULL;
-	g_var.last_cmd_status = 0;
+	g_var.current_status = NONE;
+	g_var.last_status = NONE;
 	disable_ctrl_c_hotkey();
 	init_ms_env(env, &g_var.env);
 	while (1)
 	{
 		signal_handler_default();
 		processline(env[0] == NULL);
+		g_var.last_status = g_var.current_status;
 //		system("lsof -c minishell");
 	}
 	return (0);

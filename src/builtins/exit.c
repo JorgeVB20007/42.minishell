@@ -42,7 +42,7 @@ void	ft_exit(char **argv)
 		return ;
 	}
 	else
-		g_var.last_cmd_status = get_exit_status(argv[1]);
+		g_var.current_status = get_exit_status(argv[1]);
 	lst_str_free(&g_var.env);
-	exit(g_var.last_cmd_status);
+	exit(g_var.current_status);
 }

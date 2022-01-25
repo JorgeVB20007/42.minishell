@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 10:32:31 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/02 17:19:29 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/25 12:38:44 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ char	**get_token_list(char *input)
 	lst_str_free(&token_list);
 	if (max_pipes_exceeded(result))
 	{
-		g_var.last_cmd_status = 1;
+		g_var.current_status = 1;
 		megafree(&result);
 		return (NULL);
 	}

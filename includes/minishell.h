@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/24 22:56:16 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/25 12:39:14 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ typedef struct s_red
 typedef struct s_var
 {
 	t_str	*env;
-	int		last_cmd_status;
+	int		current_status;
+	int		last_status;
 	int		waitedheredoc;
 }t_var;
 

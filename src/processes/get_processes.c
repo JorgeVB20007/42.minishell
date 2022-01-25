@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:08:30 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/24 22:37:52 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/25 12:38:44 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int type_redir)
 			no_quotes_token = adv_qm_rem((char *)token, NOT_FREE);
 			r->go_to = get_heredoc_pipedfork(no_quotes_token);
 			if (!ft_strcmp(r->go_to, no_quotes_token))
-				g_var.last_cmd_status = 130;
+				g_var.current_status = 130;
 			if (!ft_strcmp(r->go_to, ""))
 				ft_free((void **)&r->go_to);
 			else if (!ft_strchr(token, '\'') && !ft_strchr(token, '\"'))
@@ -111,7 +111,7 @@ static void	init_process(char **tokens, t_p	*process)
 			add_redir_to_process(*(++tokens), process, type_redir);
 		else
 			add_exec_info_to_process(*tokens, process, i++);
-		if (g_var.last_cmd_status != NONE)
+		if (g_var.current_status != NONE)
 			break ;
 		tokens++;
 	}
@@ -128,8 +128,8 @@ void	get_processes(char **tokens, t_p **processes)
 {
 	t_p	*process;
 
-	g_var.last_cmd_status = NONE;
-	while (*tokens != NULL && !g_var.last_cmd_status)
+	g_var.current_status = NONE;
+	while (*tokens != NULL && !g_var.current_status)
 	{
 		if (!ft_strcmp(*tokens, "|"))
 			tokens++;
@@ -140,6 +140,6 @@ void	get_processes(char **tokens, t_p **processes)
 		while (*tokens != NULL && ft_strcmp(*tokens, "|"))
 			tokens++;
 	}
-	if (g_var.last_cmd_status != NONE)
+	if (g_var.current_status != NONE)
 		lst_process_free(processes);
 }

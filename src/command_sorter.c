@@ -29,7 +29,7 @@ void	command_sorter_no_pipes(t_red *red_node, char **env, int fdi, int fdo)
 		if (!frk)
 			execve(red_node -> path, red_node -> params, env);
 		wait(&status);
-		g_var.last_cmd_status = WEXITSTATUS(status);
+		g_var.current_status = WEXITSTATUS(status);
 		if (fdi != 0)
 			close(fdi);
 		if (fdo != 1)

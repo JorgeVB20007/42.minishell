@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 20:52:32 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/24 20:24:59 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/25 12:38:44 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static char	*close_quotes_pipedfork_child(char *str, int *pipe_fd)
 static int	w_ifsignaled_ifexitstatus(int status)
 {
 	if (WIFSIGNALED(status))
-		g_var.last_cmd_status = 130;
+		g_var.current_status = 130;
 	else if (WIFEXITED(status) && WEXITSTATUS(status))
 	{
 		if (WEXITSTATUS(status) == SINGLE)

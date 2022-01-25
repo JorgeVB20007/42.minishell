@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:39:42 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/24 23:30:26 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/25 12:51:27 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ typedef struct s_fd{
 	int	fd[2];
 }t_fd;
 
-static void	close_forkedpipes(int pipes, pid_t *pids, t_fd *fds)
+static void	close_forkedpipes(int p_count, pid_t *pids, t_fd *fds)
 {
 	int		status;
 	int		i;
 	int		j;
 
 	i = -1;
-	while (++i < pipes)
+	while (++i < p_count)
 	{
 		j = -1;
-		while (++j < pipes - 1)
+		while (++j < p_count - 1)
 		{
 			close(fds[j].fd[READ_END]);
 			close(fds[j].fd[WRITE_END]);
@@ -34,9 +34,9 @@ static void	close_forkedpipes(int pipes, pid_t *pids, t_fd *fds)
 		waitpid(pids[i], &status, 0);
 	}
 	if (WIFEXITED(status))
-		g_var.last_cmd_status = WEXITSTATUS(status);
+		g_var.current_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		g_var.last_cmd_status = WTERMSIG(status);
+		g_var.current_status = WTERMSIG(status);
 	free(pids);
 	free(fds);
 }
@@ -46,9 +46,9 @@ static void	initson(t_p *process, int p_count, t_fd *fds, int i)
 	int		j;
 
 	if (i != p_count - 1)
-		dup2(fds[i].fd[1], STDOUT_FILENO);
+		dup2(fds[i].fd[WRITE_END], STDOUT_FILENO);
 	if (i != 0)
-		dup2(fds[i - 1].fd[0], STDIN_FILENO);
+		dup2(fds[i - 1].fd[READ_END], STDIN_FILENO);
 	process_redirections(process->redir);
 	j = -1;
 	while (++j < p_count - 1)
@@ -65,7 +65,7 @@ static void	execveson(t_p *process, char **envp)
 	else if (process->is_builtin == TRUE)
 	{
 		ft_builtins(process->argv);
-		exit(g_var.last_cmd_status);
+		exit(g_var.current_status);
 	}
 }
 

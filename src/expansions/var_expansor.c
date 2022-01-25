@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:09:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/23 23:38:23 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/25 12:41:49 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	*expand_status_at(char *str, size_t start_expand)
 	char	*newset;
 	char	*out;
 
-	newset = ft_itoa(g_var.last_cmd_status);
+	newset = ft_itoa(g_var.last_status);
 	out = ft_strreplaceat(str, EXPAND_STATUS, newset, start_expand);
 	free(newset);
 	return (out);

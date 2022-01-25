@@ -139,6 +139,6 @@ void	new_redirections(char **list, t_str **env_list)
 	while (items--)
 	{
 		wait(&status);
-		g_var.last_cmd_status = WEXITSTATUS(status);
+		g_var.current_status = WEXITSTATUS(status);
 	}
 }
