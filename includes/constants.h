@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:36 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/15 10:14:56 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/25 18:36:11 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CONSTANTS_H
 # define LIT_OLDPWD "OLDPWD"
 # define LIT_PWD_LIKE "PWD="
+# define LIT_OLDPWD_LIKE "OLDPWD="
 # define NONE 0
 
 enum e_free_status

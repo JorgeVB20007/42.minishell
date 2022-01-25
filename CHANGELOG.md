@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added **current_status** **last_status** to global to to handle error expansions
 - Now single **builtins** uses **redirections**
+- Added **tilde** expansion
 
 ## 2022-01-24 - Jorge
 

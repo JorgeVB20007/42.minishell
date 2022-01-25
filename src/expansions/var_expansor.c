@@ -6,12 +6,15 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:09:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/25 12:41:49 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/25 18:39:56 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #define EXPAND_STATUS "$?"
+#define EXPAND_HOME "$HOME?"
+#define EXPAND_PWD "$PWD"
+#define EXPAND_OLDPWD "$OLDPWD"
 
 /**
  * * Get next index of a str to expand
@@ -65,7 +68,7 @@ static char	*expand_status_at(char *str, size_t start_expand)
  * @param len_expand	lenght to replace
  * @return				str expanded
 */
-static char	*expand_at_free(char *malloc_str,  \
+static char	*expand_at_free(char *malloc_str, \
 				size_t start_expand, size_t len_expand)
 {
 	char	*oldset;
@@ -124,5 +127,26 @@ char	*recursive_expand(char *malloc_str, int is_heredoc)
 */
 char	*ft_expand(const char *str)
 {
-	return (recursive_expand(ft_strdup(str), FALSE));
+	char	*aux;
+	t_str	*env;
+
+	aux = NULL;
+	env = NULL;
+	if (!ft_strcmp(str, "~") || !ft_strncmp(str, "~/", 2))
+		aux = ft_strreplaceat(str, "~", EXPAND_HOME, 0);
+	else if (!ft_strcmp(str, "~+"))
+	{
+		env = lst_str_get_str(&g_var.env, LIT_PWD_LIKE);
+		if (!aux && env != NULL)
+			aux = ft_strreplaceat(str, "~+", EXPAND_PWD, 0);
+	}
+	else if (!ft_strcmp(str, "~-"))
+	{
+		env = lst_str_get_str(&g_var.env, LIT_OLDPWD_LIKE);
+		if (!aux && env != NULL)
+			aux = ft_strreplaceat(str, "~-", EXPAND_OLDPWD, 0);
+	}
+	if (!aux && !env)
+		aux = ft_strdup(str);
+	return (recursive_expand(aux, FALSE));
 }

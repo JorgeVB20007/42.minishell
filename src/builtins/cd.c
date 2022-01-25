@@ -6,12 +6,11 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 16:50:27 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/23 08:19:33 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/25 18:35:50 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#define LIT_OLDPWD_LIKE "OLDPWD="
 #define LIT_HOME_LIKE "HOME="
 #define HOME_NOT_SET "cd: HOME not set\n"
 #define WRONG_CHDIR "cd: {0}: No such file or directory\n"
