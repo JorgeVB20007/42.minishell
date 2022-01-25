@@ -6,7 +6,7 @@
 ?	1 if the path corresponds to a file.
 ?	0 if the path corresponds to a directory.
 */
-int	ft_is_directory(char *path)
+int	ft_is_directory(const char *path)
 {
 	struct stat	path_stat;
 

@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/25 12:39:14 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/25 23:43:31 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	translate_number(int nbr, char **sleep_argv);
 void	ft_search_word(char *to_find, char **sleep_argv);
 
 //*		utils / ft_is_it_directory.c
-int		ft_is_directory(char *path);
+int		ft_is_directory(const char *path);
 
 //*		utils / ft_strslashjoin.c
 char	*ft_strslashjoin(char const *s1, char const *s2);

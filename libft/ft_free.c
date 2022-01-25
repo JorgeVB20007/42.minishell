@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 23:22:24 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/23 23:24:10 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/25 23:05:07 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void ft_free(void **ptr)
 {
-	free(*ptr);
-	*ptr = NULL;
+	if (*ptr != NULL)
+	{
+		free(*ptr);
+		*ptr = NULL;
+	}
 }

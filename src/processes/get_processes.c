@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:08:30 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/25 12:38:44 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/25 22:57:04 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int type_redir)
 		r = lst_redir_new();
 		r->type = type_redir;
 		if (type_redir != HEREDOC)
-			r->go_to = adv_qm_rem(ft_expand(token), FREE);
+			r->go_to = ft_strdup(token);
 		else
 		{
 			no_quotes_token = adv_qm_rem((char *)token, NOT_FREE);

@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   process_redirections.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 21:12:03 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/25 20:52:30 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/26 00:09:14 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+#define AMBIGUOS_REDIR "{0}: ambiguous redirect\n"
+#define NOT_PERMISSION "{0}: Permission denied\n"
+#define IS_DIRECTORY "{0}: Is a directory\n"
+#define NOT_EXITS "{0}: No such file or directory\n"
 
 static int	process_heredoc(const char	*str)
 {
@@ -24,8 +29,11 @@ static int	process_heredoc(const char	*str)
 	if (!pid)
 	{
 		close(pipe_fd[READ_END]);
-		write(pipe_fd[WRITE_END], str, ft_strlen(str));
-		write(pipe_fd[WRITE_END], "\n", 1);
+		if (str != NULL)
+		{
+			write(pipe_fd[WRITE_END], str, ft_strlen(str));
+			write(pipe_fd[WRITE_END], "\n", 1);
+		}
 		close(pipe_fd[WRITE_END]);
 		exit(0);
 	}
@@ -36,81 +44,93 @@ static int	process_heredoc(const char	*str)
 
 /*
 ?	This function is called to check if a file given as a parameter is valid
-?	to write text in it. It checks if the file given corresponds to a 
-?	directory or if the file doesn't have writing permissions. In this case, 
-?	Minishell will return the corresponding error message and exit the 
+?	to write text in it. It checks if the file given corresponds to a
+?	directory or if the file doesn't have writing permissions. In this case,
+?	Minishell will return the corresponding error message and exit the
 ?	execution of the current process with the exit code 1.
 */
-static void	outputting_redirs(t_redirection *r, int *file)
+static void	outputting_redirs(const char *str, int *file, int redirection_type)
 {
-	if ((!access(r->go_to, W_OK) && ft_is_directory(r->go_to)) || \
-	access(r->go_to, F_OK))
+	char	*error;
+
+	error = NULL;
+	if (!ft_is_directory(str) && !access(str, W_OK))
+		error = ft_strreplace(IS_DIRECTORY, "{0}", str);
+	else if (!access(str, F_OK))
+		error = ft_strreplace(NOT_PERMISSION, "{0}", str);
+	if (error != NULL)
 	{
-		if (r->type == OUPUT_REDIRECT)
-			*file = open(r->go_to, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-		if (r->type == APPENDS_OUTPUT_REDIRECT)
-			*file = open(r->go_to, O_CREAT | O_WRONLY | O_APPEND, 0666);
-		dup2(*file, STDOUT_FILENO);
+		log_error_free(error, 1);
+		exit(1);
 	}
-	else if (!ft_is_directory(r->go_to))
-	{
-		log_error_free(ft_strjoin(r->go_to, ": Is a directory\n"), 1);
-		exit (1);
-	}
-	else
-	{
-		log_error_free(ft_strjoin(r->go_to, ": Permission denied\n"), 1);
-		exit (1);
-	}
+	if (redirection_type == OUPUT_REDIRECT)
+		*file = open(str, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	if (redirection_type == APPENDS_OUTPUT_REDIRECT)
+		*file = open(str, O_CREAT | O_WRONLY | O_APPEND, 0666);
+	dup2(*file, STDOUT_FILENO);
 }
 
 /*
 ?	This function is called to check if a file given as a parameter is valid
-?	to read text from it. It checks if the file given corresponds to a 
-?	directory, if the file doesn't exist or lacks writing permissions. In 
+?	to read text from it. It checks if the file given corresponds to a
+?	directory, if the file doesn't exist or lacks writing permissions. In
 ?	this case, Minishell will return the corresponding error message and exit
 ?	the execution of the current process with the exit code 1.
 */
-static void	inputting_redirs(t_redirection *r, int *file)
+static void	inputting_redirs(const char *str, int *file)
 {
-	if (r->type == INPUT_REDIRECT)
+	char	*error;
+
+	error = NULL;
+	if (access(str, F_OK))
+		error = ft_strreplace(NOT_EXITS, "{0}", str);
+	else if (access(str, R_OK))
+		error = ft_strreplace(NOT_PERMISSION, "{0}", str);
+	else if (!ft_is_directory(str))
+		error = ft_strreplace(IS_DIRECTORY, "{0}", str);
+	if (error != NULL)
 	{
-		if (!access(r->go_to, R_OK) && ft_is_directory(r->go_to) && \
-		!access(r->go_to, F_OK))
-			*file = open(r->go_to, O_RDONLY, 0666);
-		else
-		{
-			if (access(r->go_to, F_OK))
-				log_error_free(ft_strjoin(r->go_to, \
-				": No such file or directory\n"), 1);
-			else if (access(r->go_to, R_OK))
-				log_error_free(ft_strjoin(r->go_to, ": Permission denied\n"), 1);
-			else
-				log_error_free(ft_strjoin(r->go_to, ": Is a directory\n"), 1);
-			exit (1);
-		}
+		log_error_free(error, 1);
+		exit(1);
 	}
-	else
-		*file = process_heredoc(r->go_to);
+	*file = open(str, O_RDONLY, 0666);
 	dup2(*file, STDIN_FILENO);
+}
+
+static char	*expand_redirection(t_redirection *r)
+{
+	char	*str;
+
+	str = adv_qm_rem(ft_expand(r->go_to), TRUE);
+	if (!ft_strcmp(str, "\0"))
+	{
+		log_error_free(ft_strreplace(AMBIGUOS_REDIR, "{0}", r->go_to), 1);
+		exit(1);
+	}
+	return (str);
 }
 
 void	process_redirections(t_redirection *r)
 {
-	int	file;
+	int		file;
+	char	*str;
 
 	file = 0;
 	while (r != NULL)
 	{
+		if (r->type != HEREDOC)
+			str = expand_redirection(r);
 		if (r->type == OUPUT_REDIRECT || r->type == APPENDS_OUTPUT_REDIRECT)
+			outputting_redirs(str, &file, r->type);
+		else if (r->type == INPUT_REDIRECT)
+			inputting_redirs(str, &file);
+		else if (r->type == HEREDOC)
 		{
-			outputting_redirs(r, &file);
-		}
-		else if (r->type == INPUT_REDIRECT || r->type == HEREDOC)
-		{
-			inputting_redirs(r, &file);
+			file = process_heredoc(r->go_to);
+			dup2(file, STDIN_FILENO);
 		}
 		close(file);
+		ft_free((void **)&str);
 		r = r->next;
 	}
 }
