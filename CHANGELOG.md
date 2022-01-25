@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2022-01-25 - Jorge
+### Added
+- Files given with redirections are now checked to make sure they are suitable for each redirection.
+	- New *static* functions: **outputting_redirs** and **inputting_redirs**. Found in **processes/process_redirection.c**. More info in a comment on top of each of them.
+
 ## 2022-01-25 - Edu
 ### Added
 - Added **current_status** **last_status** to global to to handle error expansions
@@ -12,7 +17,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added **tilde** expansion
 
 ## 2022-01-24 - Jorge
-
 ### Fixed
 - Fixed bug where env variables were interpreted twice when usig **echo** (builtin).
 - Minishell can now differentiate between commands and paths, and acts accordingly.
