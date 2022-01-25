@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:39:42 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/25 12:51:27 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/25 14:55:44 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,12 @@ void	run_processes(t_p **processes, int p_count)
 	envp = NULL;
 	if (p_count != 0 && *processes != NULL)
 	{
-		if (p_count == 1 && processes[0]->is_builtin == TRUE)
+		if (p_count == 1 && processes[0]->is_builtin == TRUE \
+		&& processes[0]->redir == NULL)
+		{
+			process_redirections(processes[0]->redir);
 			ft_builtins(processes[0]->argv);
+		}
 		else
 		{
 			envp = lst_str_to_array(&g_var.env);
