@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 16:50:27 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/25 18:35:50 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/25 21:54:32 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #define LIT_HOME_LIKE "HOME="
 #define HOME_NOT_SET "cd: HOME not set\n"
-#define WRONG_CHDIR "cd: {0}: No such file or directory\n"
 
 /**
  * * Updates env's records of PWD and OLDPWD if exists
@@ -57,10 +56,16 @@ static void	update_env_pwd(t_str **env_list, t_str	*pwd, t_str	*old_pwd)
 static int	ft_cant_chdir(const char *path)
 {
 	int		cant_chdir;
+	char	*composed_error;
 
+	composed_error = NULL;
 	cant_chdir = chdir(path);
 	if (cant_chdir != 0)
-		log_error_free(ft_strreplace(WRONG_CHDIR, "{0}", path), 1);
+	{
+		composed_error = ft_strjoin("Minishell: cd: ", path);
+		perror(composed_error);
+		free(composed_error);
+	}
 	return (cant_chdir);
 }
 

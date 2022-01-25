@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Files given with redirections are now checked to make sure they are suitable for each redirection.
 	- New *static* functions: **outputting_redirs** and **inputting_redirs**. Found in **processes/process_redirection.c**. More info in a comment on top of each of them.
+- Custom error messages for invalid files in **cd** using **perror**.
 
 ## 2022-01-25 - Edu
 ### Added
