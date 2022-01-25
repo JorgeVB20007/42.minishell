@@ -6,13 +6,13 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:09:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/25 18:39:56 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/26 00:53:28 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #define EXPAND_STATUS "$?"
-#define EXPAND_HOME "$HOME?"
+#define EXPAND_HOME "$HOME"
 #define EXPAND_PWD "$PWD"
 #define EXPAND_OLDPWD "$OLDPWD"
 

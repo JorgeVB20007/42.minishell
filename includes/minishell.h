@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/25 23:43:31 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/26 00:46:51 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,13 +187,12 @@ char	*adv_qm_rem(char *qm_str, int b_free);
 
 //*		utils / token_handler.c
 char	**get_token_list(char *input);
-int		has_token(const char *input);
 
 //*		utils / token_handler2.c
-int		eval_token(const char *token);
 int		eval_token_redir(const char *token);
 int		eval_token_non_redir(const char *token);
 int		has_pipe_redir_open(char **array);
+int		has_token(const char *input);
 
 //*		utils / signal_handler.c
 void	signal_handler_forks(int is_children);

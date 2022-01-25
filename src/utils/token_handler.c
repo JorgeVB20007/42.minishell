@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 10:32:31 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/25 12:38:44 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/26 00:51:03 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,31 @@ static int	add_redir_token(t_str **list, const char *input)
 }
 
 /**
+ * * Validates str to add to token list, avoiding empty expansions problems
+ * @param token_list	token list to populate
+ * @param malloc_str	malloced str to validate
+*/
+static void try_add_default_token(t_str **list, char *malloc_str)
+{
+	t_str	*aux;
+	char	*tmp;
+
+	aux = *list;
+	if (aux != NULL)
+		while (aux->next != NULL)
+			aux = aux->next;
+	if (!aux || aux->str[0] != '<' || aux->str[0] != '>')
+	{
+		tmp = adv_qm_rem(ft_expand(malloc_str), TRUE);
+		if (!ft_strcmp(tmp, "\0"))
+			ft_free((void **)&malloc_str);
+		ft_free((void **)&tmp);
+	}
+	if (malloc_str != NULL)
+		lst_str_add_back(list, malloc_str);
+}
+
+/**
  * * Add default token to the list
  * @param token_list	token list to populate
  * @param input			input to tokenize
@@ -68,7 +93,7 @@ static size_t	add_default_token(t_str **list, const char *input)
 			quotes = NONE;
 		s++;
 	}
-	lst_str_add_back(list, ft_substr(input, 0, s - input));
+	try_add_default_token(list, ft_substr(input, 0, s - input));
 	return (s - input);
 }
 
@@ -122,19 +147,4 @@ char	**get_token_list(char *input)
 		return (NULL);
 	}
 	return (result);
-}
-
-/**
- * * Eval if input has valid token to process
- * * Token is the minimun divisible item to handle on MiniShell
- * @param input	input to tokenize
- * @return		if input has valid token to process
-*/
-int	has_token(const char *input)
-{
-	while (ft_isspace(*input))
-		input += 1;
-	if (*input != '\0')
-		return (TRUE);
-	return (FALSE);
 }
