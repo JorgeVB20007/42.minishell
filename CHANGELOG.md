@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2022-01-26 - Edu
 ### Added
+- Added **ft_rand** wich returns ramdon number between 0 and RAND_MAX
 - Added **ambiguos redirections** error for empty expand redirections
 ### Fixed
 - Fixed posible empty expanses errors not retrieving those tokens
