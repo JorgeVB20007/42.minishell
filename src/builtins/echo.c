@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:26:58 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/24 20:47:55 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/26 16:22:53 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	ft_echo(char **list)
 		if (!check_for_flag(list[idx]))
 			break;
 		idx++;
+		n_flag = 1;
 		if (!list[idx])
 			break ;
-		n_flag = 1;
 	}
 /*	if (!strncmp(assist, "-n\0", 3))
 	{

@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 16:50:27 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/25 21:54:32 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/26 15:43:29 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static int	ft_cant_chdir(const char *path)
 		composed_error = ft_strjoin("Minishell: cd: ", path);
 		perror(composed_error);
 		free(composed_error);
+		g_var.current_status = 1;
 	}
 	return (cant_chdir);
 }
