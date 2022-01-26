@@ -2,6 +2,9 @@
 #define LITERAL_PATH "PATH"
 #define COMMAND_NOT_FOUND "Error: command {0} not found.\n"
 #define PATH_NOT_FOUND "Error: env variable 'PATH' not found.\n"
+#define IS_DIRECTORY "{0}: is a directory\n"
+#define PERM_DENIED "{0}: Permission denied\n"
+#define FILE_NOT_FOUND "{0}: No such file or directory\n"
 
 /*
 ?   (Continuación de la función de abajo)
@@ -44,10 +47,23 @@ char	*new_getpath(char *raw_cmd)
 {
 	if (is_it_path(raw_cmd))
 	{
-		if (!access(raw_cmd, X_OK))
-			return (ft_strdup(raw_cmd));
+		if (access(raw_cmd, F_OK))
+		{
+			log_error_free(ft_strreplace(FILE_NOT_FOUND, "{0}", raw_cmd), 127);
+			g_var.current_status = 127;
+		}
+		else if (!ft_is_directory(raw_cmd))
+		{
+			log_error_free(ft_strreplace(IS_DIRECTORY, "{0}", raw_cmd), 126);
+			g_var.current_status = 126;
+		}
+		else if (access(raw_cmd, X_OK))
+		{
+			log_error_free(ft_strreplace(PERM_DENIED, "{0}", raw_cmd), 126);
+			g_var.current_status = 126;
+		}
 		else
-			perror("Error:");
+			return (ft_strdup(raw_cmd));
 		return (NULL);
 	}
 	return (new_get_command_path(raw_cmd));
@@ -62,9 +78,12 @@ char	*new_getpath(char *raw_cmd)
 	-e
 	a.txt
 
-?   NOTA: Hay que pasarle un puntero al primer parámetro del que se quieran sacar los parámetros.
+?   NOTA: Hay que pasarle un puntero al primer parámetro del que se quieran 
+?	sacar los parámetros.
 	cat -n  <  a.txt  |  grep Error  |  wc -la  >  b.txt  |  cat -e  << end
 !   ^~~~~~ (1) ~~~~~	 ^~~ (2) ~~	 ^~~~~~ (3) ~~~~~	 ^~~~~ (4) ~~~~
+
+TODO	Esta función da problemas de Norminette pero en principio ya no se usa.
 */
 char	**getparams(char **list)
 {
@@ -104,7 +123,6 @@ char	**getparams(char **list)
 			a++;
 	}
 	ret[c] = NULL;
-
 	c = 0;
 	while (ret[c])
 	{
@@ -159,7 +177,7 @@ char	**getredirections(char **list)
 	return (ret);
 }
 
-int  put_params_in_struct(char **list, t_red **red_list)
+int	put_params_in_struct(char **list, t_red **red_list)
 {
 	int		a;
 	int		items;
