@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:09:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/26 00:53:28 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/26 18:03:47 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,13 +134,13 @@ char	*ft_expand(const char *str)
 	env = NULL;
 	if (!ft_strcmp(str, "~") || !ft_strncmp(str, "~/", 2))
 		aux = ft_strreplaceat(str, "~", EXPAND_HOME, 0);
-	else if (!ft_strcmp(str, "~+"))
+	else if (!ft_strcmp(str, "~+") || !ft_strncmp(str, "~+/", 3))
 	{
 		env = lst_str_get_str(&g_var.env, LIT_PWD_LIKE);
 		if (!aux && env != NULL)
 			aux = ft_strreplaceat(str, "~+", EXPAND_PWD, 0);
 	}
-	else if (!ft_strcmp(str, "~-"))
+	else if (!ft_strcmp(str, "~-") || !ft_strncmp(str, "~-/", 3))
 	{
 		env = lst_str_get_str(&g_var.env, LIT_OLDPWD_LIKE);
 		if (!aux && env != NULL)

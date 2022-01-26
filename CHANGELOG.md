@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added **ambiguos redirections** error for empty expand redirections
 ### Fixed
 - Fixed posible empty expanses errors not retrieving those tokens
+- fix expanse ~+/ & ~-/
 
 ## 2022-01-25 - Jorge
 ### Added
