@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_redirections.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 21:12:03 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/26 00:09:14 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/26 15:51:01 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ static void	outputting_redirs(const char *str, int *file, int redirection_type)
 	char	*error;
 
 	error = NULL;
-	if (!ft_is_directory(str) && !access(str, W_OK))
+	if (!ft_is_directory(str) && !access(str, F_OK))
 		error = ft_strreplace(IS_DIRECTORY, "{0}", str);
-	else if (!access(str, F_OK))
+	else if (!access(str, W_OK))
 		error = ft_strreplace(NOT_PERMISSION, "{0}", str);
 	if (error != NULL)
 	{
