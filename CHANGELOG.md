@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - **cd** now saves the status code properly.
 - Fixed a minor bug with the redirection errors.
+- Fixed a bug where *echo -n* with no parameters printed a \n.
 
 ## 2022-01-26 - Edu
 ### Added
