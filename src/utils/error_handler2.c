@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 18:17:46 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/22 12:34:44 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/26 21:24:04 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static void	ramdon_colors(int ODD)
 	char	*color;
 	char	*mask;
 
-	ramdon = rand() % 8;
+	ramdon = ft_rand(NULL) % 8;
 	ft_putstr_fd(MASK_RESET, STDOUT_FILENO);
 	color = ft_itoa(ramdon);
 	if (ODD)
@@ -128,13 +128,13 @@ static void	troll_printing(const char *input, char **emojis, char **sleep_argv)
 	{
 		tabs = 1;
 		if (*str == '\t')
-			tabs = rand() % 7;
+			tabs = ft_rand(NULL) % 7;
 		if (emojis && *str == '\r')
-			ft_putstr_fd(emojis[rand() % EMOJIS_LEN], STDOUT_FILENO);
+			ft_putstr_fd(emojis[ft_rand(NULL) % EMOJIS_LEN], STDOUT_FILENO);
 		while (tabs--)
 			ft_putchar_fd(*str, STDOUT_FILENO);
 		if (emojis && *str == '\t')
-			ft_putstr_fd(emojis[rand() % EMOJIS_LEN], STDOUT_FILENO);
+			ft_putstr_fd(emojis[ft_rand(NULL) % EMOJIS_LEN], STDOUT_FILENO);
 		times = 6;
 		while (*str == '\r' && times--)
 			execve_sleep(sleep_argv);

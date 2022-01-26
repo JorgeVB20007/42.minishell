@@ -1,6 +1,7 @@
 #include "minishell.h"
 
 #define MS_ERROR "Minishell: "
+#define ULTIMATE_QUESTION_LIFE_ANSWER 42
 
 /**
  * * Log error into STDERR_FILENO & set catched status error
@@ -50,4 +51,25 @@ int	count_pipes(char **tokens)
 		if (!ft_strcmp(*tokens++, "|"))
 			pipes++;
 	return (pipes);
+}
+
+/**
+ * * This returns ramdon number between ZERO and RAND_MAX
+ * @param str	optional str
+*/
+int ft_rand(const char *str)
+{
+	size_t	nbr;
+
+	nbr = g_var.rng;
+	if (str != NULL)
+		nbr = ft_strlen(str);
+	if (!nbr)
+		nbr++;
+	if (g_var.rng % ULTIMATE_QUESTION_LIFE_ANSWER > ULTIMATE_QUESTION_LIFE_ANSWER / 2)
+		g_var.rng <<= 1;
+	g_var.rng += nbr % ULTIMATE_QUESTION_LIFE_ANSWER;
+	if (g_var.rng > RAND_MAX)
+		g_var.rng >>= 18;
+	return (g_var.rng);
 }

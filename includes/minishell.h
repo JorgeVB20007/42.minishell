@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/26 00:46:51 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/26 21:00:53 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_var
 	int		current_status;
 	int		last_status;
 	int		waitedheredoc;
+	size_t	rng;
 }t_var;
 
 typedef struct s_redirection{
@@ -130,6 +131,7 @@ void	execve_sleep(char **usleep_argv);
 int		max_pipes_exceeded(char **tokens);
 void	translate_number(int nbr, char **sleep_argv);
 void	ft_search_word(char *to_find, char **sleep_argv);
+int		ft_rand(const char *str);
 
 //*		utils / ft_is_it_directory.c
 int		ft_is_directory(const char *path);
