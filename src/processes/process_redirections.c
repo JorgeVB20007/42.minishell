@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 21:12:03 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/27 15:38:19 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/27 20:48:44 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,8 @@ void	process_redirections(t_redirection *r)
 			dup2(file, STDIN_FILENO);
 		}
 		close(file);
-		ft_free((void **)&str);
+		if (r->type != HEREDOC)
+			free(str);
 		r = r->next;
 	}
 }
