@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2022-01-26 - Jorge
 ### Fixed
+- Fixed a bug that didn't allow to create a new file using redirections.
+
+## 2022-01-26 - Jorge
+### Fixed
 - **cd** now saves the status code properly.
 - Fixed a minor bug with the redirection errors.
 - Fixed a bug where *echo -n* with no parameters printed a \n.
