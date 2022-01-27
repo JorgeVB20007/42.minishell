@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 10:32:31 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/26 00:51:03 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/27 22:16:32 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void try_add_default_token(t_str **list, char *malloc_str)
 	if (aux != NULL)
 		while (aux->next != NULL)
 			aux = aux->next;
-	if (!aux || aux->str[0] != '<' || aux->str[0] != '>')
+	if (!aux || (aux->str[0] != '<' && aux->str[0] != '>'))
 	{
 		tmp = adv_qm_rem(ft_expand(malloc_str), TRUE);
 		if (!ft_strcmp(tmp, "\0"))
