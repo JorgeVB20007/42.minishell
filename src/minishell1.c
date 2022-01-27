@@ -43,17 +43,14 @@ static void	ms_eof_exit(int ignored_env)
 
 /**
  * * Process every input line sended on STDIN_FILENO
- * @param ignored_env	boolean to emulate bash CTRL hotkey(+d)(exit) depending
- *  on env was ignored at start of the program
+ * @param line_read	line read from STDIN_FILENO
 */
-static void	processline(char *line_read, int ignored_env)
+static void	processline(char *line_read)
 {
 	char	**token_list;
 	t_p		*processes;
 
 	processes = NULL;
-	if (line_read == NULL)
-		ms_eof_exit(ignored_env);
 	line_read = close_quotes_pipedfork(line_read);
 	if (*line_read != '\0')
 	{
@@ -91,7 +88,9 @@ int	main(int argc, char **argv, char **env)
 	{
 		signal_handler_default();
 		line_read = readline(MS_PROMPT);
-		processline(line_read, env[0] == NULL);
+		if (line_read == NULL)
+			ms_eof_exit(env[0] == NULL);
+		processline(line_read);
 		g_var.last_status = g_var.current_status;
 //		system("lsof -c minishell");
 	}
