@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:09:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/26 18:03:47 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/28 00:39:41 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #define EXPAND_HOME "$HOME"
 #define EXPAND_PWD "$PWD"
 #define EXPAND_OLDPWD "$OLDPWD"
+#define EXPAND_PID "\nGood luck geting PID with those authorized functions\n"
 
 /**
  * * Get next index of a str to expand
@@ -78,6 +79,8 @@ static char	*expand_at_free(char *malloc_str, \
 	oldset = ft_substr(malloc_str, start_expand, len_expand);
 	if (!ft_strncmp(oldset, EXPAND_STATUS, 2))
 		out = expand_status_at(malloc_str, start_expand);
+	else if (!ft_strncmp(oldset, EXPAND_PID, 2))
+		out = expand_status_at(malloc_str, start_expand);
 	else
 	{
 		newset = ft_getenv(&oldset[1]);
@@ -98,7 +101,7 @@ static char	*expand_at_free(char *malloc_str, \
  * @param is_heredoc	is called from heredoc
  * @return				str expanded
 */
-char	*recursive_expand(char *malloc_str, int is_heredoc)
+static char	*recursive_expand(char *malloc_str, int is_heredoc)
 {
 	size_t	start_expand;
 	size_t	len_expand;
@@ -122,31 +125,22 @@ char	*recursive_expand(char *malloc_str, int is_heredoc)
 
 /**
  * * Given str expand env variables ($ followed by characters) to their values
- * @param str			str to expand it content
+ * @param malloc_str	str to expand it content
+ * @param is_heredoc	is called from heredoc
  * @return				str expanded
 */
-char	*ft_expand(const char *str)
+char	*ft_expand(char *malloc_str, int is_heredoc)
 {
 	char	*aux;
-	t_str	*env;
 
 	aux = NULL;
-	env = NULL;
-	if (!ft_strcmp(str, "~") || !ft_strncmp(str, "~/", 2))
-		aux = ft_strreplaceat(str, "~", EXPAND_HOME, 0);
-	else if (!ft_strcmp(str, "~+") || !ft_strncmp(str, "~+/", 3))
+	if (!ft_strcmp(malloc_str,"$"))
 	{
-		env = lst_str_get_str(&g_var.env, LIT_PWD_LIKE);
-		if (!aux && env != NULL)
-			aux = ft_strreplaceat(str, "~+", EXPAND_PWD, 0);
+		free(malloc_str);
+		return (ft_strdup("$"));
 	}
-	else if (!ft_strcmp(str, "~-") || !ft_strncmp(str, "~-/", 3))
-	{
-		env = lst_str_get_str(&g_var.env, LIT_OLDPWD_LIKE);
-		if (!aux && env != NULL)
-			aux = ft_strreplaceat(str, "~-", EXPAND_OLDPWD, 0);
-	}
-	if (!aux && !env)
-		aux = ft_strdup(str);
-	return (recursive_expand(aux, FALSE));
+	if (!is_heredoc)
+		aux = expanse_tilde(malloc_str);
+	aux = recursive_expand(aux, is_heredoc);
+	return (aux);
 }
