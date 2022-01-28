@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Added fork to handle CTRL+C on inputs opened
 - Fixed . & .. warnings
+- Fixed '>file' creates file as bash
+- Fixed get_path errors spread to run_processes
 
 ## 2022-01-30 - Jorge
 ### Changed

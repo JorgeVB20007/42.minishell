@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/28 17:52:57 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/28 19:19:58 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ typedef struct s_redirection{
 }t_redirection;
 
 typedef struct s_process{
-	int						is_cmd;
-	int						is_builtin;
+	int						type;
+	int						status;
 	char					*pathname;
 	char					**argv;
 	t_str					*args;

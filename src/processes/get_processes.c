@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:08:30 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/29 19:31:21 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/28 19:28:22 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,17 @@ static void	add_expanded_splited_tokens(char *str_expanded, t_p	*process)
 {
 	char	**split;
 	int		i;
-	int		type_token;
 
 	i = 0;
 	split = ft_split(str_expanded, ' ');
 	while (split[i] != NULL)
 	{
-		if (!process->is_cmd && !process->is_builtin)
+		if (process->type == NONE)
 		{
-			type_token = eval_token_non_redir(split[i]);
-			process->is_cmd = type_token == COMMAND;
-			process->is_builtin = type_token == BUILTIN;
-			if (process->is_cmd)
+			process->type = eval_token_non_redir(split[i]);
+			if (process->type == TEXT)
+				process->status = g_var.current_status;
+			else if (process->type == COMMAND)
 				process->pathname = new_getpath(split[i]);
 		}
 		lst_str_add_back(&process->args, ft_strdup(split[i]));
@@ -86,25 +85,24 @@ int type_redir)
 static void	add_exec_info_to_process(const char *token, t_p *process)
 {
 	char	*str;
-	int		type_token;
 
 	str = adv_qm_rem(ft_expand(token), FREE);
-	if (process->is_cmd || process->is_builtin)
+	if (process->type != NONE)
 		lst_str_add_back(&process->args, str);
 	else
 	{
 		if (ft_strchr(str, ' ') && ft_strchr(token, '$'))
 			add_expanded_splited_tokens(str, process);
 		else
-		{		
-			type_token = eval_token_non_redir(str);
-			process->is_cmd = type_token == COMMAND;
-			process->is_builtin = type_token == BUILTIN;
-			if (process->is_cmd)
+		{
+			process->type = eval_token_non_redir(str);
+			if (process->type == TEXT)
+				process->status = g_var.current_status;
+			else if (process->type == COMMAND)
 				process->pathname = new_getpath(str);
 			lst_str_add_back(&process->args, str);
 		}
-	}		
+	}
 }
 
 /**
@@ -123,7 +121,7 @@ static void	init_process(char **tokens, t_p	*process)
 			add_redir_to_process(*(++tokens), process, type_redir);
 		else
 			add_exec_info_to_process(*tokens, process);
-		if (g_var.current_status != NONE)
+		if (g_var.current_status == 130)
 			break ;
 		tokens++;
 	}
@@ -141,7 +139,7 @@ void	get_processes(char **tokens, t_p **processes)
 	t_p	*process;
 
 	g_var.current_status = NONE;
-	while (*tokens != NULL && !g_var.current_status)
+	while (*tokens != NULL && g_var.current_status != 130)
 	{
 		if (!ft_strcmp(*tokens, "|"))
 			tokens++;
@@ -152,6 +150,6 @@ void	get_processes(char **tokens, t_p **processes)
 		while (*tokens != NULL && ft_strcmp(*tokens, "|"))
 			tokens++;
 	}
-	if (g_var.current_status != NONE)
+	if (g_var.current_status == 130)
 		lst_process_free(processes);
 }

@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:39:42 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/28 17:45:06 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/28 19:30:24 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,15 @@ static void	init_process(t_p *process, int p_count, t_fd *fds, int id)
 */
 static void	run_process(t_p *process, char **envp)
 {
-	if (process->is_cmd == TRUE)
-		execve(process->pathname, process->argv, envp);
-	else if (process->is_builtin == TRUE)
+	if(process->type == TEXT)
+		exit(process->status);
+	else if (process->type == BUILTIN)
 	{
 		ft_builtins(process->argv);
 		exit(g_var.current_status);
 	}
+	else
+		execve(process->pathname, process->argv, envp);
 }
 
 /**
@@ -129,7 +131,7 @@ void	run_processes(t_p **processes, int p_count)
 
 	if (p_count != 0 && *processes != NULL)
 	{
-		if (p_count == 1 && processes[0]->is_builtin == TRUE \
+		if (p_count == 1 && processes[0]->type == BUILTIN \
 		&& processes[0]->redir == NULL)
 		{
 			process_redirections(processes[0]->redir);

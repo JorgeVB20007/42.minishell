@@ -54,8 +54,8 @@ t_p	*lst_process_new(void)
 	output = malloc(sizeof(t_p));
 	if (!output)
 		return (NULL);
-	output->is_cmd = FALSE;
-	output->is_builtin = FALSE;
+	output->status = NONE;
+	output->type = NONE;
 	output->args = NULL;
 	output->argv = NULL;
 	output->pathname = NULL;
@@ -104,8 +104,9 @@ void	lst_process_print(t_p *list)
 	while (list != NULL)
 	{
 		i = 0;
-		printf("\nis_cmd %d\tis_builtin %d\tpathname %s\n argv ", \
-		list->is_cmd, list->is_builtin, list->pathname);
+		printf("\nis_cmd %d\tis_builtin %d\tstatus %d\tpathname %s\n argv ", \
+		list->type == COMMAND, list->type == BUILTIN, list->status, \
+		list->pathname);
 		while (list->argv[i])
 		{
 			printf("\t param[%d] %s\t", i, list->argv[i]);

@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 17:18:08 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/28 17:49:42 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/28 19:04:28 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	processline(char *line_read)
 			if (token_list != NULL && !has_pipe_redir_open(token_list))
 			{
 				get_processes(token_list, &processes);
-				if (!g_var.current_status)
+				if (g_var.current_status != 130)
 					run_processes(&processes, count_pipes(token_list) + 1);
 			}
 			lst_process_free(&processes);
