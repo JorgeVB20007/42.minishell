@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 16:56:38 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/21 22:43:35 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/26 00:46:32 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	eval_token_non_redir(const char *token)
 	!ft_strcmp(token, "export") || !ft_strcmp(token, "pwd") || \
 	!ft_strcmp(token, "unset"))
 		return (BUILTIN);
-	path = new_getpath((char *)token, &g_var.env);
+	path = new_getpath((char *)token);
 	if (path != NULL)
 	{
 		free(path);
@@ -113,19 +113,16 @@ int	eval_token_redir(const char *token)
 }
 
 /**
- * * Returns token type
- * @param token	token to identify
+ * * Eval if input has valid token to process
+ * * Token is the minimun divisible item to handle on MiniShell
+ * @param input	input to tokenize
+ * @return		if input has valid token to process
 */
-int	eval_token(const char *token)
+int	has_token(const char *input)
 {
-	int		out;
-	char	*aux;
-
-	out = eval_token_redir(token);
-	if (out != NONE)
-		return (out);
-	aux = adv_qm_rem((char *)token, FALSE);
-	out = eval_token_non_redir(aux);
-	free(aux);
-	return (out);
+	while (ft_isspace(*input))
+		input += 1;
+	if (*input != '\0')
+		return (TRUE);
+	return (FALSE);
 }

@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/06 12:09:09 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/23 08:23:42 by emadriga         ###   ########.fr       */
+/*   Created: 2022/01/23 08:33:14 by emadriga          #+#    #+#             */
+/*   Updated: 2022/01/23 08:33:17 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
- * * This should recreate the bash funtion "unset".
- * * Remove enviroment record passed on argumment vector.
- * @param env_list	enviroment list
- * @param argv	vector of arguments containing records to remove
-*/
-void	ft_unset(char **argv)
+void	ft_builtins(char **argv)
 {
-	int		i;
-	t_str	**env_list;
-
-	i = 1;
-	env_list = &g_var.env;
-	while (argv[i] != NULL)
-	{
-		lst_str_delete(env_list, argv[i], ft_strlen(argv[i]));
-		i++;
-	}
+	if (!ft_strcmp(*argv, "cd"))
+		ft_cd(argv);
+	else if (!ft_strcmp(*argv, "echo"))
+		ft_echo(argv);
+	else if (!ft_strcmp(*argv, "exit"))
+		ft_exit(argv);
+	else if (!ft_strcmp(*argv, "export"))
+		ft_export(argv);
+	else if (!ft_strcmp(*argv, "env"))
+		ft_env(argv);
+	else if (!ft_strcmp(*argv, "pwd"))
+		ft_pwd(argv);
+	else if (!ft_strcmp(*argv, "unset"))
+		ft_unset(argv);
 }

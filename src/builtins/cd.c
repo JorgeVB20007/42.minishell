@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 16:50:27 by emadriga          #+#    #+#             */
-/*   Updated: 2021/12/24 16:50:28 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/26 15:43:29 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#define LIT_OLDPWD_LIKE "OLDPWD="
 #define LIT_HOME_LIKE "HOME="
 #define HOME_NOT_SET "cd: HOME not set\n"
-#define WRONG_CHDIR "cd: {0}: No such file or directory\n"
 
 /**
  * * Updates env's records of PWD and OLDPWD if exists
@@ -58,30 +56,38 @@ static void	update_env_pwd(t_str **env_list, t_str	*pwd, t_str	*old_pwd)
 static int	ft_cant_chdir(const char *path)
 {
 	int		cant_chdir;
+	char	*composed_error;
 
+	composed_error = NULL;
 	cant_chdir = chdir(path);
 	if (cant_chdir != 0)
-		log_error_free(ft_strreplace(WRONG_CHDIR, "{0}", path), 1);
+	{
+		composed_error = ft_strjoin("Minishell: cd: ", path);
+		perror(composed_error);
+		free(composed_error);
+		g_var.current_status = 1;
+	}
 	return (cant_chdir);
 }
 
 /**
  * * This should recreate the bash funtion "cd".
  * * Shall change the working directory of the current shell execution
- * @param env_list	enviroment list
  * @param argv	vector of arguments containing records to add
 */
-void	ft_cd(t_str **env_list, char **argv)
+void	ft_cd(char **argv)
 {
+	t_str	**env_list;
 	t_str	*aux;
 	int		cant_chdir;
 
 	cant_chdir = 1;
+	env_list = &g_var.env;
 	if (argv[1] != NULL)
 		cant_chdir = ft_cant_chdir(argv[1]);
 	else
 	{
-		aux = lst_str_get_str(env_list, LIT_HOME_LIKE);
+		aux = lst_str_get_str(&g_var.env, LIT_HOME_LIKE);
 		if (aux == NULL)
 			log_error(HOME_NOT_SET, 1);
 		else

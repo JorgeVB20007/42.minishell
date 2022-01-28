@@ -5,6 +5,76 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2022-01-28 - Edu
+### Added
+- Added $ & $$ expansions
+
+### Fixed
+- Fixed **ambiguos redirections** bug
+- Fixed expansions bewteen quotes
+
+## 2022-01-27 - Jorge
+### Fixed
+- Fixed a bug that didn't allow to create a new file using redirections.
+
+## 2022-01-26 - Jorge
+### Fixed
+- **cd** now saves the status code properly.
+- Fixed a minor bug with the redirection errors.
+- Fixed a bug where *echo -n* with no parameters printed a \n.
+- Trying to execute a command by its route will now give the appropriate error if something fails, without using *perror*.
+
+## 2022-01-26 - Edu
+### Added
+- Added **ft_rand** wich returns ramdon number between 0 and RAND_MAX
+- Added **ambiguos redirections** error for empty expand redirections
+### Fixed
+- Fixed posible empty expanses errors not retrieving those tokens
+- fix expanse ~+/ & ~-/
+
+## 2022-01-25 - Jorge
+### Added
+- Files given with redirections are now checked to make sure they are suitable for each redirection.
+	- New *static* functions: **outputting_redirs** and **inputting_redirs**. Found in **processes/process_redirection.c**. More info in a comment on top of each of them.
+- Custom error messages for invalid files in **cd** using **perror**.
+
+## 2022-01-25 - Edu
+### Added
+- Added **current_status** **last_status** to global to to handle error expansions
+- Now single **builtins** uses **redirections**
+- Added **tilde** expansion
+
+## 2022-01-24 - Jorge
+### Fixed
+- Fixed bug where env variables were interpreted twice when usig **echo** (builtin).
+- Minishell can now differentiate between commands and paths, and acts accordingly.
+
+### Added
+- function **is_it_path** in *is_it_path.c* returns 1 if the given text corresponds to a path and 0 if it's something else, such a command.
+
+## 2022-01-24 - Edu
+### Added
+- **processes/process_redirections** Add redirections to process before executing
+- **processes/run_processes** Added signal_handlers
+
+### Changed
+- **forks/close_quotes.c** Dinamyc CTRL+D error single double quotes open
+- rename t_redir as t_redirection
+
+## 2022-01-23 - Edu
+### Added
+- **libft/ft_free.c** frees a pointer & set as NULL
+- **processes/run_processes** Add envp to run_processes
+- **expansion/var_expansor** Added mode to expanse heredoc
+- **processes/get_processes** Now expands heredoc (not working on get_processes at forks/heredoc_handler)
+
+### Changed
+- rename piped_process as process & t_pp as t_p
+- create_forkedpipes renamed as **run_processes**
+- single builtin process handled without forks
+- **backslash** handled as open input on heredocs
+- removed **env_list** from inputlist on **builtins**, **ft_getenv** & **var_expansor**
+
 ## 2022-01-22 - Edu
 ### Added
 - **utils/error-handler** Added **count_pipes**
@@ -26,7 +96,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **piped_processes** 1st process element hasn't to be cmd or builtin
 - **utils/quote_mark_handler.c** Fix **adv_qm_rem** leaks for every FREE case
 
-## 2021-01-16 - Edu
+## 2022-01-16 - Edu
 ### Added
 - **Makefile** add compiler flag
 - **piped_processes.c** added heredoc management to **get_piped_processes**

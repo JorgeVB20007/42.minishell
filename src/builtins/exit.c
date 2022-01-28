@@ -5,7 +5,7 @@
 
 /**
  * * Return exit status from a number given
- * * 0 is returned for bigger numbers than INT_MAX 
+ * * 0 is returned for bigger numbers than INT_MAX
  * @param str_nbr	string number to get exit status
 */
 static int	get_exit_status(const char *str_nbr)
@@ -23,14 +23,12 @@ static int	get_exit_status(const char *str_nbr)
 /**
  * * This should recreate the bash funtion "exit".
  * * Causes normal process termination and the status is returned
- * @param env_list	enviroment list
  * @param argv	vector of arguments
 */
-void	ft_exit(t_str **env_list, char **argv)
+void	ft_exit(char **argv)
 {
 	int		i;
 
-	(void)env_list;
 	if (argv[1] == NULL)
 		exit(EXIT_SUCCESS);
 	i = 0;
@@ -44,7 +42,7 @@ void	ft_exit(t_str **env_list, char **argv)
 		return ;
 	}
 	else
-		g_var.last_cmd_status = get_exit_status(argv[1]);
+		g_var.current_status = get_exit_status(argv[1]);
 	lst_str_free(&g_var.env);
-	exit(g_var.last_cmd_status);
+	exit(g_var.current_status);
 }

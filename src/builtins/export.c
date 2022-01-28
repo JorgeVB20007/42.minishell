@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 20:42:55 by emadriga          #+#    #+#             */
-/*   Updated: 2021/11/28 11:48:35 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 21:50:36 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static void	ft_export_add(t_str **env_list, char *str)
 	else
 		env_desc = ft_strdup(str);
 	lst_str_delete(env_list, env_desc, ULONG_MAX);
-	if (!ft_strcmp(ft_getenv(env_list, env_desc), ""))
+	if (!ft_strcmp(ft_getenv(env_desc), ""))
 		lst_str_add_sorted(env_list, str);
 	free(env_desc);
 }
@@ -106,10 +106,9 @@ static void	ft_export_add(t_str **env_list, char *str)
  * * This should recreate the bash funtion "export".
  * * Returns ENV alphabetically-sorted
  * * Add records (through argumment vector) to enviroment variables list
- * @param env_list	enviroment list
  * @param argv	vector of arguments containing records to add
 */
-void	ft_export(t_str **env_list, char **argv)
+void	ft_export(char **argv)
 {
 	int		i;
 	char	*argv_without_qm;
@@ -117,13 +116,13 @@ void	ft_export(t_str **env_list, char **argv)
 	i = 1;
 	argv_without_qm = NULL;
 	if (argv[i] == NULL)
-		ft_print_env_without_last_cmd(env_list);
+		ft_print_env_without_last_cmd(&g_var.env);
 	while (argv[i] != NULL)
 	{
 		if (is_valid_add_export(argv[i]))
 		{
 			argv_without_qm = adv_qm_rem(argv[i], NOT_FREE);
-			ft_export_add(env_list, argv_without_qm);
+			ft_export_add(&g_var.env, argv_without_qm);
 		}
 		i++;
 	}

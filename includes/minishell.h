@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/22 16:38:39 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/28 01:08:43 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,56 +48,54 @@ typedef struct s_red
 typedef struct s_var
 {
 	t_str	*env;
-	int		last_cmd_status;
+	int		current_status;
+	int		last_status;
 	int		waitedheredoc;
+	size_t	rng;
 }t_var;
 
-typedef struct s_pipedfork
-{
-	pid_t	pid;
-	int		status;
-	int		fd[2];
-}t_pipedfork;
+typedef struct s_redirection{
+	int						type;
+	char					*go_to;
+	struct s_redirection	*next;
+}t_redirection;
 
-typedef struct s_redir{
-	int				type;
-	char			*go_to;
-	struct s_redir	*next;
-}t_redir;
-
-typedef struct s_piped_process{
+typedef struct s_process{
 	int						is_cmd;
 	int						is_builtin;
 	char					*pathname;
 	char					**argv;
-	t_redir					*redir;
-	struct s_piped_process	*next;
-}t_pp;
+	t_redirection			*redir;
+	struct s_process	*next;
+}t_p;
 
 t_var	g_var;
 
+//*		builtins / builtins.c
+void	ft_builtins(char **argv);
+
 //*		builtins / cd.c
-void	ft_cd(t_str **env_list, char **argv);
+void	ft_cd(char **argv);
 
 //*		builtins / echo.c
 void	ft_echo(char **list);
 
 //*		builtins / exit.c
-void	ft_exit(t_str **env_list, char **argv);
+void	ft_exit(char **argv);
 
 //*		builtins / env.c
 void	init_ms_env(char **env_vector, t_str **env_list);
-void	ft_env(t_str **env_list, char **argv);
-char	*ft_getenv(t_str **env_list, const char *str);
+void	ft_env(char **argv);
+char	*ft_getenv(const char *str);
 
 //*		builtins / export.c
-void	ft_export(t_str **env_list, char **argv);
+void	ft_export(char **argv);
 
 //*		builtins / pwd.c
-void	ft_pwd(t_str **env_list, char **argv);
+void	ft_pwd(char **argv);
 
 //*		builtins / unset.c
-void	ft_unset(t_str **env_list, char **argv);
+void	ft_unset(char **argv);
 
 //*		forks / close_quotes.c
 char	*close_quotes_pipedfork(char *str_got_old);
@@ -133,9 +131,10 @@ void	execve_sleep(char **usleep_argv);
 int		max_pipes_exceeded(char **tokens);
 void	translate_number(int nbr, char **sleep_argv);
 void	ft_search_word(char *to_find, char **sleep_argv);
+int		ft_rand(const char *str);
 
 //*		utils / ft_is_it_directory.c
-int		ft_is_directory(char *path);
+int		ft_is_directory(const char *path);
 
 //*		utils / ft_strslashjoin.c
 char	*ft_strslashjoin(char const *s1, char const *s2);
@@ -145,18 +144,21 @@ int		is_valid_var(char prv_char, char curr_char, char nxt_char, char qm);
 int		is_valid_var_hd(char *str, int idx);
 
 //*		utils / lst_process_handler.c
-void	lst_process_add_front(t_pp **list, t_pp *new);
-void	lst_process_add_back(t_pp **list, t_pp *new);
-t_pp	*lst_process_new(void);
-void	lst_process_free(t_pp **list);
-void	lst_process_print(t_pp *list);
+void	lst_process_add_front(t_p **list, t_p *new);
+void	lst_process_add_back(t_p **list, t_p *new);
+t_p		*lst_process_new(void);
+void	lst_process_free(t_p **list);
+void	lst_process_print(t_p *list);
+
+//*		utils / is_it_path.c
+int		is_it_path(char *str);
 
 //*		utils / lst_redir_handler.c
-void	lst_redir_add_front(t_redir **list, t_redir *new);
-void	lst_redir_add_back(t_redir **list, t_redir *new);
-t_redir	*lst_redir_new(void);
-void	lst_redir_free(t_redir **list);
-void	lst_redir_print(t_redir *list);
+void	lst_redir_add_front(t_redirection **list, t_redirection *new);
+void	lst_redir_add_back(t_redirection **list, t_redirection *new);
+t_redirection	*lst_redir_new(void);
+void	lst_redir_free(t_redirection **list);
+void	lst_redir_print(t_redirection *list);
 
 //*		utils / lst_red_handler.c
 void	lst_red_add_front(t_red **list, t_red *new);
@@ -175,7 +177,7 @@ void	lst_str_delete(t_str **list, char *str, size_t len);
 void	lst_str_add_front(t_str **list, char *str);
 void	lst_str_add_back(t_str **list, char *str);
 t_str	*lst_str_get_str(t_str **list, const char *str);
-char	**lst_str_to_array(t_str **env_list);
+char	**lst_str_to_array(t_str **list);
 
 //*		utils / megafree.c
 void	megafree(char ***list);
@@ -187,13 +189,12 @@ char	*adv_qm_rem(char *qm_str, int b_free);
 
 //*		utils / token_handler.c
 char	**get_token_list(char *input);
-int		has_token(const char *input);
 
 //*		utils / token_handler2.c
-int		eval_token(const char *token);
 int		eval_token_redir(const char *token);
 int		eval_token_non_redir(const char *token);
 int		has_pipe_redir_open(char **array);
+int		has_token(const char *input);
 
 //*		utils / signal_handler.c
 void	signal_handler_forks(int is_children);
@@ -218,16 +219,19 @@ void	new_redirections(char **list, t_str **env_list);
 int		qm_error_detector(char *str);
 
 //*		red_struct_filler.c
-int		put_params_in_struct(char **list, t_str **env_list, t_red **red_list);
-char	*new_getpath(char *raw_cmd, t_str **env_list);
+int		put_params_in_struct(char **list, t_red **red_list);
+char	*new_getpath(char *raw_cmd);
 
 //*		var_expansor.c
-char	*ft_expand(const char *str);
-char	*recursive_expand(char *malloc_str, t_str **env_list);
+char	*ft_expand(char *malloc_str, int is_heredoc);
+char	*expanse_tilde(char *str);
 
-//*		piped_processes.c
-void	get_piped_processes(char **tokens, t_pp **processes);
+//*		get_processes.c
+void	get_processes(char **tokens, t_p **processes);
 
 //*		run_processes.c
-void	create_forkedpipes(t_pp **processes, int pipes);
+void	run_processes(t_p **processes, int pipes);
+
+//*		process_redirections.c
+void	process_redirections(t_redirection *r);
 #endif

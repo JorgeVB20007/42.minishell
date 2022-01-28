@@ -6,19 +6,17 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:26:58 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/12/19 23:37:09 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/26 16:22:53 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_echo_writing(char **list, int idx, char **assist)
+static void	ft_echo_writing(char **list, int idx)
 {
 	while (list[idx])
 	{
-		free(*assist);
-		*assist = adv_qm_rem(recursive_expand(list[idx++], &g_var.env), 0);
-		ft_putstr_fd(*assist, 1);
+		ft_putstr_fd(list[idx++], 1);
 		if (list[idx])
 			write(1, " ", 1);
 	}
@@ -44,7 +42,6 @@ static int	check_for_flag(char *str)
 void	ft_echo(char **list)
 {
 	int		n_flag;
-	char	*assist;
 	int		idx;
 
 	n_flag = 0;
@@ -56,25 +53,21 @@ void	ft_echo(char **list)
 	}
 	while (1)
 	{
-		assist = /*adv_qm_rem(*/recursive_expand(ft_strdup(list[idx]), &g_var.env)/*, 0)*/;
-//		dprintf(2, "\n(%s | %s)\n", assist, list[idx]);
-		if (!check_for_flag(assist))
+		if (!check_for_flag(list[idx]))
 			break;
 		idx++;
+		n_flag = 1;
 		if (!list[idx])
 			break ;
-		n_flag = 1;
-		free(assist);
 	}
 /*	if (!strncmp(assist, "-n\0", 3))
 	{
 		n_flag = 1;
 		idx++;
 	}*/
-	ft_echo_writing(list, idx, &assist);
+	ft_echo_writing(list, idx);
 	if (!n_flag)
 		write(1, "\n", 1);
-	free(assist);
 }
 
 //TODO	echo shouldn't print the final ' ' at the end of a line.

@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:15:07 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/05 19:49:24 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/23 23:25:27 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,5 @@ char	*ft_strreplaceat(const char *str, char const *oldset, \
 		char const *newset, size_t index);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strjoin_freedouble(char *s1, char *s2);
+void	ft_free(void **ptr);
 #endif
