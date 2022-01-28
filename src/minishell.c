@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 17:18:08 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/28 17:43:32 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/28 17:49:42 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #define MSG_EXIT_MINISHELL "exit\n"
 #define MS_PROMPT "Minishell> "
 #define ERROR_DOT ".: filename argument required\n\
-.: usage: . filename [arguments]"
-#define ERROR_DOTS "..: command not found"
+.: usage: . filename [arguments]\n"
+#define ERROR_DOTS "..: command not found\n"
 
 /**
  * * Disables CTRL hotkey(+c) from printing ^C
@@ -84,7 +84,27 @@ static void	processline(char *line_read)
 		}
 		ft_rand(line_read);
 	}
-	free(line_read);
+	ft_free((void **)&line_read);
+}
+
+static char *pre_process_line(int ignored_env)
+{
+	char	*line_read;
+	char	*out;
+
+	line_read = NULL;
+	out = NULL;
+	line_read = readline(MS_PROMPT);
+	if (line_read == NULL)
+		ms_eof_exit(ignored_env);
+	else if (!ft_strcmp(line_read, "."))
+		log_error(ERROR_DOT, 2);
+	else if (!ft_strcmp(line_read, ".."))
+		log_error(ERROR_DOTS, 127);
+	else
+		out = ft_strdup(line_read);
+	ft_free((void **)&line_read);
+	return (out);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -93,6 +113,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
+	line_read = NULL;
 	g_var.env = NULL;
 	g_var.current_status = NONE;
 	g_var.last_status = NONE;
@@ -102,14 +123,9 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		signal_handler_default();
-		line_read = readline(MS_PROMPT);
-		if (line_read == NULL)
-			ms_eof_exit(env[0] == NULL);
-		else if (ft_strcmp(line_read, "."))
-			log_error(ERROR_DOT, 2);
-		else if (ft_strcmp(line_read, ".."))
-			log_error(ERROR_DOTS, 127);
-		processline(line_read);
+		line_read = pre_process_line(env[0] == NULL);
+		if (line_read != NULL)
+			processline(line_read);
 		g_var.last_status = g_var.current_status;
 //		system("leaks minishell");
 	}

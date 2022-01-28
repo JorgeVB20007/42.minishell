@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 18:17:46 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/30 20:22:13 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/28 17:54:34 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ enjoy...\r"
 #define MASK_BLACK_BACKGROUND "\033[40m"
 #define MASK_WHITE_BACKGROUND "\033[47m"
 #define MASK_RESET "\033[0m"
-#define END_SIMULATION "\033[0m\033[K\n"
+#define END_SIMULATION "\033[0m\033[K\033[?25h\n"
 #define HIDE_CURSOR "\033[?25l"
 #define NUMBERS_DICTIONARY "\n\
 0: \n\
@@ -179,12 +179,11 @@ int	max_pipes_exceeded(char **tokens)
 	pipes = count_pipes(tokens);
 	if (pipes >= MAX_PIPES)
 	{
-	//	signal(SIGINT, SIG_IGN);
-		signal_handler_elephants();
+		signal(SIGINT, &signal_handler_elephants_sigint);
 		ft_putstr_fd(HIDE_CURSOR, STDOUT_FILENO);
 		easter_egg(pipes);
 		signal_handler_default();
-		write(1, END_SIMULATION, ft_strlen(END_SIMULATION));
+		ft_putstr_fd(END_SIMULATION, STDOUT_FILENO);
 		return (1);
 	}
 	return (0);

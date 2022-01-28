@@ -90,7 +90,7 @@ void	lst_redir_print(t_redirection *list)
 {
 	while (list != NULL)
 	{
-		dprintf(2, "\nRedirection type %d\tgo to %s\n argv ", \
+		printf("\nRedirection type %d\tgo to %s\n argv ", \
 		list->type, list->go_to);
 		list = list->next;
 	}

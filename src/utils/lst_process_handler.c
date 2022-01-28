@@ -100,18 +100,19 @@ void	lst_process_print(t_p *list)
 {
 	int	i;
 
-	dprintf(2, "\nPrinting processes\n");
+	printf("\nPrinting processes\n");
 	while (list != NULL)
 	{
 		i = 0;
-		dprintf(2, "\nis_cmd %d\tis_builtin %d\tpathname %s\n argv ", \
+		printf("\nis_cmd %d\tis_builtin %d\tpathname %s\n argv ", \
 		list->is_cmd, list->is_builtin, list->pathname);
 		while (list->argv[i])
 		{
-			dprintf(2, "\t param[%d] %s\t", i, list->argv[i]);
+			printf("\t param[%d] %s\t", i, list->argv[i]);
 			i++;
 		}
 		lst_redir_print(list->redir);
+		lst_str_print(list->args);
 		list = list->next;
 	}
 }

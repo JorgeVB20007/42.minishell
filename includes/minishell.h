@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/30 20:07:23 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/28 17:52:57 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ char			*ft_strslashjoin(char const *s1, char const *s2);
 int				is_it_path(char *str);
 
 //*		utils / is_valid_var.c
-//// int				is_valid_var(char prv_char, char curr_char, 
+//// int				is_valid_var(char prv_char, char curr_char,
 //// char nxt_char, char qm);
 //// int				is_valid_var_hd(char *str, int idx);
 
@@ -221,7 +221,8 @@ int				qm_error_detector(char *str);
 //*		utils / signal_handler.c
 void			signal_handler_forks(int is_children);
 void			signal_handler_default(void);
-void			signal_handler_elephants(void);
+void			signal_handler_elephants_sigint(int signal);
+void			signal_handler_process_sigint(int signal);
 
 //*		utils / token_handler.c
 char			**get_token_list(char *input);

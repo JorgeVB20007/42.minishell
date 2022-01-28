@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2022-01-30 - Edu
+### Changed
+- Replace dprintf for printf
+### Fixed
+- Added fork to handle CTRL+C on inputs opened
+- Fixed . & .. warnings
+
+## 2022-01-30 - Jorge
+### Changed
+- Modify easter to allow CTRL+C (evaluation purposes)
+### Fixed
+- Fix leaks closed_quotes and lst_process_free
+- Fixed unclosed pipes on closed_quotes
+
 ## 2022-01-29 - Edu
 ### Added
 - Added "$" expanses as $
@@ -15,7 +29,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed bugs generated in previous commit expanding complex commands now fully working
 - Norm fixes
 - Fix heredoc expansions
-- Fix quoted entry not expanded splited 
+- Fix quoted entry not expanded splited
+
 ## 2022-01-28 - Edu
 ### Added
 - Added $ & $$ expansions

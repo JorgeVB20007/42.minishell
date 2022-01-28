@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_processes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:39:42 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/30 20:30:04 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/28 17:45:06 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static void	create_processes(t_p *process, int p_count, char **envp)
 	while (++i < p_count)
 	{
 		pids[i] = fork();
-		signal_handler_forks(pids[i]);
+		signal(SIGINT, &signal_handler_process_sigint);
 		if (pids[i] == 0)
 		{
 			init_process(process, p_count, fds, i);
@@ -112,8 +112,9 @@ static void	create_processes(t_p *process, int p_count, char **envp)
 		}
 		process = process->next;
 	}
+	megafree(&envp);
 	close_processes(p_count, pids, fds);
-	signal_handler_default();
+	exit(g_var.current_status);
 }
 
 /**
@@ -123,9 +124,9 @@ static void	create_processes(t_p *process, int p_count, char **envp)
 */
 void	run_processes(t_p **processes, int p_count)
 {
-	char	**envp;
+	pid_t	pid;
+	int		status;
 
-	envp = NULL;
 	if (p_count != 0 && *processes != NULL)
 	{
 		if (p_count == 1 && processes[0]->is_builtin == TRUE \
@@ -136,9 +137,16 @@ void	run_processes(t_p **processes, int p_count)
 		}
 		else
 		{
-			envp = lst_str_to_array(&g_var.env);
-			create_processes(*processes, p_count, envp);
-			megafree(&envp);
+			pid = fork();
+			signal_handler_forks(pid);
+			if (pid == 0)
+				create_processes(*processes, p_count, \
+								lst_str_to_array(&g_var.env));
+			waitpid(pid, &status, 0);
+			if (WIFEXITED(status))
+				g_var.current_status = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				g_var.current_status = WTERMSIG(status);
 		}
 	}
 }
