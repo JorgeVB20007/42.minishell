@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   constants.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:36 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/25 18:36:11 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:36:41 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ enum e_free_status
 {
 	NOT_FREE,
 	FREE
+};
+
+enum e_expanse_heredoc
+{
+	NOT_HEREDOC,
+	IS_HEREDOC
 };
 
 enum e_quotes_status

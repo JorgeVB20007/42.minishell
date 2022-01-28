@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
+#    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2022/01/24 23:00:11 by emadriga         ###   ########.fr        #
+#    Updated: 2022/01/28 16:28:24 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ INCLUDES_FILES =	errors.h		\
 # Source and object files
 SRC_FILES	= 	minishell1.c						\
 				expansions/var_expansor.c			\
+				expansions/var_expansor2.c			\
 				heredoc.c							\
 				new_redirections.c					\
 				command_sorter.c					\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_processes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:08:30 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/25 22:57:04 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:36:02 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int type_redir)
 			if (!ft_strcmp(r->go_to, ""))
 				ft_free((void **)&r->go_to);
 			else if (!ft_strchr(token, '\'') && !ft_strchr(token, '\"'))
-				r->go_to = recursive_expand(r->go_to, TRUE);
+				r->go_to = ft_expand(ft_strjoin_freedouble(r->go_to, \
+				ft_strdup("")), IS_HEREDOC);
 			free(no_quotes_token);
 		}
 		lst_redir_add_back(&process->redir, r);
@@ -80,7 +81,7 @@ int id_argv)
 	char	*str;
 	int		type_token;
 
-	str = adv_qm_rem(ft_expand(token), FREE);
+	str = adv_qm_rem(ft_expand(token, NOT_HEREDOC), FREE);
 	if (id_argv == 0)
 	{
 		type_token = eval_token_non_redir(str);

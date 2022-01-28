@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 21:12:03 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/27 20:48:44 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:34:36 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static char	*expand_redirection(t_redirection *r)
 {
 	char	*str;
 
-	str = adv_qm_rem(ft_expand(r->go_to), TRUE);
+	str = adv_qm_rem(ft_expand(r->go_to, NOT_HEREDOC), TRUE);
 	if (!ft_strcmp(str, "\0"))
 	{
 		log_error_free(ft_strreplace(AMBIGUOS_REDIR, "{0}", r->go_to), 1);

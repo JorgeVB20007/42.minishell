@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   var_expansor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:09:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/26 18:03:47 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:51:00 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #define EXPAND_STATUS "$?"
-#define EXPAND_HOME "$HOME"
-#define EXPAND_PWD "$PWD"
-#define EXPAND_OLDPWD "$OLDPWD"
+#define PID_EXPANDED "\nGood luck geting PID with those authorized functions -_-\n"
 
 /**
  * * Get next index of a str to expand
@@ -31,11 +29,15 @@ static size_t	get_start_expand(const char *str, int is_heredoc)
 	start_expand = (char *)str;
 	while (*start_expand != '\0')
 	{
-		if (quotes == NONE && *start_expand == '$')
+		if ((quotes == NONE || quotes == DOUBLE) && *start_expand == '$')
 			return (start_expand - str);
 		else if (!is_heredoc && quotes == NONE && *start_expand == '\'')
 			quotes = SINGLE;
 		else if (!is_heredoc && quotes == SINGLE && *start_expand == '\'')
+			quotes = NONE;
+		else if (!is_heredoc && quotes == NONE && *start_expand == '"')
+			quotes = DOUBLE;
+		else if (!is_heredoc && quotes == DOUBLE && *start_expand == '"')
 			quotes = NONE;
 		start_expand++;
 	}
@@ -78,6 +80,8 @@ static char	*expand_at_free(char *malloc_str, \
 	oldset = ft_substr(malloc_str, start_expand, len_expand);
 	if (!ft_strncmp(oldset, EXPAND_STATUS, 2))
 		out = expand_status_at(malloc_str, start_expand);
+	else if (!ft_strncmp(oldset, "$$", 2))
+		out = ft_strreplaceat(malloc_str, "$", PID_EXPANDED, start_expand);
 	else
 	{
 		newset = ft_getenv(&oldset[1]);
@@ -98,7 +102,7 @@ static char	*expand_at_free(char *malloc_str, \
  * @param is_heredoc	is called from heredoc
  * @return				str expanded
 */
-char	*recursive_expand(char *malloc_str, int is_heredoc)
+static char	*recursive_expand(char *malloc_str, int is_heredoc)
 {
 	size_t	start_expand;
 	size_t	len_expand;
@@ -111,7 +115,7 @@ char	*recursive_expand(char *malloc_str, int is_heredoc)
 		aux = &malloc_str[start_expand];
 		while (ft_isalnum(aux[len_expand]) || aux[len_expand] == '_')
 			len_expand++;
-		if (len_expand == 1 && aux[len_expand] == '?')
+		if (len_expand == 1 && (aux[len_expand] == '?' || aux[len_expand] == '$'))
 			len_expand = 2;
 		malloc_str = expand_at_free(malloc_str, \
 								start_expand, len_expand);
@@ -123,30 +127,18 @@ char	*recursive_expand(char *malloc_str, int is_heredoc)
 /**
  * * Given str expand env variables ($ followed by characters) to their values
  * @param str			str to expand it content
+  * @param is_heredoc	is called from heredoc
  * @return				str expanded
 */
-char	*ft_expand(const char *str)
+char	*ft_expand(const char *str, int is_heredoc)
 {
 	char	*aux;
-	t_str	*env;
 
 	aux = NULL;
-	env = NULL;
-	if (!ft_strcmp(str, "~") || !ft_strncmp(str, "~/", 2))
-		aux = ft_strreplaceat(str, "~", EXPAND_HOME, 0);
-	else if (!ft_strcmp(str, "~+") || !ft_strncmp(str, "~+/", 3))
-	{
-		env = lst_str_get_str(&g_var.env, LIT_PWD_LIKE);
-		if (!aux && env != NULL)
-			aux = ft_strreplaceat(str, "~+", EXPAND_PWD, 0);
-	}
-	else if (!ft_strcmp(str, "~-") || !ft_strncmp(str, "~-/", 3))
-	{
-		env = lst_str_get_str(&g_var.env, LIT_OLDPWD_LIKE);
-		if (!aux && env != NULL)
-			aux = ft_strreplaceat(str, "~-", EXPAND_OLDPWD, 0);
-	}
-	if (!aux && !env)
-		aux = ft_strdup(str);
-	return (recursive_expand(aux, FALSE));
+	if (!ft_strcmp(str, "$"))
+		return (ft_strdup("$"));
+	if (!is_heredoc)
+		aux = expanse_tilde(str);
+	aux = recursive_expand(aux, is_heredoc);
+	return (aux);
 }
