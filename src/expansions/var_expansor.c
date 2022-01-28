@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:09:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/28 16:51:00 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/28 18:12:28 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static char	*expand_at_free(char *malloc_str, \
 	if (!ft_strncmp(oldset, EXPAND_STATUS, 2))
 		out = expand_status_at(malloc_str, start_expand);
 	else if (!ft_strncmp(oldset, "$$", 2))
-		out = ft_strreplaceat(malloc_str, "$", PID_EXPANDED, start_expand);
+		out = ft_strreplaceat(malloc_str, "$$", PID_EXPANDED, start_expand);
 	else
 	{
 		newset = ft_getenv(&oldset[1]);
