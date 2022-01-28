@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   var_expansor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:09:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/28 00:39:41 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:51:00 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #define EXPAND_STATUS "$?"
-#define EXPAND_HOME "$HOME"
-#define EXPAND_PWD "$PWD"
-#define EXPAND_OLDPWD "$OLDPWD"
-#define EXPAND_PID "\nGood luck geting PID with those authorized functions\n"
+#define PID_EXPANDED "\nGood luck geting PID with those authorized functions -_-\n"
 
 /**
  * * Get next index of a str to expand
@@ -32,11 +29,15 @@ static size_t	get_start_expand(const char *str, int is_heredoc)
 	start_expand = (char *)str;
 	while (*start_expand != '\0')
 	{
-		if (quotes == NONE && *start_expand == '$')
+		if ((quotes == NONE || quotes == DOUBLE) && *start_expand == '$')
 			return (start_expand - str);
 		else if (!is_heredoc && quotes == NONE && *start_expand == '\'')
 			quotes = SINGLE;
 		else if (!is_heredoc && quotes == SINGLE && *start_expand == '\'')
+			quotes = NONE;
+		else if (!is_heredoc && quotes == NONE && *start_expand == '"')
+			quotes = DOUBLE;
+		else if (!is_heredoc && quotes == DOUBLE && *start_expand == '"')
 			quotes = NONE;
 		start_expand++;
 	}
@@ -79,8 +80,8 @@ static char	*expand_at_free(char *malloc_str, \
 	oldset = ft_substr(malloc_str, start_expand, len_expand);
 	if (!ft_strncmp(oldset, EXPAND_STATUS, 2))
 		out = expand_status_at(malloc_str, start_expand);
-	else if (!ft_strncmp(oldset, EXPAND_PID, 2))
-		out = expand_status_at(malloc_str, start_expand);
+	else if (!ft_strncmp(oldset, "$$", 2))
+		out = ft_strreplaceat(malloc_str, "$", PID_EXPANDED, start_expand);
 	else
 	{
 		newset = ft_getenv(&oldset[1]);
@@ -114,7 +115,7 @@ static char	*recursive_expand(char *malloc_str, int is_heredoc)
 		aux = &malloc_str[start_expand];
 		while (ft_isalnum(aux[len_expand]) || aux[len_expand] == '_')
 			len_expand++;
-		if (len_expand == 1 && aux[len_expand] == '?')
+		if (len_expand == 1 && (aux[len_expand] == '?' || aux[len_expand] == '$'))
 			len_expand = 2;
 		malloc_str = expand_at_free(malloc_str, \
 								start_expand, len_expand);
@@ -125,22 +126,19 @@ static char	*recursive_expand(char *malloc_str, int is_heredoc)
 
 /**
  * * Given str expand env variables ($ followed by characters) to their values
- * @param malloc_str	str to expand it content
- * @param is_heredoc	is called from heredoc
+ * @param str			str to expand it content
+  * @param is_heredoc	is called from heredoc
  * @return				str expanded
 */
-char	*ft_expand(char *malloc_str, int is_heredoc)
+char	*ft_expand(const char *str, int is_heredoc)
 {
 	char	*aux;
 
 	aux = NULL;
-	if (!ft_strcmp(malloc_str,"$"))
-	{
-		free(malloc_str);
+	if (!ft_strcmp(str, "$"))
 		return (ft_strdup("$"));
-	}
 	if (!is_heredoc)
-		aux = expanse_tilde(malloc_str);
+		aux = expanse_tilde(str);
 	aux = recursive_expand(aux, is_heredoc);
 	return (aux);
 }

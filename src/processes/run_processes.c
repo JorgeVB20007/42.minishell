@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   run_processes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:39:42 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/25 14:55:44 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:54:07 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-typedef struct s_fd{
-	int	fd[2];
-}t_fd;
 
 static void	close_forkedpipes(int p_count, pid_t *pids, t_fd *fds)
 {

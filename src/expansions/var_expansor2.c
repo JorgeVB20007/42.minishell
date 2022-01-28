@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_expansor2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/27 22:44:45 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/28 00:24:54 by emadriga         ###   ########.fr       */
+/*   Created: 2022/01/28 16:17:59 by jvacaris          #+#    #+#             */
+/*   Updated: 2022/01/28 16:23:31 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #define EXPAND_PWD "$PWD"
 #define EXPAND_OLDPWD "$OLDPWD"
 
-char	*expanse_tilde(char *str)
+char	*expanse_tilde(const char *str)
 {
 	char	*aux;
 	t_str	*env;
@@ -38,6 +38,5 @@ char	*expanse_tilde(char *str)
 	}
 	if (!aux && !env)
 		aux = ft_strdup(str);
-	free(str);
 	return (aux);
 }

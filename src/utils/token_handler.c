@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 10:32:31 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/28 01:07:04 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:55:54 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	add_redir_token(t_str **list, const char *input)
  * @param token_list	token list to populate
  * @param malloc_str	malloced str to validate
 */
-static void try_add_default_token(t_str **list, char *malloc_str)
+static void	try_add_default_token(t_str **list, char *malloc_str)
 {
 	t_str	*aux;
 	char	*tmp;
@@ -57,7 +57,7 @@ static void try_add_default_token(t_str **list, char *malloc_str)
 			aux = aux->next;
 	if (!aux || (aux->str[0] != '<' && aux->str[0] != '>'))
 	{
-		tmp = ft_expand(adv_qm_rem(malloc_str, NOT_FREE), FALSE);
+		tmp = adv_qm_rem(ft_expand(malloc_str, NOT_HEREDOC), TRUE);
 		if (!ft_strcmp(tmp, "\0"))
 			ft_free((void **)&malloc_str);
 		ft_free((void **)&tmp);

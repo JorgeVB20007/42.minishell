@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/28 01:08:43 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:54:50 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,12 @@ typedef struct s_process{
 	char					*pathname;
 	char					**argv;
 	t_redirection			*redir;
-	struct s_process	*next;
+	struct s_process		*next;
 }t_p;
+
+typedef struct s_fd{
+	int	fd[2];
+}t_fd;
 
 t_var	g_var;
 
@@ -223,8 +227,8 @@ int		put_params_in_struct(char **list, t_red **red_list);
 char	*new_getpath(char *raw_cmd);
 
 //*		var_expansor.c
-char	*ft_expand(char *malloc_str, int is_heredoc);
-char	*expanse_tilde(char *str);
+char	*ft_expand(const char *str, int is_heredoc);
+char	*expanse_tilde(const char *str);
 
 //*		get_processes.c
 void	get_processes(char **tokens, t_p **processes);
