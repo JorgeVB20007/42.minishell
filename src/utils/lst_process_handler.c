@@ -84,6 +84,8 @@ void	lst_process_free(t_p **list)
 			megafree(&aux->argv);
 		if (aux->redir != NULL)
 			lst_redir_free(&aux->redir);
+		if (aux->args != NULL)
+			lst_str_free(&aux->args);
 		free(aux);
 		aux = next;
 	}

@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/29 18:14:36 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/30 20:07:23 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_var
 	int		last_status;
 	int		waitedheredoc;
 	size_t	rng;
+	int		elephants;
 }t_var;
 
 typedef struct s_redirection{
@@ -220,6 +221,7 @@ int				qm_error_detector(char *str);
 //*		utils / signal_handler.c
 void			signal_handler_forks(int is_children);
 void			signal_handler_default(void);
+void			signal_handler_elephants(void);
 
 //*		utils / token_handler.c
 char			**get_token_list(char *input);

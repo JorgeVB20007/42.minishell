@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 20:13:37 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/29 17:12:42 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/30 19:14:00 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ char	*get_heredoc_pipedfork(const char *key)
 	{
 		close(pipe_fd[WRITE_END]);
 		read(pipe_fd[READ_END], buff, SHRT_MAX);
+		close(pipe_fd[READ_END]);
 	}
 	waitpid(pid, &status, 0);
 	signal_handler_default();

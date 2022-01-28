@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 18:17:46 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/26 21:24:04 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/30 20:22:13 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ enjoy...\r"
 #define MASK_BLACK_BACKGROUND "\033[40m"
 #define MASK_WHITE_BACKGROUND "\033[47m"
 #define MASK_RESET "\033[0m"
+#define END_SIMULATION "\033[0m\033[K\n"
 #define HIDE_CURSOR "\033[?25l"
 #define NUMBERS_DICTIONARY "\n\
-0: zero\n\
+0: \n\
 1: one\n\
 2: two\n\
 3: three\n\
@@ -124,7 +125,7 @@ static void	troll_printing(const char *input, char **emojis, char **sleep_argv)
 	int		times;
 
 	str = (char *)input;
-	while (*str != '\0')
+	while (*str != '\0' && !g_var.elephants)
 	{
 		tabs = 1;
 		if (*str == '\t')
@@ -157,7 +158,7 @@ static void	easter_egg(int elephants)
 	troll_printing(WELCOME_EASTER, NULL, sleep_argv);
 	translate_number(elephants, sleep_argv);
 	troll_printing(INTRO_SONG, NULL, sleep_argv);
-	while (++i < elephants)
+	while (++i < elephants && !g_var.elephants)
 	{
 		troll_printing("\t", emojis, sleep_argv);
 		translate_number(i, sleep_argv);
@@ -178,10 +179,12 @@ int	max_pipes_exceeded(char **tokens)
 	pipes = count_pipes(tokens);
 	if (pipes >= MAX_PIPES)
 	{
-		signal(SIGINT, SIG_IGN);
+	//	signal(SIGINT, SIG_IGN);
+		signal_handler_elephants();
 		ft_putstr_fd(HIDE_CURSOR, STDOUT_FILENO);
 		easter_egg(pipes);
 		signal_handler_default();
+		write(1, END_SIMULATION, ft_strlen(END_SIMULATION));
 		return (1);
 	}
 	return (0);
