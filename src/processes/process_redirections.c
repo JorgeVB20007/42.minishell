@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_redirections.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 21:12:03 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/28 16:34:36 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/28 20:44:13 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,19 +97,6 @@ static void	inputting_redirs(const char *str, int *file)
 	dup2(*file, STDIN_FILENO);
 }
 
-static char	*expand_redirection(t_redirection *r)
-{
-	char	*str;
-
-	str = adv_qm_rem(ft_expand(r->go_to, NOT_HEREDOC), TRUE);
-	if (!ft_strcmp(str, "\0"))
-	{
-		log_error_free(ft_strreplace(AMBIGUOS_REDIR, "{0}", r->go_to), 1);
-		exit(1);
-	}
-	return (str);
-}
-
 void	process_redirections(t_redirection *r)
 {
 	int		file;
@@ -118,8 +105,11 @@ void	process_redirections(t_redirection *r)
 	file = 0;
 	while (r != NULL)
 	{
-		if (r->type != HEREDOC)
-			str = expand_redirection(r);
+		if (r->type != HEREDOC && *r->go_to == '$')
+		{
+			log_error_free(ft_strreplace(AMBIGUOS_REDIR, "{0}", r->go_to), 1);
+			exit(1);
+		}
 		if (r->type == OUPUT_REDIRECT || r->type == APPENDS_OUTPUT_REDIRECT)
 			outputting_redirs(str, &file, r->type);
 		else if (r->type == INPUT_REDIRECT)
@@ -130,8 +120,6 @@ void	process_redirections(t_redirection *r)
 			dup2(file, STDIN_FILENO);
 		}
 		close(file);
-		if (r->type != HEREDOC)
-			free(str);
 		r = r->next;
 	}
 }

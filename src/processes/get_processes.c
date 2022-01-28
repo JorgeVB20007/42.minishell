@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_processes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:08:30 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/28 16:36:02 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/28 20:39:26 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int id_argv)
 	char	*str;
 	int		type_token;
 
-	str = adv_qm_rem(ft_expand(token, NOT_HEREDOC), FREE);
+	str = ft_strreplace(token, "$$$", "");
 	if (id_argv == 0)
 	{
 		type_token = eval_token_non_redir(str);
