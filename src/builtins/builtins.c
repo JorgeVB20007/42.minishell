@@ -6,12 +6,16 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 08:33:14 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/23 08:33:17 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/29 15:39:02 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * * Redirect to proper builtin
+ * @param argv		arguments vector
+*/
 void	ft_builtins(char **argv)
 {
 	if (!ft_strcmp(*argv, "cd"))

@@ -3,16 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   run_processes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:39:42 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/28 16:54:07 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/29 15:14:32 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	close_forkedpipes(int p_count, pid_t *pids, t_fd *fds)
+/**
+ * * Close processes
+ * @param p_count	number of processes to run
+ * @param pid		father processes waiting for childs
+ * @param fds		file descriptors to comunicate process
+*/
+static void	close_processes(int p_count, pid_t *pids, t_fd *fds)
 {
 	int		status;
 	int		i;
@@ -37,14 +43,21 @@ static void	close_forkedpipes(int p_count, pid_t *pids, t_fd *fds)
 	free(fds);
 }
 
-static void	initson(t_p *process, int p_count, t_fd *fds, int i)
+/**
+ * * Init process
+ * @param process	process to exec
+ * @param p_count	number of processes to run
+ * @param fds		file descriptors to comunicate process
+ * @param id		id process to handle pipe conections
+*/
+static void	init_process(t_p *process, int p_count, t_fd *fds, int id)
 {
 	int		j;
 
-	if (i != p_count - 1)
-		dup2(fds[i].fd[WRITE_END], STDOUT_FILENO);
-	if (i != 0)
-		dup2(fds[i - 1].fd[READ_END], STDIN_FILENO);
+	if (id != p_count - 1)
+		dup2(fds[id].fd[WRITE_END], STDOUT_FILENO);
+	if (id != 0)
+		dup2(fds[id - 1].fd[READ_END], STDIN_FILENO);
 	process_redirections(process->redir);
 	j = -1;
 	while (++j < p_count - 1)
@@ -54,7 +67,12 @@ static void	initson(t_p *process, int p_count, t_fd *fds, int i)
 	}
 }
 
-static void	execveson(t_p *process, char **envp)
+/**
+ * * Run process
+ * @param process	process to exec
+ * @param envp		environment array
+*/
+static void	run_process(t_p *process, char **envp)
 {
 	if (process->is_cmd == TRUE)
 		execve(process->pathname, process->argv, envp);
@@ -65,7 +83,13 @@ static void	execveson(t_p *process, char **envp)
 	}
 }
 
-static void	run_multi_process(t_p *process, int p_count, char **envp)
+/**
+ * * Create processes with retrieved info
+ * @param processes	processes to run
+ * @param p_count	number of processes to run
+ * @param envp		environment array
+*/
+static void	create_processes(t_p *process, int p_count, char **envp)
 {
 	int		i;
 	pid_t	*pids;
@@ -83,15 +107,20 @@ static void	run_multi_process(t_p *process, int p_count, char **envp)
 		signal_handler_forks(pids[i]);
 		if (pids[i] == 0)
 		{
-			initson(process, p_count, fds, i);
-			execveson(process, envp);
+			init_process(process, p_count, fds, i);
+			run_process(process, envp);
 		}
 		process = process->next;
 	}
-	close_forkedpipes(p_count, pids, fds);
+	close_processes(p_count, pids, fds);
 	signal_handler_default();
 }
 
+/**
+ * * Run processes
+ * @param processes	processes to run
+ * @param p_count	number of processes to run
+*/
 void	run_processes(t_p **processes, int p_count)
 {
 	char	**envp;
@@ -108,7 +137,7 @@ void	run_processes(t_p **processes, int p_count)
 		else
 		{
 			envp = lst_str_to_array(&g_var.env);
-			run_multi_process(*processes, p_count, envp);
+			create_processes(*processes, p_count, envp);
 			megafree(&envp);
 		}
 	}
