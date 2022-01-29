@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell1.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvacaris <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/29 17:18:08 by jvacaris          #+#    #+#             */
+/*   Updated: 2022/01/29 17:18:11 by jvacaris         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 #define CARRIAGE_RETURN "\033[AMinishell> "
@@ -92,7 +104,6 @@ int	main(int argc, char **argv, char **env)
 			ms_eof_exit(env[0] == NULL);
 		processline(line_read);
 		g_var.last_status = g_var.current_status;
-//		system("lsof -c minishell");
 	}
 	return (0);
 }

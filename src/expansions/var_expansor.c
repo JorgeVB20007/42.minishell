@@ -6,13 +6,14 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:09:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/29 16:32:45 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/29 17:10:52 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #define EXPAND_STATUS "$?"
-#define PID_EXPANDED "\nGood luck geting PID with those authorized functions -_-\n"
+#define PID_EXPANDED "\nGood luck getting PID with those \
+authorized functions -_-\n"
 
 /**
  * * Get next index of a str to expand

@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:26:58 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/26 16:22:53 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/29 17:10:00 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,13 @@ void	ft_echo(char **list)
 	while (1)
 	{
 		if (!check_for_flag(list[idx]))
-			break;
+			break ;
 		idx++;
 		n_flag = 1;
 		if (!list[idx])
 			break ;
 	}
-/*	if (!strncmp(assist, "-n\0", 3))
-	{
-		n_flag = 1;
-		idx++;
-	}*/
 	ft_echo_writing(list, idx);
 	if (!n_flag)
 		write(1, "\n", 1);
 }
-
-//TODO	echo shouldn't print the final ' ' at the end of a line.

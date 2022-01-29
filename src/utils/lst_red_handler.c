@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_red_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 11:27:35 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/16 13:32:53 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/29 17:16:52 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ t_red	*lst_red_new(void)
 	if (!output)
 		return (NULL);
 	output->next = NULL;
-//	dprintf(2, "> %p <\n", output);
 	return (output);
 }
 

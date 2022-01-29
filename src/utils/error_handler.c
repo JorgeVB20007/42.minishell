@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_handler.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/29 17:13:58 by jvacaris          #+#    #+#             */
+/*   Updated: 2022/01/29 17:14:34 by jvacaris         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 #define MS_ERROR "Minishell: "
@@ -57,7 +69,7 @@ int	count_pipes(char **tokens)
  * * This returns ramdon number between ZERO and RAND_MAX
  * @param str	optional str
 */
-int ft_rand(const char *str)
+int	ft_rand(const char *str)
 {
 	size_t	nbr;
 
@@ -66,7 +78,8 @@ int ft_rand(const char *str)
 		nbr = ft_strlen(str);
 	if (!nbr)
 		nbr++;
-	if (g_var.rng % ULTIMATE_QUESTION_LIFE_ANSWER > ULTIMATE_QUESTION_LIFE_ANSWER / 2)
+	if (g_var.rng % ULTIMATE_QUESTION_LIFE_ANSWER > \
+	ULTIMATE_QUESTION_LIFE_ANSWER / 2)
 		g_var.rng <<= 1;
 	g_var.rng += nbr % ULTIMATE_QUESTION_LIFE_ANSWER;
 	if (g_var.rng > RAND_MAX)
