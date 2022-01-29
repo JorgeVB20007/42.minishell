@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell1.c                                       :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 17:18:08 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/29 17:18:11 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/29 19:54:38 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 #define CARRIAGE_RETURN "\033[AMinishell> "
 #define MSG_EXIT_MINISHELL "exit\n"
 #define MS_PROMPT "Minishell> "
+#define ERROR_DOT ".: filename argument required\n\
+.: usage: . filename [arguments]"
+#define ERROR_DOTS "..: command not found"
 
 /**
  * * Disables CTRL hotkey(+c) from printing ^C
@@ -102,6 +105,10 @@ int	main(int argc, char **argv, char **env)
 		line_read = readline(MS_PROMPT);
 		if (line_read == NULL)
 			ms_eof_exit(env[0] == NULL);
+		else if (ft_strcmp(line_read, "."))
+			log_error(ERROR_DOT, 2);
+		else if (ft_strcmp(line_read, ".."))
+			log_error(ERROR_DOTS, 127);
 		processline(line_read);
 		g_var.last_status = g_var.current_status;
 	}
