@@ -11,8 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Completed function documentation of processes
 ### Fixed
-- Fixed bugs generated in previous commit expanding complex commands now fully working 
-
+- Fixed bugs generated in previous commit expanding complex commands now fully working
+- Norm fixes
 ## 2022-01-28 - Edu
 ### Added
 - Added $ & $$ expansions

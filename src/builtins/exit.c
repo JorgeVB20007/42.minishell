@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/29 15:35:41 by emadriga          #+#    #+#             */
+/*   Updated: 2022/01/29 15:35:42 by emadriga         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #define EXIT_NUM_REQUIRED "exit: {0}: numeric argument required\n"
 #define EXIT_ARG_EXCEEDED "exit: too many arguments\n"
