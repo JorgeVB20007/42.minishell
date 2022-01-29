@@ -55,6 +55,8 @@ t_p	*lst_process_new(void)
 	if (!output)
 		return (NULL);
 	output->is_cmd = FALSE;
+	output->is_builtin = FALSE;
+	output->args = NULL;
 	output->argv = NULL;
 	output->pathname = NULL;
 	output->redir = NULL;

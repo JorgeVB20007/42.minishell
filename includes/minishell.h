@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/28 20:42:31 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/29 10:14:24 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_process{
 	int						is_builtin;
 	char					*pathname;
 	char					**argv;
+	t_str					*args;
 	t_redirection			*redir;
 	struct s_process		*next;
 }t_p;
@@ -229,7 +230,6 @@ char	*new_getpath(char *raw_cmd);
 //*		var_expansor.c
 char	*ft_expand(const char *str, int is_heredoc);
 char	*expanse_tilde(const char *str);
-char	**expand_tokens(t_str	*token);
 
 //*		get_processes.c
 void	get_processes(char **tokens, t_p **processes);

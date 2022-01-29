@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 10:32:31 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/28 20:44:55 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:55:54 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ char	**get_token_list(char *input)
 		return (NULL);
 	token_list = NULL;
 	recursive_get_token_list(&token_list, &input);
-	result = expand_tokens(token_list);
+	result = lst_str_to_array(&token_list);
 	lst_str_free(&token_list);
 	if (max_pipes_exceeded(result))
 	{
