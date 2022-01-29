@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 23:22:24 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/25 23:05:07 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/29 19:05:15 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_free(void **ptr)
+void	ft_free(void **ptr)
 {
 	if (*ptr != NULL)
 	{
