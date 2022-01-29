@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/29 17:38:50 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/29 17:49:51 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,12 @@ void			ft_pwd(char **argv);
 void			ft_unset(char **argv);
 
 //*		expansions / var_expansor.c
-char			*ft_expand(const char *str, int is_heredoc);
+char			*ft_expand(const char *str);
 char			*recursive_expand(char *malloc_str, int is_heredoc);
 
 //*		expansions / var_expansor2.c
 char			*expanse_tilde(const char *str);
+char			*ft_expand_heredoc(char *maloc_str);
 
 //*		forks / close_quotes.c
 char			*close_quotes_pipedfork(char *str_got_old);
@@ -246,5 +247,9 @@ int				qm_error_detector(char *str);
 
 //*		red_struct_filler.c
 char			*new_getpath(char *raw_cmd);
+int				put_params_in_struct(char **list, t_red **red_list);
+char			*new_getpath(char *raw_cmd);
+
+
 
 #endif

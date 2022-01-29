@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:09:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/29 17:10:52 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/29 17:50:01 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static char	*expand_status_at(char *str, size_t start_expand)
  * @param len_expand	lenght to replace
  * @return				str expanded
 */
-static char	*expand_at_free(char *malloc_str, \
+static char	*expand_at_free(char *malloc_str, int is_heredoc, \
 				size_t start_expand, size_t len_expand)
 {
 	char	*oldset;
@@ -86,8 +86,8 @@ static char	*expand_at_free(char *malloc_str, \
 	else
 	{
 		newset = ft_getenv(&oldset[1]);
-		if (!newset)
-			out = ft_strreplaceat(malloc_str, oldset, "", start_expand);
+		if (is_heredoc && !ft_strcmp(newset, ""))
+			out = ft_strreplaceat(malloc_str, oldset, "{0}", start_expand);
 		else
 			out = ft_strreplaceat(malloc_str, oldset, newset, start_expand);
 	}
@@ -119,7 +119,7 @@ char	*recursive_expand(char *malloc_str, int is_heredoc)
 		if (len_expand == 1)
 			if (aux[len_expand] == '?' || aux[len_expand] == '$')
 				len_expand = 2;
-		malloc_str = expand_at_free(malloc_str, \
+		malloc_str = expand_at_free(malloc_str, is_heredoc, \
 								start_expand, len_expand);
 		return (recursive_expand(malloc_str, is_heredoc));
 	}
@@ -129,18 +129,16 @@ char	*recursive_expand(char *malloc_str, int is_heredoc)
 /**
  * * Given str expand env variables ($ followed by characters) to their values
  * @param str			str to expand it content
-  * @param is_heredoc	is called from heredoc
  * @return				str expanded
 */
-char	*ft_expand(const char *str, int is_heredoc)
+char	*ft_expand(const char *str)
 {
 	char	*aux;
 
 	aux = NULL;
 	if (!ft_strcmp(str, "$") || !ft_strcmp(str, "\"$\""))
 		return (ft_strdup("$"));
-	if (!is_heredoc)
-		aux = expanse_tilde(str);
-	aux = recursive_expand(aux, is_heredoc);
+	aux = expanse_tilde(str);
+	aux = recursive_expand(aux, NOT_HEREDOC);
 	return (aux);
 }

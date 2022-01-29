@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 10:32:31 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/28 16:55:54 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/29 17:14:07 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	try_add_default_token(t_str **list, char *malloc_str)
 			aux = aux->next;
 	if (!aux || (aux->str[0] != '<' && aux->str[0] != '>'))
 	{
-		tmp = adv_qm_rem(ft_expand(malloc_str, NOT_HEREDOC), TRUE);
+		tmp = adv_qm_rem(ft_expand(malloc_str), FREE);
 		if (!ft_strcmp(tmp, "\0"))
 			ft_free((void **)&malloc_str);
 		ft_free((void **)&tmp);
