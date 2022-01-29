@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_expansor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:09:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/28 18:12:28 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/29 13:36:30 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,9 @@ static char	*recursive_expand(char *malloc_str, int is_heredoc)
 		aux = &malloc_str[start_expand];
 		while (ft_isalnum(aux[len_expand]) || aux[len_expand] == '_')
 			len_expand++;
-		if (len_expand == 1 && (aux[len_expand] == '?' || aux[len_expand] == '$'))
-			len_expand = 2;
+		if (len_expand == 1)
+			if (aux[len_expand] == '?' || aux[len_expand] == '$')
+				len_expand = 2;
 		malloc_str = expand_at_free(malloc_str, \
 								start_expand, len_expand);
 		return (recursive_expand(malloc_str, is_heredoc));
@@ -135,7 +136,7 @@ char	*ft_expand(const char *str, int is_heredoc)
 	char	*aux;
 
 	aux = NULL;
-	if (!ft_strcmp(str, "$"))
+	if (!ft_strcmp(str, "$") || !ft_strcmp(str, "\"$\""))
 		return (ft_strdup("$"));
 	if (!is_heredoc)
 		aux = expanse_tilde(str);
