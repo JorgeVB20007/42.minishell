@@ -8,12 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 2022-01-29 - Edu
 ### Added
 - Added "$" expanses as $
+- Added . & .. warnings
 ### Changed
 - Completed function documentation of processes
 ### Fixed
 - Fixed bugs generated in previous commit expanding complex commands now fully working
 - Norm fixes
 - Fix heredoc expansions
+- Fix quoted entry not expanded splited 
 ## 2022-01-28 - Edu
 ### Added
 - Added $ & $$ expansions

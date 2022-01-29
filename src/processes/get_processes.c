@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:08:30 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/29 17:41:29 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/29 19:31:21 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void	add_exec_info_to_process(const char *token, t_p *process)
 		lst_str_add_back(&process->args, str);
 	else
 	{
-		if (ft_strchr(str, ' '))
+		if (ft_strchr(str, ' ') && ft_strchr(token, '$'))
 			add_expanded_splited_tokens(str, process);
 		else
 		{		
