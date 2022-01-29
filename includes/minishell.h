@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/29 16:10:44 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/29 17:13:21 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,8 @@ int		put_params_in_struct(char **list, t_red **red_list);
 char	*new_getpath(char *raw_cmd);
 
 //*		var_expansor.c
-char	*ft_expand(const char *str, int is_heredoc);
+char	*ft_expand(const char *str);
+char	*ft_expand_heredoc(char *maloc_str);
 char	*expanse_tilde(const char *str);
 char	*recursive_expand(char *malloc_str, int is_heredoc);
 

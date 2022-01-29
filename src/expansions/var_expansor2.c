@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_expansor2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 16:17:59 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/28 16:23:31 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/29 17:39:26 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,22 @@ char	*expanse_tilde(const char *str)
 	if (!aux && !env)
 		aux = ft_strdup(str);
 	return (aux);
+}
+
+/**
+ * * Given str expand env variables to their values for heredoc
+ * @param maloc_str		malloc str to expand it content
+ * @return				str expanded
+*/
+char	*ft_expand_heredoc(char *malloc_str)
+{
+	char	*tmp;
+	char	*out;
+
+	tmp = NULL;
+	out = NULL;
+	tmp = recursive_expand(malloc_str, IS_HEREDOC);
+	out = ft_strreplace(tmp, "{0}", "$");
+	free(tmp);
+	return (out);
 }
