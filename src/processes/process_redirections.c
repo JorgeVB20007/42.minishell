@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_redirections.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 21:12:03 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/28 16:34:36 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/29 15:27:59 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 #define IS_DIRECTORY "{0}: Is a directory\n"
 #define NOT_EXITS "{0}: No such file or directory\n"
 
+/**
+ * * Handle process heredoc 
+ * @param str		heredoc content
+*/
 static int	process_heredoc(const char	*str)
 {
 	pid_t	pid;
@@ -97,6 +101,10 @@ static void	inputting_redirs(const char *str, int *file)
 	dup2(*file, STDIN_FILENO);
 }
 
+/**
+ * * Expand process redirection 
+ * @param r		process redirection
+*/
 static char	*expand_redirection(t_redirection *r)
 {
 	char	*str;
@@ -110,6 +118,10 @@ static char	*expand_redirection(t_redirection *r)
 	return (str);
 }
 
+/**
+ * * Handle process redirections 
+ * @param r		process redirection
+*/
 void	process_redirections(t_redirection *r)
 {
 	int		file;

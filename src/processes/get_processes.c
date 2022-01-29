@@ -6,13 +6,18 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:08:30 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/29 11:11:18 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/29 15:22:25 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"minishell.h"
 
-static void	split_expanded_token(char *str_expanded, t_p	*process)
+/**
+ * * Add from a expanded token wich coulf be splited in several inputs
+ * @param str_expanded	token expanded to process
+ * @param process		current process to initialize
+*/
+static void	add_expanded_splited_tokens(char *str_expanded, t_p	*process)
 {
 	char	**split;
 	int		i;
@@ -90,7 +95,7 @@ static void	add_exec_info_to_process(const char *token, t_p *process)
 	else
 	{
 		if (ft_strchr(str, ' '))
-			split_expanded_token(str, process);
+			add_expanded_splited_tokens(str, process);
 		else
 		{		
 			type_token = eval_token_non_redir(str);
