@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   red_struct_filler.c                                :+:      :+:    :+:   */
+/*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 17:18:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/29 17:39:00 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/29 18:05:53 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 /*
 ?   (Continuación de la función de abajo)
 */
-char	*new_get_command_path(char *command)
+static char	*new_get_command_path(char *command)
 {
 	int		idx;
 	char	*str_att;

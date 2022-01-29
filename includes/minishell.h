@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/29 17:49:51 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/29 18:09:16 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,6 @@ typedef struct s_str
 	char			*str;
 	struct s_str	*next;
 }t_str;
-
-typedef struct s_red
-{
-	int				pip_in;
-	int				pip_out;
-	char			*path;
-	char			**params;
-	char			**redirs;
-	struct s_red	*next;
-}t_red;
 
 typedef struct s_var
 {
@@ -146,7 +136,14 @@ char			*get_heredoc_pipedfork(const char *key);
 //// void			ft_heredoc(int *fdi, char *last_line, int orig_fds[2]);
 
 //		old / new_redirections.c
-//// void			new_redirections(char **list, t_str **env_list);
+//// void			new_redirections(char **list, t_str **env_list)
+
+//		old / lst_red_handler.c
+//// void			lst_red_add_front(t_red **list, t_red *new);
+//// void			lst_red_add_back(t_red **list, t_red *new);
+//// t_red			*lst_red_new(void);
+//// void			lst_red_free(t_red **list);
+//// void			lst_red_print(t_red *list);
 
 //*		processes / get_processes.c
 void			get_processes(char **tokens, t_p **processes);
@@ -192,12 +189,6 @@ t_p				*lst_process_new(void);
 void			lst_process_free(t_p **list);
 void			lst_process_print(t_p *list);
 
-//*		utils / lst_red_handler.c
-void			lst_red_add_front(t_red **list, t_red *new);
-void			lst_red_add_back(t_red **list, t_red *new);
-t_red			*lst_red_new(void);
-void			lst_red_free(t_red **list);
-void			lst_red_print(t_red *list);
 
 //*		utils / lst_redir_handler.c
 void			lst_redir_add_front(t_redirection **list, t_redirection *new);
@@ -223,8 +214,9 @@ void			megafree(char ***list);
 void			array_str_print(char **array);
 int				array_str_get_size(char **array);
 
-//todo		utils / qm_remover.c
+//*		utils / quote_mark_handler.c
 char			*adv_qm_rem(char *qm_str, int b_free);
+int				qm_error_detector(char *str);
 
 //*		utils / signal_handler.c
 void			signal_handler_forks(int is_children);
@@ -239,16 +231,11 @@ int				eval_token_non_redir(const char *token);
 int				has_pipe_redir_open(char **array);
 int				has_token(const char *input);
 
+//*		get_path.c
+char			*new_getpath(char *raw_cmd);
+
 //*		minishell1.c
 //?		(main)
-
-//*		qm_error_detector.c
-int				qm_error_detector(char *str);
-
-//*		red_struct_filler.c
-char			*new_getpath(char *raw_cmd);
-int				put_params_in_struct(char **list, t_red **red_list);
-char			*new_getpath(char *raw_cmd);
 
 
 
