@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:08:30 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/29 11:11:18 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/29 16:08:09 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ int type_redir)
 			if (!ft_strcmp(r->go_to, ""))
 				ft_free((void **)&r->go_to);
 			else if (!ft_strchr(token, '\'') && !ft_strchr(token, '\"'))
-				r->go_to = ft_expand(ft_strjoin_freedouble(r->go_to, \
-				ft_strdup("")), IS_HEREDOC);
+				r->go_to = recursive_expand(r->go_to, IS_HEREDOC);
 			free(no_quotes_token);
 		}
 		lst_redir_add_back(&process->redir, r);
