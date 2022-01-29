@@ -6,7 +6,7 @@
 #    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2022/01/28 16:28:24 by jvacaris         ###   ########.fr        #
+#    Updated: 2022/01/29 16:42:26 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,9 +36,6 @@ INCLUDES_FILES =	errors.h		\
 SRC_FILES	= 	minishell1.c						\
 				expansions/var_expansor.c			\
 				expansions/var_expansor2.c			\
-				heredoc.c							\
-				new_redirections.c					\
-				command_sorter.c					\
 				red_struct_filler.c					\
 				builtins/env.c						\
 				utils/lst_str_handler.c				\
@@ -71,6 +68,9 @@ SRC_FILES	= 	minishell1.c						\
 				builtins/pwd.c						\
 				builtins/unset.c					\
 				# utils/ft_modstrcmp.c
+				# command_sorter.c
+				# new_redirections.c
+				# heredoc.c
 				# qm_error_detector.c
 				# modifsplit.c
 				# interpreter.c

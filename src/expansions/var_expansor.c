@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_expansor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:09:24 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/29 13:36:30 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/29 16:32:45 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static char	*expand_at_free(char *malloc_str, \
  * @param is_heredoc	is called from heredoc
  * @return				str expanded
 */
-static char	*recursive_expand(char *malloc_str, int is_heredoc)
+char	*recursive_expand(char *malloc_str, int is_heredoc)
 {
 	size_t	start_expand;
 	size_t	len_expand;
