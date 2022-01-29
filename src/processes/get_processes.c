@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:08:30 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/29 16:31:03 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/29 17:41:29 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int type_redir)
 			if (!ft_strcmp(r->go_to, ""))
 				ft_free((void **)&r->go_to);
 			else if (!ft_strchr(token, '\'') && !ft_strchr(token, '\"'))
-				r->go_to = recursive_expand(r->go_to, IS_HEREDOC);
+				r->go_to = ft_expand_heredoc(r->go_to);
 			free(no_quotes_token);
 		}
 		lst_redir_add_back(&process->redir, r);
@@ -88,7 +88,7 @@ static void	add_exec_info_to_process(const char *token, t_p *process)
 	char	*str;
 	int		type_token;
 
-	str = adv_qm_rem(ft_expand(token, NOT_HEREDOC), FREE);
+	str = adv_qm_rem(ft_expand(token), FREE);
 	if (process->is_cmd || process->is_builtin)
 		lst_str_add_back(&process->args, str);
 	else

@@ -14,7 +14,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed bugs generated in previous commit expanding complex commands now fully working
 - Norm fixes
 - Fix heredoc expansions
-
 ## 2022-01-28 - Edu
 ### Added
 - Added $ & $$ expansions
