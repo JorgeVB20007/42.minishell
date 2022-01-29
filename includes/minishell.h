@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/29 18:09:16 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/29 18:14:36 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,6 @@ t_p				*lst_process_new(void);
 void			lst_process_free(t_p **list);
 void			lst_process_print(t_p *list);
 
-
 //*		utils / lst_redir_handler.c
 void			lst_redir_add_front(t_redirection **list, t_redirection *new);
 void			lst_redir_add_back(t_redirection **list, t_redirection *new);
@@ -236,7 +235,5 @@ char			*new_getpath(char *raw_cmd);
 
 //*		minishell1.c
 //?		(main)
-
-
 
 #endif
