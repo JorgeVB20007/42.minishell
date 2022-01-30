@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 20:52:32 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/29 19:46:39 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/30 18:48:14 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ char	*close_quotes_pipedfork(char *str)
 	{
 		close(pipe_fd[WRITE_END]);
 		read(pipe_fd[READ_END], buff, SHRT_MAX);
+		close(pipe_fd[READ_END]);
 	}
 	free(str);
 	waitpid(pid, &status, 0);

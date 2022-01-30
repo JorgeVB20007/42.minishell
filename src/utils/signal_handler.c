@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 19:58:37 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/05 19:58:40 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/30 20:24:48 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,16 @@ static void	signal_handler_default_sigint(int signal)
 */
 void	signal_handler_forks(int is_child)
 {
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_DFL);
 	if (is_child == TRUE)
-		signal(SIGINT, SIG_DFL);
+	{
+		signal(SIGQUIT, SIG_DFL);
+	}
 	else
+	{
 		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+	}
 }
 
 /**
@@ -43,6 +48,26 @@ void	signal_handler_forks(int is_child)
 */
 void	signal_handler_default(void)
 {
+	g_var.elephants = FALSE;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &signal_handler_default_sigint);
+}
+
+/**
+ * * Handles SIGINT signal CTRL+C, promping new Line
+ * @param signal	signal identifier (see man signal)
+*/
+static void	signal_handler_elephants_sigint(int signal)
+{
+	(void)signal;
+	g_var.elephants = TRUE;
+}
+
+/**
+ * * Handles signals out of forks
+*/
+void	signal_handler_elephants(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, &signal_handler_elephants_sigint);
 }

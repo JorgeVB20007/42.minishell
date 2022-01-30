@@ -6,7 +6,7 @@
 #    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2022/01/29 18:10:25 by jvacaris         ###   ########.fr        #
+#    Updated: 2022/01/30 16:50:28 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,8 @@ GCC		= clang
 FLAGS	= -Wall -Wextra -Werror $(SANITIZE) -pedantic
 
 # sanitize
-# SANITIZE =
-SANITIZE = -g3 -fsanitize=address
+SANITIZE =
+# SANITIZE = -g3 -fsanitize=address
 
 # readline doing readliney things
 RLINE_INC	= -I/Users/$(USER)/.brew/opt/readline/include

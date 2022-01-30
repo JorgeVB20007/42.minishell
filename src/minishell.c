@@ -6,7 +6,7 @@
 /*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 17:18:08 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/30 16:04:50 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/30 20:03:30 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int	main(int argc, char **argv, char **env)
 			ms_eof_exit(env[0] == NULL);
 		processline(line_read);
 		g_var.last_status = g_var.current_status;
+//		system("leaks minishell");
 	}
 	return (0);
 }
