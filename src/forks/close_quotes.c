@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 20:52:32 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/25 12:38:44 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/29 19:46:39 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,6 @@ char	*close_quotes_pipedfork(char *str)
 	waitpid(pid, &status, 0);
 	signal_handler_default();
 	if (w_ifsignaled_ifexitstatus(status))
-		return ("\0");
+		return (ft_strdup("\0"));
 	return (ft_strdup(buff));
 }
