@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 17:18:08 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/29 19:54:38 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/30 16:24:36 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ static void	processline(char *line_read)
 			megafree(&token_list);
 		}
 		ft_rand(line_read);
-		free(line_read);
 	}
+	free(line_read);
 }
 
 int	main(int argc, char **argv, char **env)
