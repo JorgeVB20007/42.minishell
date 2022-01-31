@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 19:58:37 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/28 17:51:33 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/31 09:05:36 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	signal_handler_forks(int is_child)
 */
 void	signal_handler_default(void)
 {
-	g_var.elephants = FALSE;
+	g_var.elephants = PLAYING;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &signal_handler_default_sigint);
 }
@@ -60,7 +60,7 @@ void	signal_handler_default(void)
 void	signal_handler_elephants_sigint(int signal)
 {
 	(void)signal;
-	g_var.elephants = TRUE;
+	g_var.elephants = PUNISHED;
 }
 
 /**

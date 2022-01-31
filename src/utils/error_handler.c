@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 17:13:58 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/29 17:14:34 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/31 09:34:00 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ int	ft_rand(const char *str)
 		nbr = ft_strlen(str);
 	if (!nbr)
 		nbr++;
-	if (g_var.rng % ULTIMATE_QUESTION_LIFE_ANSWER > \
-	ULTIMATE_QUESTION_LIFE_ANSWER / 2)
-		g_var.rng <<= 1;
 	g_var.rng += nbr % ULTIMATE_QUESTION_LIFE_ANSWER;
 	if (g_var.rng > RAND_MAX)
-		g_var.rng >>= 18;
-	return (g_var.rng);
+		g_var.rng >>= 24;
+	nbr = g_var.rng;
+	while (nbr > 10)
+		nbr /= 10;
+	return (nbr);
 }

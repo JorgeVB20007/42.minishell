@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 18:17:46 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/28 17:54:34 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/31 09:36:52 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ static void	troll_printing(const char *input, char **emojis, char **sleep_argv)
 	int		times;
 
 	str = (char *)input;
-	while (*str != '\0' && !g_var.elephants)
+	while (*str != '\0' && g_var.elephants == PLAYING)
 	{
 		tabs = 1;
 		if (*str == '\t')
@@ -158,7 +158,7 @@ static void	easter_egg(int elephants)
 	troll_printing(WELCOME_EASTER, NULL, sleep_argv);
 	translate_number(elephants, sleep_argv);
 	troll_printing(INTRO_SONG, NULL, sleep_argv);
-	while (++i < elephants && !g_var.elephants)
+	while (++i < elephants && g_var.elephants == PLAYING)
 	{
 		troll_printing("\t", emojis, sleep_argv);
 		translate_number(i, sleep_argv);
@@ -168,6 +168,7 @@ static void	easter_egg(int elephants)
 		troll_printing(ELEPHANT_SONG, emojis, sleep_argv);
 		ramdon_colors(i % 2);
 	}
+	execve_sleep(sleep_argv);
 	megafree(&sleep_argv);
 	megafree(&emojis);
 }

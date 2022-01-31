@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 10:32:31 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/29 17:14:07 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/31 09:09:30 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ char	**get_token_list(char *input)
 	recursive_get_token_list(&token_list, &input);
 	result = lst_str_to_array(&token_list);
 	lst_str_free(&token_list);
+	ft_rand(input);
 	if (max_pipes_exceeded(result))
 	{
 		g_var.current_status = 1;

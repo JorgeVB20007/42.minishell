@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   constants.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:36 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/28 16:36:41 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/01/31 09:05:15 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ enum e_pipe_fd
 {
 	READ_END,
 	WRITE_END
+};
+
+enum e_elephants_fd
+{
+	PLAYING,
+	PUNISHED
 };
 
 enum e_token

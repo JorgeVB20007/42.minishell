@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 17:18:08 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/28 19:04:28 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/31 09:51:27 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,16 @@ static void	processline(char *line_read)
 			lst_process_free(&processes);
 			megafree(&token_list);
 		}
-		ft_rand(line_read);
 	}
 	ft_free((void **)&line_read);
 }
 
+/**
+ * * The MS turns, and Lines come and pass, leaving memories that become \
+ * * legend. Legend fades to myth, and even myth is long forgotten when \
+ * * the Line that gave it birth comes again
+ * @param ignored_env	boolean minishell executed as env -i
+*/
 static char *pre_process_line(int ignored_env)
 {
 	char	*line_read;
