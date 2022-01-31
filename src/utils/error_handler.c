@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 17:13:58 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/31 09:34:00 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/31 15:29:11 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,23 +66,21 @@ int	count_pipes(char **tokens)
 }
 
 /**
- * * This returns ramdon number between ZERO and RAND_MAX
+ * * This returns eight module of ramdon number between ZERO and RAND_MAX
  * @param str	optional str
 */
-int	ft_rand(const char *str)
+int	ft_rand_eight_module(const char *str)
 {
 	size_t	nbr;
 
-	nbr = g_var.rng;
+	nbr = 0;
 	if (str != NULL)
 		nbr = ft_strlen(str);
-	if (!nbr)
-		nbr++;
-	g_var.rng += nbr % ULTIMATE_QUESTION_LIFE_ANSWER;
+	g_var.rng += ULTIMATE_QUESTION_LIFE_ANSWER + nbr;
+	if (g_var.rng % 3 == 0)
+		g_var.rng++;
 	if (g_var.rng > RAND_MAX)
 		g_var.rng >>= 24;
 	nbr = g_var.rng;
-	while (nbr > 10)
-		nbr /= 10;
-	return (nbr);
+	return (nbr % 8);
 }

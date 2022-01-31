@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/28 19:19:58 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/31 15:29:11 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ void			log_error(char *str_error, int status_error);
 void			log_error_free(char *malloc_str_error, int status_error);
 void			execve_sleep(char **usleep_argv);
 int				count_pipes(char **tokens);
-int				ft_rand(const char *str);
+int				ft_rand_eight_module(const char *str);
 
 //*		utils / error_handler2.c
 int				max_pipes_exceeded(char **tokens);

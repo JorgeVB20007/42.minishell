@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 18:17:46 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/31 09:36:52 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/31 15:29:11 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ enjoy...\r"
 \tupon a spiders web one day... \r\tthey had such enormous fun... \r\
 \tthat they called for another elephant to come... \r"
 #define SLEEP_ARGS "/bin/sleep|sleep|0.006"
-#define EMOJIS " |🐘 |🎵 |🕷️ |🕸️ |🎉 |😤 |😛 |🤣 "
-#define EMOJIS_LEN 9
+#define EMOJIS " |🐘 |🎵 |🕷️ |🕸️ |🎉 |😛 |🤣 "
 #define ERASE_LINE "\033[K"
 #define MASK_COLOR_FOREGROUND "\033[9{0}m"
 #define MASK_COLOR_BACKGROUND "\033[10{0}m"
@@ -98,7 +97,7 @@ static void	ramdon_colors(int ODD)
 	char	*color;
 	char	*mask;
 
-	ramdon = ft_rand(NULL) % 8;
+	ramdon = ft_rand_eight_module(NULL);
 	ft_putstr_fd(MASK_RESET, STDOUT_FILENO);
 	color = ft_itoa(ramdon);
 	if (ODD)
@@ -129,13 +128,13 @@ static void	troll_printing(const char *input, char **emojis, char **sleep_argv)
 	{
 		tabs = 1;
 		if (*str == '\t')
-			tabs = ft_rand(NULL) % 7;
+			tabs = ft_rand_eight_module(NULL);
 		if (emojis && *str == '\r')
-			ft_putstr_fd(emojis[ft_rand(NULL) % EMOJIS_LEN], STDOUT_FILENO);
+			ft_putstr_fd(emojis[ft_rand_eight_module(NULL)], STDOUT_FILENO);
 		while (tabs--)
 			ft_putchar_fd(*str, STDOUT_FILENO);
 		if (emojis && *str == '\t')
-			ft_putstr_fd(emojis[ft_rand(NULL) % EMOJIS_LEN], STDOUT_FILENO);
+			ft_putstr_fd(emojis[ft_rand_eight_module(NULL)], STDOUT_FILENO);
 		times = 6;
 		while (*str == '\r' && times--)
 			execve_sleep(sleep_argv);
