@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/31 15:29:11 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/31 17:54:20 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,8 @@ char			*get_heredoc_pipedfork(const char *key);
 
 //		old / command_sorter.c
 //// void	new_exec_command(t_red *red_node, char **env, int bool_addexit);
-//// void	command_sorter_no_pipes(t_red *red_node, char **env, int fdi, int fdo);
+//// void	command_sorter_no_pipes(t_red *red_node, 
+//// char **env, int fdi, int fdo);
 //// void	command_sorter_wth_pipes(t_red *red_node, char **env, int fdi);
 
 //		old / heredoc.c

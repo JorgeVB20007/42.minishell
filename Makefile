@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
+#    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2022/01/28 17:43:17 by emadriga         ###   ########.fr        #
+#    Updated: 2022/01/31 20:04:37 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,8 @@ FLAGS	= -Wall -Wextra -Werror $(SANITIZE) -pedantic
 
 # sanitize
 # SANITIZE =
-#SANITIZE = -g3 -fsanitize=address
-SANITIZE = -Ofast -fsanitize=address
+SANITIZE = -g3 -fsanitize=address
+# SANITIZE = -Ofast -fsanitize=address
 
 # readline doing readliney things
 RLINE_INC	= -I/Users/$(USER)/.brew/opt/readline/include
@@ -136,4 +136,4 @@ fclean:		clean
 re:			fclean all bonus
 
 # phony
-.PHONY:		all bonus clean fclean re mynorm
+.PHONY:		all clean fclean re mynorm
