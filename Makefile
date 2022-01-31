@@ -6,7 +6,7 @@
 #    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2022/01/31 20:04:37 by jvacaris         ###   ########.fr        #
+#    Updated: 2022/01/31 21:30:32 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,17 +65,7 @@ SRC_FILES	= 	minishell.c							\
 				builtins/exit.c						\
 				builtins/export.c					\
 				builtins/pwd.c						\
-				builtins/unset.c					\
-				# utils/ft_modstrcmp.c
-				# command_sorter.c
-				# utils/is_valid_var.c
-				# new_redirections.c
-				# utils/lst_red_handler.c
-				# heredoc.c
-				# qm_error_detector.c
-				# modifsplit.c
-				# interpreter.c
-				# exec_command.c
+				builtins/unset.c
 
 OBJ_FILES	= $(SRC_FILES:.c=.o)
 

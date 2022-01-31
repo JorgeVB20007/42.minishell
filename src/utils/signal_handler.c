@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 19:58:37 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/31 09:05:36 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/31 21:32:56 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,9 @@ void	signal_handler_elephants_sigint(int signal)
  * * Handles SIGINT signal CTRL+C, exit process
  * @param signal	signal identifier (see man signal)
 */
-void signal_handler_process_sigint(int signal)
+void	signal_handler_process_sigint(int signal)
 {
 	(void)signal;
 	g_var.current_status = 130;
 	exit(g_var.current_status);
 }
-

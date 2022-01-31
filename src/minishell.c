@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 17:18:08 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/31 09:51:27 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/31 21:35:34 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static void	processline(char *line_read)
  * * the Line that gave it birth comes again
  * @param ignored_env	boolean minishell executed as env -i
 */
-static char *pre_process_line(int ignored_env)
+static char	*pre_process_line(int ignored_env)
 {
 	char	*line_read;
 	char	*out;
@@ -132,7 +132,6 @@ int	main(int argc, char **argv, char **env)
 		if (line_read != NULL)
 			processline(line_read);
 		g_var.last_status = g_var.current_status;
-//		system("leaks minishell");
 	}
 	return (0);
 }

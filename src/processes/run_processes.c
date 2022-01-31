@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_processes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:39:42 by emadriga          #+#    #+#             */
-/*   Updated: 2022/01/28 19:30:24 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/01/31 21:33:26 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	init_process(t_p *process, int p_count, t_fd *fds, int id)
 */
 static void	run_process(t_p *process, char **envp)
 {
-	if(process->type == TEXT)
+	if (process->type == TEXT)
 		exit(process->status);
 	else if (process->type == BUILTIN)
 	{
