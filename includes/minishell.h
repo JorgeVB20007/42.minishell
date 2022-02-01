@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 00:43:55 by jvacaris          #+#    #+#             */
-/*   Updated: 2022/01/31 21:36:56 by jvacaris         ###   ########.fr       */
+/*   Updated: 2022/02/01 07:39:18 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # include <errno.h>
 # include <termios.h>
 # include "libft.h"
-# include "errors.h"
 # include "constants.h"
 
 typedef struct s_str

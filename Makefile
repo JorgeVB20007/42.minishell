@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jvacaris <jvacaris@student.42.fr>          +#+  +:+       +#+         #
+#    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2022/01/31 21:30:32 by jvacaris         ###   ########.fr        #
+#    Updated: 2022/02/01 07:40:52 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,7 @@ RLINE_INC	= -I/Users/$(USER)/.brew/opt/readline/include
 RLINE_L		= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 
 # Header files
-INCLUDES_FILES =	errors.h		\
-					constants.h		\
+INCLUDES_FILES =	constants.h		\
 					minishell.h
 
 # Source and object files
